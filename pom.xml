@@ -8,16 +8,17 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>se.sundsvall</groupId>
-	<artifactId>template-spring-boot</artifactId>
-	<version>1.0</version>
-	<name>template</name>
+	<artifactId>api-service-business-rules</artifactId>
+	<version>0.1</version>
+	<name>api-service-business-rules</name>
 	<properties>
 		<!-- Pipeline properties -->
-		<docker.image.name>ms-template</docker.image.name>
+		<docker.image.name>ms-business-rules</docker.image.name>
 		<exposed.app.port>8080</exposed.app.port>
-		<published.container.port.sandbox>xxx</published.container.port.sandbox>
-		<published.container.port.test>xxx</published.container.port.test>
-		<published.container.port.production>xxx</published.container.port.production>
+		<published.container.port.sandbox>9121</published.container.port.sandbox>
+		<published.container.port.test>9120</published.container.port.test>
+		<published.container.port.production>9120</published.container.port.production>
+		<sandbox.db>false</sandbox.db>
 	</properties>
 	<dependencies>
 		<dependency>
