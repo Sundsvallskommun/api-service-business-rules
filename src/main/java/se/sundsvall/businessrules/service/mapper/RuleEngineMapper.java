@@ -16,8 +16,10 @@ import java.util.stream.Collectors;
 
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.api.model.Result;
+import se.sundsvall.businessrules.api.model.RuleEngineResponse;
 import se.sundsvall.businessrules.rule.CriteriaResult;
 import se.sundsvall.businessrules.rule.Rule;
+import se.sundsvall.businessrules.service.engine.RuleEngine;
 
 public class RuleEngineMapper {
 
@@ -75,5 +77,11 @@ public class RuleEngineMapper {
 			.withDescriptions(errorDescriptions)
 			.withRule(rule.getName())
 			.withValue(VALIDATION_ERROR);
+	}
+
+	public static RuleEngineResponse toRuleEngineResponse(RuleEngine ruleEngine, List<Result> results) {
+		return RuleEngineResponse.create()
+			.withContext(String.valueOf(ruleEngine.getContext()))
+			.withResults(results);
 	}
 }

@@ -2,6 +2,7 @@ package se.sundsvall.businessrules.service.engine.impl;
 
 import static se.sundsvall.businessrules.api.model.enums.Context.PARKING_PERMIT;
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toNonApplicableResult;
+import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toRuleEngineResponse;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class ParkingPermitRuleEngine implements RuleEngine {
 	private List<ParkingPermitRule> rules;
 
 	@Override
-	public Context getRuleContext() {
+	public Context getContext() {
 		return PARKING_PERMIT;
 	}
 
@@ -37,8 +38,6 @@ public class ParkingPermitRuleEngine implements RuleEngine {
 			})
 			.toList();
 
-		return RuleEngineResponse.create()
-			.withContext(getRuleContext().toString())
-			.withResults(results);
+		return toRuleEngineResponse(this, results);
 	}
 }

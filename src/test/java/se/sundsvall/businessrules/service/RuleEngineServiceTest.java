@@ -51,7 +51,7 @@ class RuleEngineServiceTest {
 				.withKey("key")
 				.withValue("value")));
 
-		when(ruleEngineMock.getRuleContext()).thenReturn(Context.PARKING_PERMIT);
+		when(ruleEngineMock.getContext()).thenReturn(Context.PARKING_PERMIT);
 		when(ruleEngineMock.run(any(RuleEngineRequest.class))).thenReturn(RuleEngineResponse.create());
 
 		// Act
@@ -59,7 +59,7 @@ class RuleEngineServiceTest {
 
 		// Assert
 		assertThat(result).isNotNull();
-		verify(ruleEngineMock).getRuleContext();
+		verify(ruleEngineMock).getContext();
 		verify(ruleEngineMock).run(request);
 	}
 
@@ -74,7 +74,7 @@ class RuleEngineServiceTest {
 				.withKey("key")
 				.withValue("value")));
 
-		when(ruleEngineMock.getRuleContext()).thenReturn(null);
+		when(ruleEngineMock.getContext()).thenReturn(null);
 
 		// Act
 		final var exception = assertThrows(ThrowableProblem.class, () -> ruleEngineExecutor.run(request));
@@ -84,7 +84,7 @@ class RuleEngineServiceTest {
 		assertThat(exception.getTitle()).isEqualTo(NOT_FOUND.getReasonPhrase());
 		assertThat(exception.getDetail()).isEqualTo(format(ERROR_MESSAGE_NO_ENGINE_FOUND, context));
 
-		verify(ruleEngineMock).getRuleContext();
+		verify(ruleEngineMock).getContext();
 		verify(ruleEngineMock, never()).run(request);
 	}
 }

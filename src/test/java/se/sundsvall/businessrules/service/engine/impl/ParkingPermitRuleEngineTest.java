@@ -50,7 +50,7 @@ class ParkingPermitRuleEngineTest {
 			.isInstanceOf(RuleEngine.class)
 			.isExactlyInstanceOf(ParkingPermitRuleEngine.class);
 
-		assertThat(parkingPermitRuleEngine.getRuleContext()).isEqualTo(PARKING_PERMIT);
+		assertThat(parkingPermitRuleEngine.getContext()).isEqualTo(PARKING_PERMIT);
 	}
 
 	@Test

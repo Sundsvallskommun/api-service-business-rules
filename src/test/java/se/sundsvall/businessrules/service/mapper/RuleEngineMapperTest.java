@@ -2,6 +2,7 @@ package se.sundsvall.businessrules.service.mapper;
 
 import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
+import static se.sundsvall.businessrules.api.model.enums.Context.PARKING_PERMIT;
 import static se.sundsvall.businessrules.api.model.enums.ResultValue.FAIL;
 import static se.sundsvall.businessrules.api.model.enums.ResultValue.NOT_APPLICABLE;
 import static se.sundsvall.businessrules.api.model.enums.ResultValue.PASS;
@@ -13,8 +14,10 @@ import org.junit.jupiter.api.Test;
 
 import se.sundsvall.businessrules.TestUtils;
 import se.sundsvall.businessrules.TestUtils.TestRule;
+import se.sundsvall.businessrules.TestUtils.TestRuleEngine;
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.api.model.Result;
+import se.sundsvall.businessrules.api.model.RuleEngineResponse;
 import se.sundsvall.businessrules.rule.CriteriaResult;
 
 class RuleEngineMapperTest {
@@ -133,5 +136,21 @@ class RuleEngineMapperTest {
 			.withDescriptions(validationErrors)
 			.withRule("TEST_RULE")
 			.withValue(VALIDATION_ERROR));
+	}
+
+	@Test
+	void toRuleEngineResponse() {
+
+		// Arrange
+		final var ruleEngine = new TestRuleEngine();
+		final var results = List.of(Result.create(), Result.create());
+
+		// Act
+		final var result = RuleEngineMapper.toRuleEngineResponse(ruleEngine, results);
+
+		// Assert
+		assertThat(result).isEqualTo(RuleEngineResponse.create()
+			.withContext(PARKING_PERMIT.toString())
+			.withResults(results));
 	}
 }

@@ -6,7 +6,7 @@ import se.sundsvall.businessrules.api.model.enums.Context;
 
 public interface RuleEngine {
 
-	Context getRuleContext();
+	Context getContext();
 
 	RuleEngineResponse run(RuleEngineRequest request);
 }

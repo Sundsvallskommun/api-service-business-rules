@@ -30,6 +30,7 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
+			<!-- Needed for: com.google.common.base.CaseFormat library -->
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>${guava.version}</version>

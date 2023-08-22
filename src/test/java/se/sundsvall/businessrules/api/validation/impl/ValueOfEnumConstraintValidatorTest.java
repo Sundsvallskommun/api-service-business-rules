@@ -59,6 +59,7 @@ class ValueOfEnumConstraintValidatorTest {
 	 */
 	private static Stream<Arguments> valueOfEnumProvider() {
 		return Stream.of(
+
 			// Valid enum value strings.
 			Arguments.of(ElementType.class, "ANNOTATION_TYPE", true),
 			Arguments.of(ElementType.class, "FIELD", true),
@@ -66,6 +67,7 @@ class ValueOfEnumConstraintValidatorTest {
 			Arguments.of(ElementType.class, "PARAMETER", true),
 			Arguments.of(ElementType.class, "CONSTRUCTOR", true),
 			Arguments.of(ElementType.class, "LOCAL_VARIABLE", true),
+
 			// Invalid enum value strings.
 			Arguments.of(ElementType.class, "ANNTATION", false),
 			Arguments.of(ElementType.class, "field", false),

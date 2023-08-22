@@ -26,7 +26,6 @@ class RuleEngineUtilTest {
 
 		// Assert
 		assertThat(result)
-			.hasSize(1)
 			.extracting(CriteriaResult::value, CriteriaResult::description)
 			.containsExactly(tuple(true, "OK"));
 	}

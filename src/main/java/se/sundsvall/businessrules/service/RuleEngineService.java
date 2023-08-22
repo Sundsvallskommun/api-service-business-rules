@@ -1,5 +1,6 @@
 package se.sundsvall.businessrules.service;
 
+import static java.lang.String.format;
 import static org.zalando.problem.Status.NOT_FOUND;
 
 import java.util.List;
@@ -23,13 +24,12 @@ public class RuleEngineService {
 	private List<RuleEngine> ruleEngines;
 
 	public RuleEngineResponse run(RuleEngineRequest request) {
-		final var ruleEngine = getRuleEngineByContext(Context.valueOf(request.getContext()));
-		return ruleEngine.run(request);
+		return findRuleEngineByContext(Context.valueOf(request.getContext())).run(request);
 	}
 
-	private RuleEngine getRuleEngineByContext(Context context) {
+	private RuleEngine findRuleEngineByContext(Context context) {
 		return ruleEngines.stream()
-			.filter(engine -> Objects.equals(engine.getRuleContext(), context))
-			.findFirst().orElseThrow(() -> Problem.valueOf(NOT_FOUND, String.format(ERROR_MESSAGE_NO_ENGINE_FOUND, context)));
+			.filter(engine -> Objects.equals(engine.getContext(), context))
+			.findFirst().orElseThrow(() -> Problem.valueOf(NOT_FOUND, format(ERROR_MESSAGE_NO_ENGINE_FOUND, context)));
 	}
 }
