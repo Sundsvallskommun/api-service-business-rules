@@ -1,28 +1,33 @@
 package se.sundsvall.businessrules.service.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static se.sundsvall.businessrules.api.model.enums.ResultValue.NOT_APPLICABLE;
+import static org.assertj.core.api.Assertions.tuple;
+
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import se.sundsvall.businessrules.TestUtils.TestRule;
-import se.sundsvall.businessrules.api.model.Result;
+import se.sundsvall.businessrules.api.model.Fact;
+import se.sundsvall.businessrules.rule.CriteriaResult;
 
 class RuleEngineUtilTest {
 
 	@Test
-	void nonApplicableResult() {
+	void evaluateCriteria() {
 
 		// Arrange
 		final var rule = new TestRule();
+		final var facts = List.of(
+			Fact.create().withKey("key").withValue("value"));
 
 		// Act
-		final var result = RuleEngineUtil.nonApplicableResult(rule);
+		final var result = RuleEngineUtil.evaluateCriteria(rule, facts);
 
 		// Assert
-		assertThat(result).isEqualTo(Result.create()
-			.withDescription(null)
-			.withRule("TEST_RULE")
-			.withValue(NOT_APPLICABLE));
+		assertThat(result)
+			.hasSize(1)
+			.extracting(CriteriaResult::value, CriteriaResult::description)
+			.containsExactly(tuple(true, "OK"));
 	}
 }

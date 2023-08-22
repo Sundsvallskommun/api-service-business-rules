@@ -9,6 +9,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import se.sundsvall.businessrules.api.model.enums.ResultValue;
@@ -28,17 +30,17 @@ class ResultTest {
 	@Test
 	void testBuilderMethods() {
 
-		final var description = "description";
+		final var descriptions = List.of("description");
 		final var rule = "rule";
 		final var value = ResultValue.PASS;
 
 		final var bean = Result.create()
-			.withDescription(description)
+			.withDescriptions(descriptions)
 			.withRule(rule)
 			.withValue(value);
 
 		assertThat(bean).isNotNull().hasNoNullFieldsOrProperties();
-		assertThat(bean.getDescription()).isEqualTo(description);
+		assertThat(bean.getDescriptions()).isEqualTo(descriptions);
 		assertThat(bean.getRule()).isEqualTo(rule);
 		assertThat(bean.getValue()).isEqualTo(value);
 	}

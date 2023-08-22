@@ -1,9 +1,14 @@
 package se.sundsvall.businessrules;
 
+import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toResult;
+import static se.sundsvall.businessrules.service.util.RuleEngineUtil.evaluateCriteria;
+
 import java.util.List;
 
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.api.model.Result;
+import se.sundsvall.businessrules.rule.Criteria;
+import se.sundsvall.businessrules.rule.CriteriaResult;
 import se.sundsvall.businessrules.rule.Rule;
 
 public class TestUtils {
@@ -11,8 +16,21 @@ public class TestUtils {
 	public static class TestRule implements Rule {
 
 		@Override
-		public Result validate(List<Fact> facts) {
-			return null;
+		public Result evaluate(List<Fact> facts) {
+			return toResult(this, evaluateCriteria(this, facts));
+		}
+
+		@Override
+		public List<Class<? extends Criteria>> getCriteria() {
+			return List.of(TestCriteria.class);
+		}
+	}
+
+	public static class TestCriteria implements Criteria {
+
+		@Override
+		public CriteriaResult evaluate(List<Fact> facts) {
+			return new CriteriaResult(true, "OK");
 		}
 	}
 }

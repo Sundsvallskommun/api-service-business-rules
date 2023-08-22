@@ -6,5 +6,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public enum ResultValue {
 	PASS,
 	FAIL,
+	VALIDATION_ERROR,
 	NOT_APPLICABLE
 }

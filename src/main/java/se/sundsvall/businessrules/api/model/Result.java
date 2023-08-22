@@ -1,5 +1,6 @@
 package se.sundsvall.businessrules.api.model;
 
+import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -15,7 +16,7 @@ public class Result {
 	private String rule;
 
 	@Schema(description = "Rule result description", example = "Failed because of reasons")
-	private String description;
+	private List<String> descriptions;
 
 	public static Result create() {
 		return new Result();
@@ -47,35 +48,35 @@ public class Result {
 		return this;
 	}
 
-	public String getDescription() {
-		return description;
+	public List<String> getDescriptions() {
+		return descriptions;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescriptions(List<String> descriptions) {
+		this.descriptions = descriptions;
 	}
 
-	public Result withDescription(String description) {
-		this.description = description;
+	public Result withDescriptions(List<String> descriptions) {
+		this.descriptions = descriptions;
 		return this;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, rule, value);
+		return Objects.hash(descriptions, rule, value);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) { return true; }
 		if (!(obj instanceof final Result other)) { return false; }
-		return Objects.equals(description, other.description) && Objects.equals(rule, other.rule) && (value == other.value);
+		return Objects.equals(descriptions, other.descriptions) && Objects.equals(rule, other.rule) && (value == other.value);
 	}
 
 	@Override
 	public String toString() {
 		final StringBuilder builder = new StringBuilder();
-		builder.append("Result [value=").append(value).append(", rule=").append(rule).append(", description=").append(description).append("]");
+		builder.append("Result [value=").append(value).append(", rule=").append(rule).append(", descriptions=").append(descriptions).append("]");
 		return builder.toString();
 	}
 }

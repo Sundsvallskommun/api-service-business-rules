@@ -76,8 +76,8 @@ class ParkingPermitRuleEngineTest {
 
 		verify(rule1Mock).isApplicable(request.getFacts());
 		verify(rule2Mock).isApplicable(request.getFacts());
-		verify(rule1Mock).validate(request.getFacts());
-		verify(rule2Mock).validate(request.getFacts());
+		verify(rule1Mock).evaluate(request.getFacts());
+		verify(rule2Mock).evaluate(request.getFacts());
 	}
 
 	@Test
@@ -109,7 +109,7 @@ class ParkingPermitRuleEngineTest {
 
 		verify(rule1Mock).isApplicable(request.getFacts());
 		verify(rule2Mock).isApplicable(request.getFacts());
-		verify(rule1Mock, never()).validate(request.getFacts());
-		verify(rule2Mock, never()).validate(request.getFacts());
+		verify(rule1Mock, never()).evaluate(request.getFacts());
+		verify(rule2Mock, never()).evaluate(request.getFacts());
 	}
 }

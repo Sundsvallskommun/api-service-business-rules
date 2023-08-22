@@ -32,7 +32,7 @@ import se.sundsvall.businessrules.service.RuleEngineService;
 public class RuleEngineResource {
 
 	@Autowired
-	private RuleEngineService ruleEngineExecutor;
+	private RuleEngineService ruleEngineService;
 
 	@PostMapping(consumes = APPLICATION_JSON_VALUE, produces = { APPLICATION_JSON_VALUE, APPLICATION_PROBLEM_JSON_VALUE })
 	@Operation(summary = "Execute rule engine")
@@ -40,6 +40,6 @@ public class RuleEngineResource {
 	@ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(oneOf = { Problem.class, ConstraintViolationProblem.class })))
 	@ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = Problem.class)))
 	public ResponseEntity<RuleEngineResponse> execute(@NotNull @Valid @RequestBody final RuleEngineRequest body) {
-		return ok(ruleEngineExecutor.run(body));
+		return ok(ruleEngineService.run(body));
 	}
 }

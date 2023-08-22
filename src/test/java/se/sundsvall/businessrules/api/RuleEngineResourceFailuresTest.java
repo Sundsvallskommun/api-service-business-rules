@@ -134,6 +134,38 @@ class RuleEngineResourceFailuresTest {
 	}
 
 	@Test
+	void runEngineNullFactValue() {
+
+		// Arrange
+		final var ruleEngineRequest = ruleEngineRequest()
+			.withFacts(List.of(Fact.create()
+				.withKey("key")));
+
+		// Act
+		final var response = webTestClient.post()
+			.uri(PATH)
+			.contentType(APPLICATION_JSON)
+			.bodyValue(ruleEngineRequest)
+			.exchange()
+			.expectStatus().isBadRequest()
+			.expectHeader().contentType(APPLICATION_PROBLEM_JSON)
+			.expectBody(ConstraintViolationProblem.class)
+			.returnResult()
+			.getResponseBody();
+
+		// Assert
+		assertThat(response).isNotNull();
+		assertThat(response.getTitle()).isEqualTo("Constraint Violation");
+		assertThat(response.getStatus()).isEqualTo(BAD_REQUEST);
+		assertThat(response.getViolations())
+			.extracting(Violation::getField, Violation::getMessage)
+			.containsExactlyInAnyOrder(
+				tuple("facts[0].value", "must not be null"));
+
+		verifyNoInteractions(ruleEngineServiceMock);
+	}
+
+	@Test
 	void runEngineBadContext() {
 
 		// Arrange

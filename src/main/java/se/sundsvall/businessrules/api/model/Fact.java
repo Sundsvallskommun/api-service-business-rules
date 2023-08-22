@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Schema(description = "Fact model")
 public class Fact {
@@ -15,6 +16,7 @@ public class Fact {
 	private String key;
 
 	@Schema(description = "The attribute value", example = "Some value")
+	@NotNull
 	private String value;
 
 	public static Fact create() {

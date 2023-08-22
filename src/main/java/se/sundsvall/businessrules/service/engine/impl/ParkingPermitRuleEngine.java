@@ -1,7 +1,7 @@
 package se.sundsvall.businessrules.service.engine.impl;
 
 import static se.sundsvall.businessrules.api.model.enums.Context.PARKING_PERMIT;
-import static se.sundsvall.businessrules.service.util.RuleEngineUtil.nonApplicableResult;
+import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toNonApplicableResult;
 
 import java.util.List;
 
@@ -31,9 +31,9 @@ public class ParkingPermitRuleEngine implements RuleEngine {
 		final var results = rules.stream()
 			.map(rule -> {
 				if (rule.isApplicable(request.getFacts())) {
-					return rule.validate(request.getFacts());
+					return rule.evaluate(request.getFacts());
 				}
-				return nonApplicableResult(rule);
+				return toNonApplicableResult(rule);
 			})
 			.toList();
 

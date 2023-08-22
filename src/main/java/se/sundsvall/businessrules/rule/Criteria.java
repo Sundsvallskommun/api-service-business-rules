@@ -6,19 +6,12 @@ import static com.google.common.base.CaseFormat.UPPER_UNDERSCORE;
 import java.util.List;
 
 import se.sundsvall.businessrules.api.model.Fact;
-import se.sundsvall.businessrules.api.model.Result;
 
-public interface Rule {
+public interface Criteria {
 
 	default String getName() {
 		return UPPER_CAMEL.to(UPPER_UNDERSCORE, this.getClass().getSimpleName());
 	}
 
-	default boolean isApplicable(List<Fact> facts) {
-		return true;
-	}
-
-	Result evaluate(List<Fact> facts);
-
-	List<Class<? extends Criteria>> getCriteria();
+	CriteriaResult evaluate(List<Fact> facts);
 }

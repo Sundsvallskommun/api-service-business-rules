@@ -12,11 +12,7 @@ import jakarta.validation.constraints.NotNull;
 import se.sundsvall.businessrules.api.validation.impl.ValueOfEnumConstraintValidator;
 
 /**
- * The annotated element must be a valid mobile number according to the regular expression ^07[02369]\d{7}$. Accepts
- * CharSequence.
- *
- * @see <a href="https://sundsvall.atlassian.net/wiki/spaces/SK/pages/22675457/OpenAPI+namns+ttning">Open API
- *      namnsättning</a>
+ * The annotated String element must contain a valid enum value (from the provided enum type).
  */
 @Documented
 @Target({ ElementType.FIELD, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE })
