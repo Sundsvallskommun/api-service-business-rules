@@ -1,9 +1,11 @@
 package se.sundsvall.businessrules.service.util;
 
 import static java.util.Collections.emptyList;
+import static java.util.Objects.nonNull;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.apache.commons.lang3.function.Failable;
 
@@ -28,5 +30,13 @@ public class RuleEngineUtil {
 			.map(criteria -> criteria.evaluate(facts)) // Evaluate criteria
 			.stream()
 			.toList();
+	}
+
+	public static boolean isValidUuid(String uuid) {
+		try {
+			return nonNull(uuid) && nonNull(UUID.fromString(uuid));
+		} catch (final Exception e) {
+			return false;
+		}
 	}
 }

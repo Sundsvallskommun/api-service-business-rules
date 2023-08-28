@@ -23,16 +23,36 @@ import se.sundsvall.businessrules.rule.CriteriaResult;
 class RuleEngineMapperTest {
 
 	@Test
-	void toMap() {
+	void toFactMap() {
 
 		// Arrange
-		final var factList = List.of(
-			Fact.create().withKey("a").withValue("a-value"),
-			Fact.create().withKey("b").withValue("b-value"),
-			Fact.create().withKey("c").withValue("c-value"));
+		final var fact1 = Fact.create().withKey("a").withValue("a-value");
+		final var fact2 = Fact.create().withKey("b").withValue("b-value");
+		final var fact3 = Fact.create().withKey("c").withValue("c-value");
+		final var factList = List.of(fact1, fact2, fact3);
 
 		// Act
-		final var result = RuleEngineMapper.toMap(factList);
+		final var result = RuleEngineMapper.toFactMap(factList);
+
+		// Assert
+		assertThat(result)
+			.containsExactly(
+				entry("a", fact1),
+				entry("b", fact2),
+				entry("c", fact3));
+	}
+
+	@Test
+	void toStringMap() {
+
+		// Arrange
+		final var fact1 = Fact.create().withKey("a").withValue("a-value");
+		final var fact2 = Fact.create().withKey("b").withValue("b-value");
+		final var fact3 = Fact.create().withKey("c").withValue("c-value");
+		final var factList = List.of(fact1, fact2, fact3);
+
+		// Act
+		final var result = RuleEngineMapper.toStringMap(factList);
 
 		// Assert
 		assertThat(result)
@@ -46,7 +66,7 @@ class RuleEngineMapperTest {
 	void toMapWhenInputListIsNull() {
 
 		// Act
-		final var result = RuleEngineMapper.toMap(null);
+		final var result = RuleEngineMapper.toFactMap(null);
 
 		// Assert
 		assertThat(result)
