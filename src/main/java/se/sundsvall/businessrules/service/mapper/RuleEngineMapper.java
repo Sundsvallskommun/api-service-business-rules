@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import se.sundsvall.businessrules.api.model.Fact;
@@ -26,12 +27,24 @@ public class RuleEngineMapper {
 	private RuleEngineMapper() {}
 
 	/**
-	 * Convert a List of facts to a Map.
+	 * Convert a List of facts to a Map of facts.
 	 *
 	 * @param  facts the fact List
 	 * @return       a map of facts.
 	 */
-	public static Map<String, String> toMap(List<Fact> facts) {
+	public static Map<String, Fact> toFactMap(List<Fact> facts) {
+		return Optional.ofNullable(facts).orElse(emptyList()).stream()
+			.filter(fact -> nonNull(fact.getKey()))
+			.collect(Collectors.toMap(Fact::getKey, Function.identity()));
+	}
+
+	/**
+	 * Convert a List of facts to a Map of Strings.
+	 *
+	 * @param  facts the fact List
+	 * @return       a map of facts.
+	 */
+	public static Map<String, String> toStringMap(List<Fact> facts) {
 		return Optional.ofNullable(facts).orElse(emptyList()).stream()
 			.filter(fact -> nonNull(fact.getKey()))
 			.collect(Collectors.toMap(Fact::getKey, Fact::getValue));

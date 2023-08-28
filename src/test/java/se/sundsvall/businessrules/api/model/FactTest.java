@@ -39,6 +39,38 @@ class FactTest {
 	}
 
 	@Test
+	void testValueMethods() {
+
+		// Arrange
+		final var fact = Fact.create().withKey("key");
+
+		// hasNumericValue()
+		assertThat(fact.withValue("five").hasNumericValue()).isFalse();
+		assertThat(fact.withValue(" ").hasNumericValue()).isFalse();
+		assertThat(fact.withValue(null).hasNumericValue()).isFalse();
+		assertThat(fact.withValue("3").hasNumericValue()).isTrue();
+		assertThat(fact.withValue("-666").hasNumericValue()).isTrue();
+
+		// hasBooleanValue()
+		assertThat(fact.withValue("No").hasBooleanValue()).isFalse();
+		assertThat(fact.withValue(" ").hasBooleanValue()).isFalse();
+		assertThat(fact.withValue("true false").hasBooleanValue()).isFalse();
+		assertThat(fact.withValue(null).hasBooleanValue()).isFalse();
+		assertThat(fact.withValue("true").hasBooleanValue()).isTrue();
+		assertThat(fact.withValue("false").hasBooleanValue()).isTrue();
+		assertThat(fact.withValue("TRUE").hasBooleanValue()).isTrue();
+		assertThat(fact.withValue("FALSE").hasBooleanValue()).isTrue();
+		assertThat(fact.withValue("TrUe").hasBooleanValue()).isTrue();
+		assertThat(fact.withValue("FaLsE").hasBooleanValue()).isTrue();
+
+		// hasValue()
+		assertThat(fact.withValue(null).hasValue()).isFalse();
+		assertThat(fact.withValue(" ").hasValue()).isTrue();
+		assertThat(fact.withValue("hello").hasValue()).isTrue();
+		assertThat(fact.withValue("").hasValue()).isTrue();
+	}
+
+	@Test
 	void testNoDirtOnCreatedBean() {
 		assertThat(Fact.create()).hasAllNullFieldsOrProperties();
 		assertThat(new Fact()).hasAllNullFieldsOrProperties();
