@@ -1,0 +1,5 @@
+config:
+  integration:
+    casedata:
+      connectTimeout: 10
+      readTimeout: 20

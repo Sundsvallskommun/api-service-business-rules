@@ -2,24 +2,52 @@
 # Spring
 #-------------------------------------------------------------------------------
 spring:
-    application:
-        name: api-business-rules
-        
+  application:
+    name: api-business-rules
+  security:
+    oauth2:
+      client:
+        registration:
+          casedata:
+            authorization-grant-type: client_credentials
+            provider: casedata
+            client-id: ${config.integration.casadata.client-id}
+            client-secret: ${config.integration.casadata.client-secret}
+        provider:
+          casedata:
+            token-uri: ${config.integration.casedata.token-url}
+
 #-------------------------------------------------------------------------------
 # OpenAPI/Swagger-UI
 #-------------------------------------------------------------------------------
 openapi:
-    name: ${spring.application.name}
-    title: ${spring.application.name}
-    version: '@project.version@'
+  name: ${spring.application.name}
+  title: ${spring.application.name}
+  version: '@project.version@'
 springdoc:
-    swagger-ui:
-        operationsSorter: method
+  swagger-ui:
+    operationsSorter: method
 
 #-------------------------------------------------------------------------------
 # Log config
 #-------------------------------------------------------------------------------
 logging:
-    level:
-        root: INFO
-        
+  level:
+    root: INFO
+    
+#----------------------------------------
+# Integrations
+#----------------------------------------
+integration:
+  casedata:
+    url: ${config.integration.casedata.url}
+    connectTimeout: ${config.integration.casedata.connectTimeout}
+    readTimeout: ${config.integration.casedata.readTimeout}
+    
+#----------------------------------------
+# Circuit breakers
+#----------------------------------------
+resilience4j.circuitbreaker:
+  instances:
+    casedata:
+      ignoreExceptions: se.sundsvall.dept44.exception.ClientProblem
