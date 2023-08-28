@@ -19,6 +19,8 @@
 		<published.container.port.test>9120</published.container.port.test>
 		<published.container.port.production>9120</published.container.port.production>
 		<sandbox.db>false</sandbox.db>
+		<!-- Service properties -->
+		<guava.version>32.1.2-jre</guava.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -26,6 +28,12 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<!-- Needed for: com.google.common.base.CaseFormat library -->
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
 		</dependency>
 		
 		<!-- Test -->
