@@ -1,4 +1,4 @@
-package se.sundsvall.businessrules.integration.casedata.configuration;
+package se.sundsvall.businessrules.integration.citizenassets.configuration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.MOCK;
@@ -12,10 +12,10 @@ import se.sundsvall.businessrules.Application;
 
 @SpringBootTest(classes = Application.class, webEnvironment = MOCK)
 @ActiveProfiles("junit")
-class CaseDataPropertiesTest {
+class CitizenAssetsPropertiesTest {
 
 	@Autowired
-	private CaseDataProperties properties;
+	private CitizenAssetsProperties properties;
 
 	@Test
 	void testProperties() {

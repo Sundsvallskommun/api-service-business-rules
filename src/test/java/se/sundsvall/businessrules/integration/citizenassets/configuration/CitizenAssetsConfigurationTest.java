@@ -1,9 +1,9 @@
-package se.sundsvall.businessrules.integration.casedata.configuration;
+package se.sundsvall.businessrules.integration.citizenassets.configuration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static se.sundsvall.businessrules.integration.casedata.configuration.CaseDataConfiguration.CLIENT_ID;
+import static se.sundsvall.businessrules.integration.citizenassets.configuration.CitizenAssetsConfiguration.CLIENT_ID;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,7 +23,7 @@ import se.sundsvall.dept44.configuration.feign.FeignMultiCustomizer;
 import se.sundsvall.dept44.configuration.feign.decoder.ProblemErrorDecoder;
 
 @ExtendWith(MockitoExtension.class)
-class CaseDataConfigurationTest {
+class CitizenAssetsConfigurationTest {
 
 	@Mock
 	private ClientRegistrationRepository clientRepositoryMock;
@@ -32,7 +32,7 @@ class CaseDataConfigurationTest {
 	private ClientRegistration clientRegistrationMock;
 
 	@Mock
-	private CaseDataProperties propertiesMock;
+	private CitizenAssetsProperties propertiesMock;
 
 	@Spy
 	private FeignMultiCustomizer feignMultiCustomizerSpy;
@@ -41,7 +41,7 @@ class CaseDataConfigurationTest {
 	private ArgumentCaptor<ErrorDecoder> errorDecoderCaptor;
 
 	@InjectMocks
-	private CaseDataConfiguration configuration;
+	private CitizenAssetsConfiguration configuration;
 
 	@Test
 	void testFeignBuilderCustomizer() {

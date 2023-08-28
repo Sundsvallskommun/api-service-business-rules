@@ -58,12 +58,12 @@
 				<version>${openapi-generator-maven-plugin.version}</version>
 				<executions>
 					<execution>
-						<id>casedata-api</id>
+						<id>citizenassets-api</id>
 						<goals>
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<inputSpec>src/main/resources/integrations/api-casedata.yaml</inputSpec>
+							<inputSpec>src/main/resources/integrations/api-citizenassets.yaml</inputSpec>
 							<output>${generated-sources-path}</output>
 							<generatorName>jaxrs-spec</generatorName>
 							<generateApis>false</generateApis>
@@ -74,7 +74,7 @@
 								<useSwaggerAnnotations>false</useSwaggerAnnotations>
 								<sourceFolder>${generated-sources-java-path}</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
-								<modelPackage>generated.se.sundsvall.casedata</modelPackage>
+								<modelPackage>generated.se.sundsvall.citizenassets</modelPackage>
 								<openApiNullable>false</openApiNullable>
 								<generatePom>false</generatePom>
 								<interfaceOnly>true</interfaceOnly>
@@ -107,7 +107,7 @@
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<configuration>
 					<excludes>
-						<exclude>**/se/sundsvall/agreement/Application*</exclude>
+						<exclude>**/se/sundsvall/businessrules/Application*</exclude>
 						<exclude>**/generated/se/sundsvall/**/*</exclude>
 					</excludes>
 				</configuration>

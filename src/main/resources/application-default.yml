@@ -1,5 +1,5 @@
 config:
   integration:
-    casedata:
+    citizenassets:
       connectTimeout: 10
       readTimeout: 20
