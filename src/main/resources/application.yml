@@ -2,24 +2,52 @@
 # Spring
 #-------------------------------------------------------------------------------
 spring:
-    application:
-        name: api-business-rules
-        
+  application:
+    name: api-business-rules
+  security:
+    oauth2:
+      client:
+        registration:
+          citizenassets:
+            authorization-grant-type: client_credentials
+            provider: citizenassets
+            client-id: ${config.integration.citizenassets.client-id}
+            client-secret: ${config.integration.citizenassets.client-secret}
+        provider:
+          citizenassets:
+            token-uri: ${config.integration.citizenassets.token-url}
+
 #-------------------------------------------------------------------------------
 # OpenAPI/Swagger-UI
 #-------------------------------------------------------------------------------
 openapi:
-    name: ${spring.application.name}
-    title: ${spring.application.name}
-    version: '@project.version@'
+  name: ${spring.application.name}
+  title: ${spring.application.name}
+  version: '@project.version@'
 springdoc:
-    swagger-ui:
-        operationsSorter: method
+  swagger-ui:
+    operationsSorter: method
 
 #-------------------------------------------------------------------------------
 # Log config
 #-------------------------------------------------------------------------------
 logging:
-    level:
-        root: INFO
-        
+  level:
+    root: INFO
+    
+#----------------------------------------
+# Integrations
+#----------------------------------------
+integration:
+  citizenassets:
+    url: ${config.integration.citizenassets.url}
+    connectTimeout: ${config.integration.citizenassets.connectTimeout}
+    readTimeout: ${config.integration.citizenassets.readTimeout}
+    
+#----------------------------------------
+# Circuit breakers
+#----------------------------------------
+resilience4j.circuitbreaker:
+  instances:
+    citizenassets:
+      ignoreExceptions: se.sundsvall.dept44.exception.ClientProblem
