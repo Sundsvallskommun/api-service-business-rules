@@ -1,5 +1,6 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit;
 
+import static java.util.UUID.randomUUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
@@ -7,25 +8,36 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 import static se.sundsvall.businessrules.api.model.enums.ResultValue.FAIL;
 import static se.sundsvall.businessrules.api.model.enums.ResultValue.PASS;
 import static se.sundsvall.businessrules.api.model.enums.ResultValue.VALIDATION_ERROR;
+import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.PARTY_ID_PARAMETER;
+import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.STATUS_PARAMETER;
+import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.TYPE_PARAMETER;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.APPLICATION_APPLICANT_CAPACITY;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.TYPE;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.test.context.ActiveProfiles;
 
 import se.sundsvall.businessrules.Application;
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.api.model.ResultDetail;
+import se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient;
 import se.sundsvall.businessrules.rule.CriteriaEvaluator;
 import se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum;
 
 @SpringBootTest(classes = Application.class, webEnvironment = MOCK)
+@ActiveProfiles("junit")
 class DriverNewParkingPermitRuleTest {
+
+	@MockBean
+	private CitizenAssetsClient citizenAssetsClientMock;
 
 	@SpyBean
 	private CriteriaEvaluator criteriaEvaluatorSpy;
@@ -67,13 +79,14 @@ class DriverNewParkingPermitRuleTest {
 	void evaluateSuccess() {
 
 		// Arrange
+		final var personId = randomUUID().toString();
 		final var facts = List.of(
 			Fact.create().withKey(ParkingPermitFactKeyEnum.TYPE.getKey()).withValue("PARKING_PERMIT"),
 			Fact.create().withKey(ParkingPermitFactKeyEnum.APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
 			Fact.create().withKey(ParkingPermitFactKeyEnum.DISABILITY_DURATION.getKey()).withValue("P1Y"),
 			Fact.create().withKey(ParkingPermitFactKeyEnum.DISABILITY_WALKING_ABILITY.getKey()).withValue("true"),
 			Fact.create().withKey(ParkingPermitFactKeyEnum.DISABILITY_WALKING_DISTANCE_MAX.getKey()).withValue("499"),
-			Fact.create().withKey(ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(UUID.randomUUID().toString()));
+			Fact.create().withKey(ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(personId));
 
 		// Act
 		final var result = rule.evaluate(facts);
@@ -97,19 +110,21 @@ class DriverNewParkingPermitRuleTest {
 				.withDescription("den sökande har inga aktiva parkeringstillstånd")));
 
 		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, facts);
+		verify(citizenAssetsClientMock).getAssets(Map.of(PARTY_ID_PARAMETER, personId, STATUS_PARAMETER, "ACTIVE", TYPE_PARAMETER, "PERMIT"));
 	}
 
 	@Test
 	void evaluateFailureDueToFailedCriteria() {
 
 		// Arrange
+		final var personId = randomUUID().toString();
 		final var facts = List.of(
 			Fact.create().withKey(ParkingPermitFactKeyEnum.TYPE.getKey()).withValue("PARKING_PERMIT"),
 			Fact.create().withKey(ParkingPermitFactKeyEnum.APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
 			Fact.create().withKey(ParkingPermitFactKeyEnum.DISABILITY_DURATION.getKey()).withValue("P6M"), // Will make the evaluation fail.
 			Fact.create().withKey(ParkingPermitFactKeyEnum.DISABILITY_WALKING_ABILITY.getKey()).withValue("true"),
 			Fact.create().withKey(ParkingPermitFactKeyEnum.DISABILITY_WALKING_DISTANCE_MAX.getKey()).withValue("499"),
-			Fact.create().withKey(ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(UUID.randomUUID().toString()));
+			Fact.create().withKey(ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(personId));
 
 		// Act
 		final var result = rule.evaluate(facts);
@@ -133,6 +148,7 @@ class DriverNewParkingPermitRuleTest {
 				.withDescription("den sökande har inga aktiva parkeringstillstånd")));
 
 		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, facts);
+		verify(citizenAssetsClientMock).getAssets(Map.of(PARTY_ID_PARAMETER, personId, STATUS_PARAMETER, "ACTIVE", TYPE_PARAMETER, "PERMIT"));
 	}
 
 	@Test
@@ -164,6 +180,7 @@ class DriverNewParkingPermitRuleTest {
 		));
 
 		verifyNoInteractions(criteriaEvaluatorSpy);
+		verifyNoInteractions(citizenAssetsClientMock);
 	}
 
 	@Test
@@ -193,6 +210,7 @@ class DriverNewParkingPermitRuleTest {
 		));
 
 		verifyNoInteractions(criteriaEvaluatorSpy);
+		verifyNoInteractions(citizenAssetsClientMock);
 	}
 
 	@Test
@@ -222,6 +240,7 @@ class DriverNewParkingPermitRuleTest {
 		));
 
 		verifyNoInteractions(criteriaEvaluatorSpy);
+		verifyNoInteractions(citizenAssetsClientMock);
 	}
 
 	@Test
@@ -249,5 +268,6 @@ class DriverNewParkingPermitRuleTest {
 				.withDescription("Saknar giltigt värde för: 'disability.walkingDistance.max' (uppgift om maximal gångsträcka för den sökande)")));
 
 		verifyNoInteractions(criteriaEvaluatorSpy);
+		verifyNoInteractions(citizenAssetsClientMock);
 	}
 }
