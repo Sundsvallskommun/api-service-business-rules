@@ -23,7 +23,7 @@ import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.api.model.Result;
 import se.sundsvall.businessrules.api.model.RuleEngineRequest;
 import se.sundsvall.businessrules.api.model.enums.Context;
-import se.sundsvall.businessrules.rule.parkingpermit.ParkingPermitRule;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.ParkingPermitRule;
 import se.sundsvall.businessrules.service.engine.RuleEngine;
 
 @ExtendWith(MockitoExtension.class)

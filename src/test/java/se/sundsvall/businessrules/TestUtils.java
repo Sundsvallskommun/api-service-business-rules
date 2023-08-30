@@ -2,7 +2,6 @@ package se.sundsvall.businessrules;
 
 import static se.sundsvall.businessrules.api.model.enums.Context.PARKING_PERMIT;
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toResult;
-import static se.sundsvall.businessrules.service.util.RuleEngineUtil.evaluateCriteria;
 
 import java.util.List;
 
@@ -12,6 +11,7 @@ import se.sundsvall.businessrules.api.model.RuleEngineRequest;
 import se.sundsvall.businessrules.api.model.RuleEngineResponse;
 import se.sundsvall.businessrules.api.model.enums.Context;
 import se.sundsvall.businessrules.rule.Criteria;
+import se.sundsvall.businessrules.rule.CriteriaEvaluator;
 import se.sundsvall.businessrules.rule.CriteriaResult;
 import se.sundsvall.businessrules.rule.Rule;
 import se.sundsvall.businessrules.service.engine.RuleEngine;
@@ -35,7 +35,7 @@ public class TestUtils {
 
 		@Override
 		public Result evaluate(List<Fact> facts) {
-			return toResult(this, evaluateCriteria(this, facts));
+			return toResult(this, CriteriaEvaluator.evaluateCriteria(this, facts));
 		}
 
 		@Override
@@ -48,7 +48,7 @@ public class TestUtils {
 
 		@Override
 		public CriteriaResult evaluate(List<Fact> facts) {
-			return new CriteriaResult(true, "OK");
+			return new CriteriaResult(true, "OK", this);
 		}
 	}
 }
