@@ -13,10 +13,12 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import se.sundsvall.businessrules.TestUtils;
+import se.sundsvall.businessrules.TestUtils.TestCriteria;
 import se.sundsvall.businessrules.TestUtils.TestRule;
 import se.sundsvall.businessrules.TestUtils.TestRuleEngine;
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.api.model.Result;
+import se.sundsvall.businessrules.api.model.ResultDetail;
 import se.sundsvall.businessrules.api.model.RuleEngineResponse;
 import se.sundsvall.businessrules.rule.CriteriaResult;
 
@@ -78,16 +80,19 @@ class RuleEngineMapperTest {
 	void toResultWithOneFail() throws Exception {
 
 		final var rule = new TestUtils.TestRule();
+		final var criteria = new TestCriteria();
 		final var criteriaList = List.of(
-			new CriteriaResult(true, "OK"),
-			new CriteriaResult(false, "NOT OK"));
+			new CriteriaResult(true, "OK", criteria),
+			new CriteriaResult(false, "NOT OK", criteria));
 
 		// Act
 		final var result = RuleEngineMapper.toResult(rule, criteriaList);
 
 		// Assert
 		assertThat(result).isNotNull();
-		assertThat(result.getDescriptions()).containsExactly("OK", "NOT OK");
+		assertThat(result.getDetails()).containsExactly(
+			ResultDetail.create().withDescription("OK").withEvaluationValue(true).withOrigin("TEST_CRITERIA"),
+			ResultDetail.create().withDescription("NOT OK").withEvaluationValue(false).withOrigin("TEST_CRITERIA"));
 		assertThat(result.getValue()).isEqualTo(FAIL);
 	}
 
@@ -95,16 +100,19 @@ class RuleEngineMapperTest {
 	void toResultWithAllFail() throws Exception {
 
 		final var rule = new TestUtils.TestRule();
+		final var criteria = new TestCriteria();
 		final var criteriaList = List.of(
-			new CriteriaResult(false, "NOT OK: 1"),
-			new CriteriaResult(false, "NOT OK: 2"));
+			new CriteriaResult(false, "NOT OK: 1", criteria),
+			new CriteriaResult(false, "NOT OK: 2", criteria));
 
 		// Act
 		final var result = RuleEngineMapper.toResult(rule, criteriaList);
 
 		// Assert
 		assertThat(result).isNotNull();
-		assertThat(result.getDescriptions()).containsExactly("NOT OK: 1", "NOT OK: 2");
+		assertThat(result.getDetails()).containsExactly(
+			ResultDetail.create().withDescription("NOT OK: 1").withEvaluationValue(false).withOrigin("TEST_CRITERIA"),
+			ResultDetail.create().withDescription("NOT OK: 2").withEvaluationValue(false).withOrigin("TEST_CRITERIA"));
 		assertThat(result.getValue()).isEqualTo(FAIL);
 	}
 
@@ -112,16 +120,19 @@ class RuleEngineMapperTest {
 	void toResultWithAllPass() throws Exception {
 
 		final var rule = new TestUtils.TestRule();
+		final var criteria = new TestCriteria();
 		final var criteriaList = List.of(
-			new CriteriaResult(true, "OK: 1"),
-			new CriteriaResult(true, "OK: 2"));
+			new CriteriaResult(true, "OK: 1", criteria),
+			new CriteriaResult(true, "OK: 2", criteria));
 
 		// Act
 		final var result = RuleEngineMapper.toResult(rule, criteriaList);
 
 		// Assert
 		assertThat(result).isNotNull();
-		assertThat(result.getDescriptions()).containsExactly("OK: 1", "OK: 2");
+		assertThat(result.getDetails()).containsExactly(
+			ResultDetail.create().withDescription("OK: 1").withEvaluationValue(true).withOrigin("TEST_CRITERIA"),
+			ResultDetail.create().withDescription("OK: 2").withEvaluationValue(true).withOrigin("TEST_CRITERIA"));
 		assertThat(result.getValue()).isEqualTo(PASS);
 	}
 
@@ -136,7 +147,7 @@ class RuleEngineMapperTest {
 
 		// Assert
 		assertThat(result).isEqualTo(Result.create()
-			.withDescriptions(null)
+			.withDetails(null)
 			.withRule("TEST_RULE")
 			.withValue(NOT_APPLICABLE));
 	}
@@ -153,7 +164,9 @@ class RuleEngineMapperTest {
 
 		// Assert
 		assertThat(result).isEqualTo(Result.create()
-			.withDescriptions(validationErrors)
+			.withDetails(List.of(
+				ResultDetail.create().withDescription("Error 1"),
+				ResultDetail.create().withDescription("Error 2")))
 			.withRule("TEST_RULE")
 			.withValue(VALIDATION_ERROR));
 	}

@@ -1,4 +1,4 @@
-package se.sundsvall.businessrules.rule.parkingpermit.citeria;
+package se.sundsvall.businessrules.rule.impl.parkingpermit.citeria;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -10,8 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import se.sundsvall.businessrules.api.model.Fact;
-import se.sundsvall.businessrules.rule.parkingpermit.criteria.DurationCriteria;
-import se.sundsvall.businessrules.rule.parkingpermit.enums.ParkingPermitFactKeyEnum;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.DurationCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum;
 
 @ExtendWith(MockitoExtension.class)
 class DurationCriteriaTest {
@@ -32,6 +32,7 @@ class DurationCriteriaTest {
 		final var result = criteria.evaluate(facts);
 
 		assertThat(result).isNotNull();
+		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isTrue();
 		assertThat(result.description()).isEqualTo("funktionsnedsättningens varaktighet är 6 månader eller längre");
 	}
@@ -49,6 +50,7 @@ class DurationCriteriaTest {
 		final var result = criteria.evaluate(facts);
 
 		assertThat(result).isNotNull();
+		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isFalse();
 		assertThat(result.description()).isEqualTo("funktionsnedsättningens varaktighet är kortare än 6 månader");
 	}
@@ -67,6 +69,7 @@ class DurationCriteriaTest {
 		final var result = criteria.evaluate(facts);
 
 		assertThat(result).isNotNull();
+		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isTrue();
 		assertThat(result.description()).isEqualTo("funktionsnedsättningens varaktighet är 6 månader eller längre");
 	}
@@ -85,6 +88,7 @@ class DurationCriteriaTest {
 		final var result = criteria.evaluate(facts);
 
 		assertThat(result).isNotNull();
+		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isTrue();
 		assertThat(result.description()).isEqualTo("det finns inga förändrade förutsättningar inför förnyelsen");
 	}
@@ -103,6 +107,7 @@ class DurationCriteriaTest {
 		final var result = criteria.evaluate(facts);
 
 		assertThat(result).isNotNull();
+		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isFalse();
 		assertThat(result.description()).isEqualTo("funktionsnedsättningens varaktighet är kortare än 6 månader");
 	}

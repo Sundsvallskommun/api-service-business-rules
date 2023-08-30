@@ -5,7 +5,7 @@ info:
   license:
     name: MIT License
     url: https://opensource.org/licenses/MIT
-  version: "1.0"
+  version: "1.1"
 servers:
 - url: https://api-i-test.sundsvall.se/citizenassets
   description: Generated server url
@@ -21,7 +21,6 @@ paths:
         required: true
         schema:
           type: string
-          format: uuid
       - name: assetid
         in: path
         required: true
@@ -34,24 +33,24 @@ paths:
               $ref: '#/components/schemas/AsssetUpdateRequest'
         required: true
       responses:
-        "404":
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Problem'
         "204":
           description: No content - Successful operation
-        "400":
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Problem'
         "500":
           description: Internal Server Error
           content:
-            application/json:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        "404":
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        "400":
+          description: Bad Request
+          content:
+            application/problem+json:
               schema:
                 $ref: '#/components/schemas/Problem'
   /assets:
@@ -124,10 +123,22 @@ paths:
           example: Asset description
         example: Asset description
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
         "400":
           description: Bad Request
           content:
-            application/json:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        "404":
+          description: Not Found
+          content:
+            application/problem+json:
               schema:
                 $ref: '#/components/schemas/Problem'
         "200":
@@ -135,13 +146,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Asset'
-        "500":
-          description: Internal Server Error
-          content:
-            application/json:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Asset'
+            application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Asset'
     post:
       tags:
       - Assets
@@ -153,16 +165,10 @@ paths:
               $ref: '#/components/schemas/AssetCreateRequest'
         required: true
       responses:
-        "400":
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Problem'
         "500":
           description: Internal Server Error
           content:
-            application/json:
+            application/problem+json:
               schema:
                 $ref: '#/components/schemas/Problem'
         "201":
@@ -175,6 +181,21 @@ paths:
             application/json:
               schema:
                 type: string
+            application/problem+json:
+              schema:
+                type: string
+        "400":
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        "404":
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
   /api-docs:
     get:
       tags:
@@ -202,20 +223,25 @@ paths:
         required: true
         schema:
           type: string
-          format: uuid
       responses:
         "204":
           description: No content - Successful operation
-        "400":
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Problem'
         "500":
           description: Internal Server Error
           content:
-            application/json:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        "400":
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        "404":
+          description: Not Found
+          content:
+            application/problem+json:
               schema:
                 $ref: '#/components/schemas/Problem'
 components:
@@ -348,7 +374,6 @@ components:
         partyId:
           type: string
           description: PartyId
-          format: uuid
           example: 123e4567-e89b-12d3-a456-426614174000
         caseReferenceIds:
           type: array

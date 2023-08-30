@@ -1,4 +1,4 @@
-package se.sundsvall.businessrules.rule.parkingpermit.citeria;
+package se.sundsvall.businessrules.rule.impl.parkingpermit.citeria;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -10,8 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import se.sundsvall.businessrules.api.model.Fact;
-import se.sundsvall.businessrules.rule.parkingpermit.criteria.DriverWalkingAbilityCriteria;
-import se.sundsvall.businessrules.rule.parkingpermit.enums.ParkingPermitFactKeyEnum;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.DriverWalkingAbilityCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum;
 
 @ExtendWith(MockitoExtension.class)
 class DriverWalkingAbilityCriteriaTest {
@@ -33,6 +33,7 @@ class DriverWalkingAbilityCriteriaTest {
 		final var result = criteria.evaluate(facts);
 
 		assertThat(result).isNotNull();
+		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isTrue();
 		assertThat(result.description()).isEqualTo("den sökande kan inte gå längre än 500 meter");
 	}
@@ -51,6 +52,7 @@ class DriverWalkingAbilityCriteriaTest {
 		final var result = criteria.evaluate(facts);
 
 		assertThat(result).isNotNull();
+		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isTrue();
 		assertThat(result.description()).isEqualTo("den sökande är helt rullstolsburen");
 	}
@@ -69,6 +71,7 @@ class DriverWalkingAbilityCriteriaTest {
 		final var result = criteria.evaluate(facts);
 
 		assertThat(result).isNotNull();
+		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isFalse();
 		assertThat(result.description()).isEqualTo("den sökande kan gå längre än 500 meter");
 	}

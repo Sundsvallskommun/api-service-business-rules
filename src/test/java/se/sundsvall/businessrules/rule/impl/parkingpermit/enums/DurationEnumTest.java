@@ -1,4 +1,4 @@
-package se.sundsvall.businessrules.rule.parkingpermit.enums;
+package se.sundsvall.businessrules.rule.impl.parkingpermit.enums;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;

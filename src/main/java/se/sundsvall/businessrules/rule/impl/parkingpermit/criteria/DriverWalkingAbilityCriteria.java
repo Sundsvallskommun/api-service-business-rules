@@ -1,13 +1,15 @@
-package se.sundsvall.businessrules.rule.parkingpermit.criteria;
+package se.sundsvall.businessrules.rule.impl.parkingpermit.criteria;
 
 import static java.lang.Integer.parseInt;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.BooleanUtils.toBoolean;
-import static se.sundsvall.businessrules.rule.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_WALKING_ABILITY;
-import static se.sundsvall.businessrules.rule.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_WALKING_DISTANCE_MAX;
+import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_WALKING_ABILITY;
+import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_WALKING_DISTANCE_MAX;
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toFactMap;
 
 import java.util.List;
+
+import org.springframework.stereotype.Component;
 
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.rule.Criteria;
@@ -20,6 +22,7 @@ import se.sundsvall.businessrules.rule.CriteriaResult;
  * disability.walkingAbility (boolean)
  * disability.walkingDistance.max (int)
  */
+@Component
 public class DriverWalkingAbilityCriteria implements Criteria {
 
 	private static final int MAXIMUM_WALKING_DISTANCE_FOR_APPROVAL = 500;
@@ -37,12 +40,12 @@ public class DriverWalkingAbilityCriteria implements Criteria {
 
 		// Evaluation
 		if (walkingAbility.hasBooleanValue() && !toBoolean(walkingAbility.getValue())) {
-			return new CriteriaResult(true, WALKING_ABILITY_NONE);
+			return new CriteriaResult(true, WALKING_ABILITY_NONE, this);
 		}
 		if (maxWalkingDistance.hasNumericValue() && (parseInt(maxWalkingDistance.getValue()) <= MAXIMUM_WALKING_DISTANCE_FOR_APPROVAL)) {
-			return new CriteriaResult(true, WALKING_ABILITY_DONT_EXCEED_THRESHOLD_VALUE);
+			return new CriteriaResult(true, WALKING_ABILITY_DONT_EXCEED_THRESHOLD_VALUE, this);
 		}
 
-		return new CriteriaResult(false, WALKING_ABILITY_EXCEEDS_THRESHOLD_VALUE);
+		return new CriteriaResult(false, WALKING_ABILITY_EXCEEDS_THRESHOLD_VALUE, this);
 	}
 }

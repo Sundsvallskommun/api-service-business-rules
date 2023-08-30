@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.api.model.Result;
+import se.sundsvall.businessrules.api.model.ResultDetail;
 import se.sundsvall.businessrules.api.model.RuleEngineResponse;
 import se.sundsvall.businessrules.rule.CriteriaResult;
 import se.sundsvall.businessrules.rule.Rule;
@@ -59,8 +60,11 @@ public class RuleEngineMapper {
 	 */
 	public static Result toResult(Rule rule, List<CriteriaResult> criteriaResults) {
 		return Result.create()
-			.withDescriptions(Optional.ofNullable(criteriaResults).orElse(emptyList()).stream()
-				.map(CriteriaResult::description)
+			.withDetails(Optional.ofNullable(criteriaResults).orElse(emptyList()).stream()
+				.map(criteriaResult -> ResultDetail.create()
+					.withOrigin(nonNull(criteriaResult.criteria()) ? criteriaResult.criteria().getName() : null)
+					.withDescription(criteriaResult.description())
+					.withEvaluationValue(criteriaResult.value()))
 				.toList())
 			.withRule(rule.getName())
 			.withValue(allPass(criteriaResults) ? PASS : FAIL);
@@ -87,7 +91,9 @@ public class RuleEngineMapper {
 
 	public static Result toValidationErrorResult(Rule rule, List<String> errorDescriptions) {
 		return Result.create()
-			.withDescriptions(errorDescriptions)
+			.withDetails(Optional.ofNullable(errorDescriptions).orElse(emptyList()).stream()
+				.map(description -> ResultDetail.create().withDescription(description))
+				.toList())
 			.withRule(rule.getName())
 			.withValue(VALIDATION_ERROR);
 	}
