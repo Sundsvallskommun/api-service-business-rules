@@ -1,7 +1,6 @@
 package se.sundsvall.businessrules.api.model;
 
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
-import static java.util.Objects.nonNull;
 
 import java.util.Objects;
 
@@ -48,18 +47,6 @@ public class Fact {
 	public Fact withValue(String value) {
 		this.value = value;
 		return this;
-	}
-
-	public boolean hasBooleanValue() {
-		return nonNull(this.value) && this.value.matches("^(?i)(true|false)$");
-	}
-
-	public boolean hasNumericValue() {
-		return nonNull(this.value) && this.value.matches("^-?\\d+$");
-	}
-
-	public boolean hasValue() {
-		return nonNull(this.value);
 	}
 
 	@Override

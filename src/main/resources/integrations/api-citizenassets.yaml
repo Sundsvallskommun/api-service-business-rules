@@ -5,7 +5,7 @@ info:
   license:
     name: MIT License
     url: https://opensource.org/licenses/MIT
-  version: "1.1"
+  version: "1.2"
 servers:
 - url: https://api-i-test.sundsvall.se/citizenassets
   description: Generated server url
@@ -35,20 +35,23 @@ paths:
       responses:
         "204":
           description: No content - Successful operation
-        "500":
-          description: Internal Server Error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Problem'
         "404":
           description: Not Found
           content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/Problem'
         "400":
           description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        "500":
+          description: Internal Server Error
           content:
             application/problem+json:
               schema:
@@ -123,18 +126,6 @@ paths:
           example: Asset description
         example: Asset description
       responses:
-        "500":
-          description: Internal Server Error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Problem'
-        "400":
-          description: Bad Request
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Problem'
         "404":
           description: Not Found
           content:
@@ -154,6 +145,18 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Asset'
+        "400":
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        "500":
+          description: Internal Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
     post:
       tags:
       - Assets
@@ -165,8 +168,8 @@ paths:
               $ref: '#/components/schemas/AssetCreateRequest'
         required: true
       responses:
-        "500":
-          description: Internal Server Error
+        "404":
+          description: Not Found
           content:
             application/problem+json:
               schema:
@@ -190,8 +193,8 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/Problem'
-        "404":
-          description: Not Found
+        "500":
+          description: Internal Server Error
           content:
             application/problem+json:
               schema:
@@ -226,8 +229,8 @@ paths:
       responses:
         "204":
           description: No content - Successful operation
-        "500":
-          description: Internal Server Error
+        "404":
+          description: Not Found
           content:
             application/problem+json:
               schema:
@@ -238,8 +241,8 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/Problem'
-        "404":
-          description: Not Found
+        "500":
+          description: Internal Server Error
           content:
             application/problem+json:
               schema:
@@ -264,13 +267,7 @@ components:
           format: date
           example: 2021-12-31
         status:
-          type: string
-          description: Asset status
-          example: ACTIVE
-          enum:
-          - ACTIVE
-          - EXPIRED
-          - BLOCKED
+          $ref: '#/components/schemas/Status'
         additionalParameters:
           type: object
           additionalProperties:
@@ -280,6 +277,14 @@ components:
           description: Additional parameters
           example:
             foo: bar
+    Status:
+      type: string
+      description: Status model
+      example: ACTIVE
+      enum:
+      - ACTIVE
+      - EXPIRED
+      - BLOCKED
     Problem:
       type: object
       properties:
@@ -293,12 +298,12 @@ components:
           type: object
           additionalProperties:
             type: object
-        status:
-          $ref: '#/components/schemas/StatusType'
         title:
           type: string
         detail:
           type: string
+        status:
+          $ref: '#/components/schemas/StatusType'
     StatusType:
       type: object
       properties:
@@ -344,13 +349,7 @@ components:
           format: date
           example: 2021-12-31
         status:
-          type: string
-          description: Asset status
-          example: ACTIVE
-          enum:
-          - ACTIVE
-          - EXPIRED
-          - BLOCKED
+          $ref: '#/components/schemas/Status'
         description:
           type: string
           description: Asset description
@@ -399,13 +398,7 @@ components:
           format: date
           example: 2021-12-31
         status:
-          type: string
-          description: Asset status
-          example: ACTIVE
-          enum:
-          - ACTIVE
-          - EXPIRED
-          - BLOCKED
+          $ref: '#/components/schemas/Status'
         description:
           type: string
           description: Asset description

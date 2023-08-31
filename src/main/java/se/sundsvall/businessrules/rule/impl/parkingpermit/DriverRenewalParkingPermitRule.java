@@ -31,17 +31,17 @@ import se.sundsvall.businessrules.rule.Criteria;
 import se.sundsvall.businessrules.rule.CriteriaEvaluator;
 import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.DriverWalkingAbilityCriteria;
 import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.DurationCriteria;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.NoActiveParkingPermitCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.ExpiringParkingPermitCriteria;
 
 @Component
-public class DriverNewParkingPermitRule implements ParkingPermitRule {
+public class DriverRenewalParkingPermitRule implements ParkingPermitRule {
 
 	@Autowired
 	private CriteriaEvaluator criteriaEvaluator;
 
 	@Override
 	public List<Class<? extends Criteria>> getCriteria() {
-		return List.of(DriverWalkingAbilityCriteria.class, DurationCriteria.class, NoActiveParkingPermitCriteria.class);
+		return List.of(DriverWalkingAbilityCriteria.class, DurationCriteria.class, ExpiringParkingPermitCriteria.class);
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class DriverNewParkingPermitRule implements ParkingPermitRule {
 		final var type = factMap.get(TYPE.getKey());
 		final var applicantCapacity = factMap.get(APPLICATION_APPLICANT_CAPACITY.getKey());
 
-		return "PARKING_PERMIT".equals(type) && "DRIVER".equals(applicantCapacity);
+		return "PARKING_PERMIT_RENEWAL".equals(type) && "DRIVER".equals(applicantCapacity);
 	}
 
 	@Override

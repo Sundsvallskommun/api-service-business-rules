@@ -1,6 +1,10 @@
-package se.sundsvall.businessrules.rule.impl.parkingpermit.citeria;
+package se.sundsvall.businessrules.rule.impl.parkingpermit.criteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.APPLICATION_APPLICANT_CAPACITY;
+import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.APPLICATION_RENEWAL_CHANGED_CIRCUMSTANCES;
+import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_DURATION;
+import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.TYPE;
 
 import java.util.List;
 
@@ -10,8 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import se.sundsvall.businessrules.api.model.Fact;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.DurationCriteria;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum;
 
 @ExtendWith(MockitoExtension.class)
 class DurationCriteriaTest {
@@ -24,9 +26,9 @@ class DurationCriteriaTest {
 
 		// Arrange
 		final var facts = List.of(
-			Fact.create().withKey(ParkingPermitFactKeyEnum.TYPE.getKey()).withValue("PARKING_PERMIT"),
-			Fact.create().withKey(ParkingPermitFactKeyEnum.APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
-			Fact.create().withKey(ParkingPermitFactKeyEnum.DISABILITY_DURATION.getKey()).withValue("P1Y"));
+			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT"),
+			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
+			Fact.create().withKey(DISABILITY_DURATION.getKey()).withValue("P1Y"));
 
 		// Act
 		final var result = criteria.evaluate(facts);
@@ -42,9 +44,9 @@ class DurationCriteriaTest {
 
 		// Arrange
 		final var facts = List.of(
-			Fact.create().withKey(ParkingPermitFactKeyEnum.TYPE.getKey()).withValue("PARKING_PERMIT"),
-			Fact.create().withKey(ParkingPermitFactKeyEnum.APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
-			Fact.create().withKey(ParkingPermitFactKeyEnum.DISABILITY_DURATION.getKey()).withValue("P6M"));
+			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT"),
+			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
+			Fact.create().withKey(DISABILITY_DURATION.getKey()).withValue("P6M"));
 
 		// Act
 		final var result = criteria.evaluate(facts);
@@ -60,10 +62,10 @@ class DurationCriteriaTest {
 
 		// Arrange
 		final var facts = List.of(
-			Fact.create().withKey(ParkingPermitFactKeyEnum.TYPE.getKey()).withValue("PARKING_PERMIT"),
-			Fact.create().withKey(ParkingPermitFactKeyEnum.APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
-			Fact.create().withKey(ParkingPermitFactKeyEnum.APPLICATION_RENEWAL_CHANGED_CIRCUMSTANCES.getKey()).withValue("true"),
-			Fact.create().withKey(ParkingPermitFactKeyEnum.DISABILITY_DURATION.getKey()).withValue("P1Y"));
+			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT"),
+			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
+			Fact.create().withKey(APPLICATION_RENEWAL_CHANGED_CIRCUMSTANCES.getKey()).withValue("true"),
+			Fact.create().withKey(DISABILITY_DURATION.getKey()).withValue("P1Y"));
 
 		// Act
 		final var result = criteria.evaluate(facts);
@@ -79,10 +81,10 @@ class DurationCriteriaTest {
 
 		// Arrange
 		final var facts = List.of(
-			Fact.create().withKey(ParkingPermitFactKeyEnum.TYPE.getKey()).withValue("PARKING_PERMIT"),
-			Fact.create().withKey(ParkingPermitFactKeyEnum.APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
-			Fact.create().withKey(ParkingPermitFactKeyEnum.APPLICATION_RENEWAL_CHANGED_CIRCUMSTANCES.getKey()).withValue("false"),
-			Fact.create().withKey(ParkingPermitFactKeyEnum.DISABILITY_DURATION.getKey()).withValue("P6M"));
+			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT"),
+			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
+			Fact.create().withKey(APPLICATION_RENEWAL_CHANGED_CIRCUMSTANCES.getKey()).withValue("false"),
+			Fact.create().withKey(DISABILITY_DURATION.getKey()).withValue("P6M"));
 
 		// Act
 		final var result = criteria.evaluate(facts);
@@ -98,10 +100,10 @@ class DurationCriteriaTest {
 
 		// Arrange
 		final var facts = List.of(
-			Fact.create().withKey(ParkingPermitFactKeyEnum.TYPE.getKey()).withValue("PARKING_PERMIT"),
-			Fact.create().withKey(ParkingPermitFactKeyEnum.APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
-			Fact.create().withKey(ParkingPermitFactKeyEnum.APPLICATION_RENEWAL_CHANGED_CIRCUMSTANCES.getKey()).withValue("true"),
-			Fact.create().withKey(ParkingPermitFactKeyEnum.DISABILITY_DURATION.getKey()).withValue("P6M"));
+			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT"),
+			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
+			Fact.create().withKey(APPLICATION_RENEWAL_CHANGED_CIRCUMSTANCES.getKey()).withValue("true"),
+			Fact.create().withKey(DISABILITY_DURATION.getKey()).withValue("P6M"));
 
 		// Act
 		final var result = criteria.evaluate(facts);

@@ -18,7 +18,7 @@ import se.sundsvall.businessrules.integration.citizenassets.configuration.Citize
 @FeignClient(name = CLIENT_ID, url = "${integration.citizenassets.url}", configuration = CitizenAssetsConfiguration.class)
 public interface CitizenAssetsClient {
 
-	String PARTY_ID_PARAMETER = "personId";
+	String PARTY_ID_PARAMETER = "partyId";
 	String ASSET_ID_PARAMETER = "assetId";
 	String TYPE_PARAMETER = "type";
 	String STATUS_PARAMETER = "status";

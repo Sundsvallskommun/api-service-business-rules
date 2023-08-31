@@ -1,11 +1,13 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.criteria;
 
-import static java.lang.Integer.parseInt;
 import static java.lang.String.format;
-import static org.apache.commons.lang3.BooleanUtils.toBoolean;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_WALKING_ABILITY;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_WALKING_DISTANCE_MAX;
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toFactMap;
+import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValidBooleanValue;
+import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValidNumericValue;
+import static se.sundsvall.businessrules.service.util.RuleEngineUtil.toBoolean;
+import static se.sundsvall.businessrules.service.util.RuleEngineUtil.toInt;
 
 import java.util.List;
 
@@ -39,10 +41,10 @@ public class DriverWalkingAbilityCriteria implements Criteria {
 		final var maxWalkingDistance = factMap.get(DISABILITY_WALKING_DISTANCE_MAX.getKey());
 
 		// Evaluation
-		if (walkingAbility.hasBooleanValue() && !toBoolean(walkingAbility.getValue())) {
+		if (hasValidBooleanValue(walkingAbility) && !toBoolean((walkingAbility))) {
 			return new CriteriaResult(true, WALKING_ABILITY_NONE, this);
 		}
-		if (maxWalkingDistance.hasNumericValue() && (parseInt(maxWalkingDistance.getValue()) <= MAXIMUM_WALKING_DISTANCE_FOR_APPROVAL)) {
+		if (hasValidNumericValue(maxWalkingDistance) && (toInt(maxWalkingDistance) <= MAXIMUM_WALKING_DISTANCE_FOR_APPROVAL)) {
 			return new CriteriaResult(true, WALKING_ABILITY_DONT_EXCEED_THRESHOLD_VALUE, this);
 		}
 
