@@ -51,14 +51,14 @@ public class NoActiveParkingPermitCriteria implements Criteria {
 		return new CriteriaResult(true, NO_ACTIVE_PARKING_PERMIT_EXISTS, this);
 	}
 
-	private boolean hasActiveParkingPermit(String personId) {
-		if (isBlank(personId)) {
+	private boolean hasActiveParkingPermit(String partyId) {
+		if (isBlank(partyId)) {
 			return false;
 		}
 
 		// Fetch all active parking-permits for this person.
 		final var activeParkingPermits = citizenAssetsClient.getAssets(Map.of(
-			PARTY_ID_PARAMETER, personId,
+			PARTY_ID_PARAMETER, partyId,
 			STATUS_PARAMETER, STATUS,
 			TYPE_PARAMETER, TYPE));
 

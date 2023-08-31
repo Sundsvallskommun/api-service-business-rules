@@ -1,11 +1,11 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.criteria;
 
-import static java.util.Objects.nonNull;
-import static org.apache.commons.lang3.BooleanUtils.toBoolean;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.DurationEnum.LESS_THAN_6_MONTHS;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.APPLICATION_RENEWAL_CHANGED_CIRCUMSTANCES;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_DURATION;
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toFactMap;
+import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValidBooleanValue;
+import static se.sundsvall.businessrules.service.util.RuleEngineUtil.toBoolean;
 
 import java.util.List;
 
@@ -38,8 +38,8 @@ public class DurationCriteria implements Criteria {
 		final var changedCircumstances = factMap.get(APPLICATION_RENEWAL_CHANGED_CIRCUMSTANCES.getKey());
 
 		// Parameter is only present when applying for renewal of permit.
-		if (nonNull(changedCircumstances) && changedCircumstances.hasBooleanValue()) {
-			return evaluateRenewalApplication(toBoolean(changedCircumstances.getValue()), disabilityDuration.getValue());
+		if (hasValidBooleanValue(changedCircumstances)) {
+			return evaluateRenewalApplication(toBoolean(changedCircumstances), disabilityDuration.getValue());
 		}
 		return evaluateNewApplication(disabilityDuration.getValue());
 	}
