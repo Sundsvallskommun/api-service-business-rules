@@ -4,7 +4,6 @@ import static generated.se.sundsvall.citizenassets.Status.ACTIVE;
 import static generated.se.sundsvall.citizenassets.Status.EXPIRED;
 import static java.time.LocalDate.MAX;
 import static java.time.LocalDate.now;
-import static java.util.Collections.emptyList;
 import static java.util.Optional.ofNullable;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.springframework.util.CollectionUtils.isEmpty;
@@ -36,7 +35,7 @@ public class ExpiringParkingPermitCriteria implements Criteria {
 
 	private static final String HAS_EXPIRING_PARKING_PERMITS = "den sökande har parkeringstillstånd som strax upphör eller redan har upphört";
 	private static final String HAS_NO_EXPIRING_PARKING_PERMITS = "den sökande har inga parkeringstillstånd som är på väg att upphöra eller redan har upphört";
-	static final int EXPIRATION_PERIOD_IN_MONTHS = 2;
+	private static final int EXPIRATION_PERIOD_IN_MONTHS = 2;
 
 	// CitizenAssets parameter constants.
 	private static final String TYPE = "PERMIT";
@@ -82,9 +81,12 @@ public class ExpiringParkingPermitCriteria implements Criteria {
 	}
 
 	private boolean activePermitAboutToExpire(List<Asset> parkingPermits) {
-		return ofNullable(parkingPermits).orElse(emptyList()).stream()
+		if (isEmpty(parkingPermits)) {
+			return false;
+		}
+		return parkingPermits.stream()
 			.filter(permit -> ACTIVE.equals(permit.getStatus()))
-			.anyMatch(ExpiringParkingPermitCriteria::withinExpirationRange);
+			.allMatch(ExpiringParkingPermitCriteria::withinExpirationRange);
 	}
 
 	private static boolean withinExpirationRange(Asset parkingPermit) {

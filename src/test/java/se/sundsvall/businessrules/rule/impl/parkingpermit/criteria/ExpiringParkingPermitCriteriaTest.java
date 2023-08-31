@@ -10,7 +10,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.PARTY_ID_PARAMETER;
 import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.TYPE_PARAMETER;
-import static se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.ExpiringParkingPermitCriteria.EXPIRATION_PERIOD_IN_MONTHS;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.APPLICATION_APPLICANT_CAPACITY;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.TYPE;
@@ -31,6 +30,8 @@ import se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient;
 
 @ExtendWith(MockitoExtension.class)
 class ExpiringParkingPermitCriteriaTest {
+
+	private static final int EXPIRATION_PERIOD_IN_MONTHS = 2;
 
 	@Mock
 	private CitizenAssetsClient citizenAssetsClientMock;

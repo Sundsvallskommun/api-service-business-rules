@@ -53,7 +53,7 @@ class RuleEngineUtilTest {
 			Arguments.of(Fact.create().withValue("true"), true),
 			Arguments.of(Fact.create().withValue("TRUE"), true),
 			Arguments.of(Fact.create().withValue("false"), true),
-			Arguments.of(Fact.create().withValue("false"), true),
+			Arguments.of(Fact.create().withValue("FALSE"), true),
 			Arguments.of(Fact.create().withValue(""), false),
 			Arguments.of(Fact.create().withValue("not-true"), false),
 			Arguments.of(Fact.create().withValue("yes"), false),
