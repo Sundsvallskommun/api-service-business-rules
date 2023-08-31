@@ -37,6 +37,6 @@ class DurationEnumTest {
 		Stream.of(DurationEnum.values()).forEach(item -> assertThat(DurationEnum.fromDuration(item.getDuration())).isEqualTo(item));
 
 		final var e = assertThrows(IllegalStateException.class, () -> DurationEnum.fromDuration("invalid-value"));
-		assertThat(e.getMessage()).isEqualTo("Unsupported duration value 'invalid-value'.");
+		assertThat(e.getMessage()).isEqualTo("Unsupported duration value 'invalid-value'!");
 	}
 }
