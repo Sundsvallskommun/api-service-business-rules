@@ -1,7 +1,6 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit;
 
 import static com.nimbusds.oauth2.sdk.util.CollectionUtils.isNotEmpty;
-import static java.util.Objects.isNull;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.APPLICATION_APPLICANT_CAPACITY;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_CAN_BE_ALONE_WHILE_PARKING;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_DURATION;
@@ -18,6 +17,7 @@ import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toValid
 import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValidBooleanValue;
 import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValidNumericValue;
 import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValidUUIDValue;
+import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValue;
 import static se.sundsvall.businessrules.service.util.RuleEngineUtil.toBoolean;
 
 import java.util.ArrayList;
@@ -82,7 +82,7 @@ public class PassengerNewParkingPermitRule implements ParkingPermitRule {
 		final var errorDescriptions = new ArrayList<String>();
 
 		// Duration must be present with valid value.
-		if (isNull(disabilityWalkingAbility) || !isValidDurationEnumValue(disabilityDuration.getValue())) {
+		if (!hasValue(disabilityWalkingAbility) || !isValidDurationEnumValue(disabilityDuration.getValue())) {
 			errorDescriptions.add(createErrorMessageForMissingFact(DISABILITY_DURATION));
 		}
 
