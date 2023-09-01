@@ -1,10 +1,8 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.criteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.APPLICATION_APPLICANT_CAPACITY;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.APPLICATION_RENEWAL_CHANGED_CIRCUMSTANCES;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_DURATION;
-import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.TYPE;
 
 import java.util.List;
 
@@ -26,13 +24,12 @@ class DurationCriteriaTest {
 
 		// Arrange
 		final var facts = List.of(
-			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT"),
-			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
 			Fact.create().withKey(DISABILITY_DURATION.getKey()).withValue("P1Y"));
 
 		// Act
 		final var result = criteria.evaluate(facts);
 
+		// Assert
 		assertThat(result).isNotNull();
 		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isTrue();
@@ -44,13 +41,12 @@ class DurationCriteriaTest {
 
 		// Arrange
 		final var facts = List.of(
-			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT"),
-			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
 			Fact.create().withKey(DISABILITY_DURATION.getKey()).withValue("P6M"));
 
 		// Act
 		final var result = criteria.evaluate(facts);
 
+		// Assert
 		assertThat(result).isNotNull();
 		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isFalse();
@@ -62,14 +58,13 @@ class DurationCriteriaTest {
 
 		// Arrange
 		final var facts = List.of(
-			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT"),
-			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
 			Fact.create().withKey(APPLICATION_RENEWAL_CHANGED_CIRCUMSTANCES.getKey()).withValue("true"),
 			Fact.create().withKey(DISABILITY_DURATION.getKey()).withValue("P1Y"));
 
 		// Act
 		final var result = criteria.evaluate(facts);
 
+		// Assert
 		assertThat(result).isNotNull();
 		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isTrue();
@@ -81,14 +76,13 @@ class DurationCriteriaTest {
 
 		// Arrange
 		final var facts = List.of(
-			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT"),
-			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
 			Fact.create().withKey(APPLICATION_RENEWAL_CHANGED_CIRCUMSTANCES.getKey()).withValue("false"),
 			Fact.create().withKey(DISABILITY_DURATION.getKey()).withValue("P6M"));
 
 		// Act
 		final var result = criteria.evaluate(facts);
 
+		// Assert
 		assertThat(result).isNotNull();
 		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isTrue();
@@ -100,14 +94,13 @@ class DurationCriteriaTest {
 
 		// Arrange
 		final var facts = List.of(
-			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT"),
-			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
 			Fact.create().withKey(APPLICATION_RENEWAL_CHANGED_CIRCUMSTANCES.getKey()).withValue("true"),
 			Fact.create().withKey(DISABILITY_DURATION.getKey()).withValue("P6M"));
 
 		// Act
 		final var result = criteria.evaluate(facts);
 
+		// Assert
 		assertThat(result).isNotNull();
 		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isFalse();

@@ -190,9 +190,7 @@ class DriverNewParkingPermitRuleTest {
 				.withDescription("Saknar giltigt värde för: 'disability.walkingAbility' (information om sökande har kapacitet att gå eller är rullstolsburen)"),
 			ResultDetail.create()
 				.withEvaluationValue(false)
-				.withDescription("Saknar giltigt värde för: 'stakeholders.applicant.personid' (personid för sökande person)")
-
-		));
+				.withDescription("Saknar giltigt värde för: 'stakeholders.applicant.personid' (personid för sökande person)")));
 
 		verifyNoInteractions(criteriaEvaluatorSpy);
 		verifyNoInteractions(citizenAssetsClientMock);

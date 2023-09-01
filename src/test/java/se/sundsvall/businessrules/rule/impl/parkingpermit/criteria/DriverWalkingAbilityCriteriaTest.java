@@ -1,10 +1,8 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.criteria;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.APPLICATION_APPLICANT_CAPACITY;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_WALKING_ABILITY;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_WALKING_DISTANCE_MAX;
-import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.TYPE;
 
 import java.util.List;
 
@@ -26,14 +24,13 @@ class DriverWalkingAbilityCriteriaTest {
 
 		// Arrange
 		final var facts = List.of(
-			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT"),
-			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
 			Fact.create().withKey(DISABILITY_WALKING_ABILITY.getKey()).withValue("true"),
 			Fact.create().withKey(DISABILITY_WALKING_DISTANCE_MAX.getKey()).withValue("499"));
 
 		// Act
 		final var result = criteria.evaluate(facts);
 
+		// Assert
 		assertThat(result).isNotNull();
 		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isTrue();
@@ -45,14 +42,13 @@ class DriverWalkingAbilityCriteriaTest {
 
 		// Arrange
 		final var facts = List.of(
-			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT"),
-			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
 			Fact.create().withKey(DISABILITY_WALKING_ABILITY.getKey()).withValue("false"),
 			Fact.create().withKey(DISABILITY_WALKING_DISTANCE_MAX.getKey()).withValue("0"));
 
 		// Act
 		final var result = criteria.evaluate(facts);
 
+		// Assert
 		assertThat(result).isNotNull();
 		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isTrue();
@@ -64,14 +60,13 @@ class DriverWalkingAbilityCriteriaTest {
 
 		// Arrange
 		final var facts = List.of(
-			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT"),
-			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
 			Fact.create().withKey(DISABILITY_WALKING_ABILITY.getKey()).withValue("true"),
 			Fact.create().withKey(DISABILITY_WALKING_DISTANCE_MAX.getKey()).withValue("501"));
 
 		// Act
 		final var result = criteria.evaluate(facts);
 
+		// Assert
 		assertThat(result).isNotNull();
 		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isFalse();

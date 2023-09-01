@@ -10,9 +10,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.PARTY_ID_PARAMETER;
 import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.TYPE_PARAMETER;
-import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.APPLICATION_APPLICANT_CAPACITY;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
-import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.TYPE;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -45,8 +43,6 @@ class ExpiringParkingPermitCriteriaTest {
 		// Arrange
 		final var partyId = randomUUID().toString();
 		final var facts = List.of(
-			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT_RENEWAL"),
-			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
 		when(citizenAssetsClientMock.getAssets(any())).thenReturn(List.of(
@@ -57,6 +53,7 @@ class ExpiringParkingPermitCriteriaTest {
 		// Act
 		final var result = criteria.evaluate(facts);
 
+		// Assert
 		assertThat(result).isNotNull();
 		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isTrue();
@@ -73,8 +70,6 @@ class ExpiringParkingPermitCriteriaTest {
 		// Arrange
 		final var partyId = randomUUID().toString();
 		final var facts = List.of(
-			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT_RENEWAL"),
-			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
 		when(citizenAssetsClientMock.getAssets(any())).thenReturn(List.of(
@@ -85,6 +80,7 @@ class ExpiringParkingPermitCriteriaTest {
 		// Act
 		final var result = criteria.evaluate(facts);
 
+		// Assert
 		assertThat(result).isNotNull();
 		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isTrue();
@@ -101,8 +97,6 @@ class ExpiringParkingPermitCriteriaTest {
 		// Arrange
 		final var partyId = randomUUID().toString();
 		final var facts = List.of(
-			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT_RENEWAL"),
-			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
 		when(citizenAssetsClientMock.getAssets(any())).thenReturn(emptyList());
@@ -110,6 +104,7 @@ class ExpiringParkingPermitCriteriaTest {
 		// Act
 		final var result = criteria.evaluate(facts);
 
+		// Assert
 		assertThat(result).isNotNull();
 		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isFalse();
@@ -126,8 +121,6 @@ class ExpiringParkingPermitCriteriaTest {
 		// Arrange
 		final var partyId = randomUUID().toString();
 		final var facts = List.of(
-			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT_RENEWAL"),
-			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
 		when(citizenAssetsClientMock.getAssets(any())).thenReturn(List.of(
@@ -136,6 +129,7 @@ class ExpiringParkingPermitCriteriaTest {
 		// Act
 		final var result = criteria.evaluate(facts);
 
+		// Assert
 		assertThat(result).isNotNull();
 		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isFalse();
@@ -152,8 +146,6 @@ class ExpiringParkingPermitCriteriaTest {
 		// Arrange
 		final var partyId = randomUUID().toString();
 		final var facts = List.of(
-			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT_RENEWAL"),
-			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
 		when(citizenAssetsClientMock.getAssets(any())).thenReturn(List.of(
@@ -162,6 +154,7 @@ class ExpiringParkingPermitCriteriaTest {
 		// Act
 		final var result = criteria.evaluate(facts);
 
+		// Assert
 		assertThat(result).isNotNull();
 		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isFalse();
