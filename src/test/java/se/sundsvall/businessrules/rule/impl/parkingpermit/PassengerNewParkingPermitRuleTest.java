@@ -12,6 +12,7 @@ import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssets
 import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.STATUS_PARAMETER;
 import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.TYPE_PARAMETER;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.APPLICATION_APPLICANT_CAPACITY;
+import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_CAN_BE_ALONE_WHILE_PARKING;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_DURATION;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_WALKING_ABILITY;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_WALKING_DISTANCE_MAX;
@@ -34,14 +35,15 @@ import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.api.model.ResultDetail;
 import se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient;
 import se.sundsvall.businessrules.rule.CriteriaEvaluator;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.DriverWalkingAbilityCriteria;
 import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.DurationCriteria;
 import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.NoActiveParkingPermitCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.PassengerCanBeAloneWhileParkingCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.PassengerWalkingAbilityCriteria;
 import se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum;
 
 @SpringBootTest(classes = Application.class, webEnvironment = MOCK)
 @ActiveProfiles("junit")
-class DriverNewParkingPermitRuleTest {
+class PassengerNewParkingPermitRuleTest {
 
 	@MockBean
 	private CitizenAssetsClient citizenAssetsClientMock;
@@ -50,12 +52,13 @@ class DriverNewParkingPermitRuleTest {
 	private CriteriaEvaluator criteriaEvaluatorSpy;
 
 	@Autowired
-	private DriverNewParkingPermitRule rule;
+	private PassengerNewParkingPermitRule rule;
 
 	@Test
 	void getCriteria() {
-		assertThat(rule.getCriteria()).containsExactly(
-			DriverWalkingAbilityCriteria.class,
+		assertThat(rule.getCriteria()).containsExactlyInAnyOrder(
+			PassengerCanBeAloneWhileParkingCriteria.class,
+			PassengerWalkingAbilityCriteria.class,
 			DurationCriteria.class,
 			NoActiveParkingPermitCriteria.class);
 	}
@@ -66,7 +69,7 @@ class DriverNewParkingPermitRuleTest {
 		// Arrange
 		final var facts = List.of(
 			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT"),
-			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"));
+			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("PASSENGER"));
 
 		// Act
 		final var result = rule.isApplicable(facts);
@@ -81,7 +84,7 @@ class DriverNewParkingPermitRuleTest {
 		// Arrange
 		final var facts = List.of(
 			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT"),
-			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("PASSENGER")); // Not valid for this rule.
+			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER")); // Not valid for this rule.
 
 		// Act
 		final var result = rule.isApplicable(facts);
@@ -97,10 +100,11 @@ class DriverNewParkingPermitRuleTest {
 		final var partyId = randomUUID().toString();
 		final var facts = List.of(
 			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT"),
-			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
+			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("PASSENGER"),
 			Fact.create().withKey(DISABILITY_DURATION.getKey()).withValue("P1Y"),
+			Fact.create().withKey(DISABILITY_CAN_BE_ALONE_WHILE_PARKING.getKey()).withValue("false"),
 			Fact.create().withKey(DISABILITY_WALKING_ABILITY.getKey()).withValue("true"),
-			Fact.create().withKey(DISABILITY_WALKING_DISTANCE_MAX.getKey()).withValue("499"),
+			Fact.create().withKey(DISABILITY_WALKING_DISTANCE_MAX.getKey()).withValue("99"),
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
 		// Act
@@ -108,13 +112,17 @@ class DriverNewParkingPermitRuleTest {
 
 		// Assert
 		assertThat(result).isNotNull();
-		assertThat(result.getRule()).isEqualTo("DRIVER_NEW_PARKING_PERMIT_RULE");
+		assertThat(result.getRule()).isEqualTo("PASSENGER_NEW_PARKING_PERMIT_RULE");
 		assertThat(result.getValue()).isEqualTo(PASS);
-		assertThat(result.getDetails()).isEqualTo(List.of(
+		assertThat(result.getDetails()).containsExactlyInAnyOrderElementsOf(List.of(
 			ResultDetail.create()
 				.withEvaluationValue(true)
-				.withOrigin("DRIVER_WALKING_ABILITY_CRITERIA")
-				.withDescription("den sökande kan inte gå längre än 500 meter"),
+				.withOrigin("PASSENGER_CAN_BE_ALONE_WHILE_PARKING_CRITERIA")
+				.withDescription("den sökande kan inte lämnas ensam en kort stund vid parkering"),
+			ResultDetail.create()
+				.withEvaluationValue(true)
+				.withOrigin("PASSENGER_WALKING_ABILITY_CRITERIA")
+				.withDescription("den sökande kan inte gå längre än 100 meter"),
 			ResultDetail.create()
 				.withEvaluationValue(true)
 				.withOrigin("DURATION_CRITERIA")
@@ -135,10 +143,11 @@ class DriverNewParkingPermitRuleTest {
 		final var partyId = randomUUID().toString();
 		final var facts = List.of(
 			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT"),
-			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
+			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("PASSENGER"),
 			Fact.create().withKey(DISABILITY_DURATION.getKey()).withValue("P6M"), // Will make the evaluation fail.
+			Fact.create().withKey(DISABILITY_CAN_BE_ALONE_WHILE_PARKING.getKey()).withValue("false"),
 			Fact.create().withKey(DISABILITY_WALKING_ABILITY.getKey()).withValue("true"),
-			Fact.create().withKey(DISABILITY_WALKING_DISTANCE_MAX.getKey()).withValue("499"),
+			Fact.create().withKey(DISABILITY_WALKING_DISTANCE_MAX.getKey()).withValue("99"),
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
 		// Act
@@ -146,13 +155,17 @@ class DriverNewParkingPermitRuleTest {
 
 		// Assert
 		assertThat(result).isNotNull();
-		assertThat(result.getRule()).isEqualTo("DRIVER_NEW_PARKING_PERMIT_RULE");
+		assertThat(result.getRule()).isEqualTo("PASSENGER_NEW_PARKING_PERMIT_RULE");
 		assertThat(result.getValue()).isEqualTo(FAIL);
-		assertThat(result.getDetails()).isEqualTo(List.of(
+		assertThat(result.getDetails()).containsExactlyInAnyOrderElementsOf(List.of(
 			ResultDetail.create()
 				.withEvaluationValue(true)
-				.withOrigin("DRIVER_WALKING_ABILITY_CRITERIA")
-				.withDescription("den sökande kan inte gå längre än 500 meter"),
+				.withOrigin("PASSENGER_CAN_BE_ALONE_WHILE_PARKING_CRITERIA")
+				.withDescription("den sökande kan inte lämnas ensam en kort stund vid parkering"),
+			ResultDetail.create()
+				.withEvaluationValue(true)
+				.withOrigin("PASSENGER_WALKING_ABILITY_CRITERIA")
+				.withDescription("den sökande kan inte gå längre än 100 meter"),
 			ResultDetail.create()
 				.withEvaluationValue(false)
 				.withOrigin("DURATION_CRITERIA")
@@ -172,16 +185,19 @@ class DriverNewParkingPermitRuleTest {
 		// Arrange
 		final var facts = List.of(
 			Fact.create().withKey(ParkingPermitFactKeyEnum.TYPE.getKey()).withValue("PARKING_PERMIT"),
-			Fact.create().withKey(ParkingPermitFactKeyEnum.APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"));
+			Fact.create().withKey(ParkingPermitFactKeyEnum.APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("PASSENGER"));
 
 		// Act
 		final var result = rule.evaluate(facts);
 
 		// Assert
 		assertThat(result).isNotNull();
-		assertThat(result.getRule()).isEqualTo("DRIVER_NEW_PARKING_PERMIT_RULE");
+		assertThat(result.getRule()).isEqualTo("PASSENGER_NEW_PARKING_PERMIT_RULE");
 		assertThat(result.getValue()).isEqualTo(VALIDATION_ERROR);
-		assertThat(result.getDetails()).isEqualTo(List.of(
+		assertThat(result.getDetails()).containsExactlyInAnyOrderElementsOf(List.of(
+			ResultDetail.create()
+				.withEvaluationValue(false)
+				.withDescription("Saknar giltigt värde för: 'disability.canBeAloneWhileParking' (upplysning ifall den sökande kan lämnas ensam eller ej under tiden bilen parkeras)"),
 			ResultDetail.create()
 				.withEvaluationValue(false)
 				.withDescription("Saknar giltigt värde för: 'disability.duration' (funktionsnedsättningens varaktighet)"),
@@ -204,10 +220,11 @@ class DriverNewParkingPermitRuleTest {
 		// Arrange
 		final var facts = List.of(
 			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT"),
-			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
+			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("PASSENGER"),
 			Fact.create().withKey(DISABILITY_DURATION.getKey()).withValue("P1Y"),
+			Fact.create().withKey(DISABILITY_CAN_BE_ALONE_WHILE_PARKING.getKey()).withValue("false"),
 			Fact.create().withKey(DISABILITY_WALKING_ABILITY.getKey()).withValue("true"),
-			Fact.create().withKey(DISABILITY_WALKING_DISTANCE_MAX.getKey()).withValue("499"),
+			Fact.create().withKey(DISABILITY_WALKING_DISTANCE_MAX.getKey()).withValue("99"),
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue("invalid-uuid")); // Will make validation fail.
 
 		// Act
@@ -215,7 +232,7 @@ class DriverNewParkingPermitRuleTest {
 
 		// Assert
 		assertThat(result).isNotNull();
-		assertThat(result.getRule()).isEqualTo("DRIVER_NEW_PARKING_PERMIT_RULE");
+		assertThat(result.getRule()).isEqualTo("PASSENGER_NEW_PARKING_PERMIT_RULE");
 		assertThat(result.getValue()).isEqualTo(VALIDATION_ERROR);
 		assertThat(result.getDetails()).isEqualTo(List.of(
 			ResultDetail.create()
@@ -229,13 +246,43 @@ class DriverNewParkingPermitRuleTest {
 	}
 
 	@Test
+	void evaluateFailureDueToMissingCanBeAloneWhileParking() {
+
+		// Arrange
+		final var facts = List.of(
+			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT"),
+			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("PASSENGER"),
+			Fact.create().withKey(DISABILITY_DURATION.getKey()).withValue("P1Y"),
+			Fact.create().withKey(DISABILITY_WALKING_ABILITY.getKey()).withValue("true"),
+			Fact.create().withKey(DISABILITY_WALKING_DISTANCE_MAX.getKey()).withValue("99"),
+			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(UUID.randomUUID().toString()));
+
+		// Act
+		final var result = rule.evaluate(facts);
+
+		// Assert
+		assertThat(result).isNotNull();
+		assertThat(result.getRule()).isEqualTo("PASSENGER_NEW_PARKING_PERMIT_RULE");
+		assertThat(result.getValue()).isEqualTo(VALIDATION_ERROR);
+		assertThat(result.getDetails()).isEqualTo(List.of(
+			ResultDetail.create()
+				.withEvaluationValue(false)
+				.withDescription("Saknar giltigt värde för: 'disability.canBeAloneWhileParking' (upplysning ifall den sökande kan lämnas ensam eller ej under tiden bilen parkeras)")
+		));
+
+		verifyNoInteractions(criteriaEvaluatorSpy);
+		verifyNoInteractions(citizenAssetsClientMock);
+	}
+
+	@Test
 	void evaluateFailureDueToMissingWalkingDistanceMax() {
 
 		// Arrange
 		final var facts = List.of(
 			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT"),
-			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
+			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("PASSENGER"),
 			Fact.create().withKey(DISABILITY_DURATION.getKey()).withValue("P1Y"),
+			Fact.create().withKey(DISABILITY_CAN_BE_ALONE_WHILE_PARKING.getKey()).withValue("false"),
 			Fact.create().withKey(DISABILITY_WALKING_ABILITY.getKey()).withValue("true"),
 			Fact.create().withKey(DISABILITY_WALKING_DISTANCE_MAX.getKey()).withValue(null), // Will make validation fail. Must be present when walkingAbility is true.
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(UUID.randomUUID().toString()));
@@ -245,7 +292,7 @@ class DriverNewParkingPermitRuleTest {
 
 		// Assert
 		assertThat(result).isNotNull();
-		assertThat(result.getRule()).isEqualTo("DRIVER_NEW_PARKING_PERMIT_RULE");
+		assertThat(result.getRule()).isEqualTo("PASSENGER_NEW_PARKING_PERMIT_RULE");
 		assertThat(result.getValue()).isEqualTo(VALIDATION_ERROR);
 		assertThat(result.getDetails()).isEqualTo(List.of(
 			ResultDetail.create()
@@ -264,8 +311,9 @@ class DriverNewParkingPermitRuleTest {
 		// Arrange
 		final var facts = List.of(
 			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT"),
-			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"),
+			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("PASSENGER"),
 			Fact.create().withKey(DISABILITY_DURATION.getKey()).withValue("P1Y"),
+			Fact.create().withKey(DISABILITY_CAN_BE_ALONE_WHILE_PARKING.getKey()).withValue("false"),
 			Fact.create().withKey(DISABILITY_WALKING_ABILITY.getKey()).withValue("true"),
 			Fact.create().withKey(DISABILITY_WALKING_DISTANCE_MAX.getKey()).withValue("non-numeric"), // Will make validation fail. Must be numeric value when walkingAbility is true.
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(UUID.randomUUID().toString()));
@@ -275,7 +323,7 @@ class DriverNewParkingPermitRuleTest {
 
 		// Assert
 		assertThat(result).isNotNull();
-		assertThat(result.getRule()).isEqualTo("DRIVER_NEW_PARKING_PERMIT_RULE");
+		assertThat(result.getRule()).isEqualTo("PASSENGER_NEW_PARKING_PERMIT_RULE");
 		assertThat(result.getValue()).isEqualTo(VALIDATION_ERROR);
 		assertThat(result.getDetails()).isEqualTo(List.of(
 			ResultDetail.create()
