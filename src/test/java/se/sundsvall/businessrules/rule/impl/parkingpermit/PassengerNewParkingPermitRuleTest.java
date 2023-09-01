@@ -30,6 +30,10 @@ import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.api.model.ResultDetail;
 import se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient;
 import se.sundsvall.businessrules.rule.CriteriaEvaluator;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.DurationCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.NoActiveParkingPermitCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.PassengerCanBeAloneWhileParkingCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.PassengerWalkingAbilityCriteria;
 import se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum;
 
 @SpringBootTest(classes = Application.class, webEnvironment = MOCK)
@@ -44,6 +48,15 @@ class PassengerNewParkingPermitRuleTest {
 
 	@Autowired
 	private PassengerNewParkingPermitRule rule;
+
+	@Test
+	void getCriteria() {
+		assertThat(rule.getCriteria()).containsExactlyInAnyOrder(
+			PassengerCanBeAloneWhileParkingCriteria.class,
+			PassengerWalkingAbilityCriteria.class,
+			DurationCriteria.class,
+			NoActiveParkingPermitCriteria.class);
+	}
 
 	@Test
 	void isApplicableIsTrue() {
@@ -79,7 +92,7 @@ class PassengerNewParkingPermitRuleTest {
 	void evaluateSuccess() {
 
 		// Arrange
-		final var personId = randomUUID().toString();
+		final var partyId = randomUUID().toString();
 		final var facts = List.of(
 			Fact.create().withKey(ParkingPermitFactKeyEnum.TYPE.getKey()).withValue("PARKING_PERMIT"),
 			Fact.create().withKey(ParkingPermitFactKeyEnum.APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("PASSENGER"),
@@ -87,7 +100,7 @@ class PassengerNewParkingPermitRuleTest {
 			Fact.create().withKey(ParkingPermitFactKeyEnum.DISABILITY_CAN_BE_ALONE_WHILE_PARKING.getKey()).withValue("false"),
 			Fact.create().withKey(ParkingPermitFactKeyEnum.DISABILITY_WALKING_ABILITY.getKey()).withValue("true"),
 			Fact.create().withKey(ParkingPermitFactKeyEnum.DISABILITY_WALKING_DISTANCE_MAX.getKey()).withValue("99"),
-			Fact.create().withKey(ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(personId));
+			Fact.create().withKey(ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
 		// Act
 		final var result = rule.evaluate(facts);
@@ -115,14 +128,14 @@ class PassengerNewParkingPermitRuleTest {
 				.withDescription("den sökande har inga aktiva parkeringstillstånd")));
 
 		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, facts);
-		verify(citizenAssetsClientMock).getAssets(Map.of(PARTY_ID_PARAMETER, personId, STATUS_PARAMETER, "ACTIVE", TYPE_PARAMETER, "PERMIT"));
+		verify(citizenAssetsClientMock).getAssets(Map.of(PARTY_ID_PARAMETER, partyId, STATUS_PARAMETER, "ACTIVE", TYPE_PARAMETER, "PERMIT"));
 	}
 
 	@Test
 	void evaluateFailureDueToFailedCriteria() {
 
 		// Arrange
-		final var personId = randomUUID().toString();
+		final var partyId = randomUUID().toString();
 		final var facts = List.of(
 			Fact.create().withKey(ParkingPermitFactKeyEnum.TYPE.getKey()).withValue("PARKING_PERMIT"),
 			Fact.create().withKey(ParkingPermitFactKeyEnum.APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("PASSENGER"),
@@ -130,7 +143,7 @@ class PassengerNewParkingPermitRuleTest {
 			Fact.create().withKey(ParkingPermitFactKeyEnum.DISABILITY_CAN_BE_ALONE_WHILE_PARKING.getKey()).withValue("false"),
 			Fact.create().withKey(ParkingPermitFactKeyEnum.DISABILITY_WALKING_ABILITY.getKey()).withValue("true"),
 			Fact.create().withKey(ParkingPermitFactKeyEnum.DISABILITY_WALKING_DISTANCE_MAX.getKey()).withValue("99"),
-			Fact.create().withKey(ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(personId));
+			Fact.create().withKey(ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
 		// Act
 		final var result = rule.evaluate(facts);
@@ -158,7 +171,7 @@ class PassengerNewParkingPermitRuleTest {
 				.withDescription("den sökande har inga aktiva parkeringstillstånd")));
 
 		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, facts);
-		verify(citizenAssetsClientMock).getAssets(Map.of(PARTY_ID_PARAMETER, personId, STATUS_PARAMETER, "ACTIVE", TYPE_PARAMETER, "PERMIT"));
+		verify(citizenAssetsClientMock).getAssets(Map.of(PARTY_ID_PARAMETER, partyId, STATUS_PARAMETER, "ACTIVE", TYPE_PARAMETER, "PERMIT"));
 	}
 
 	@Test
@@ -197,7 +210,7 @@ class PassengerNewParkingPermitRuleTest {
 	}
 
 	@Test
-	void evaluateFailureDueToInvalidPersonId() {
+	void evaluateFailureDueToInvalidPartyId() {
 
 		// Arrange
 		final var facts = List.of(
