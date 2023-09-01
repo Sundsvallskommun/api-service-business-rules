@@ -41,4 +41,8 @@ public class RuleEngineUtil {
 	public static boolean toBoolean(Fact fact) {
 		return nonNull(fact) && Boolean.parseBoolean(fact.getValue());
 	}
+
+	public static boolean matches(Fact fact, String reqExp) {
+		return nonNull(fact) && nonNull(fact.getValue()) && nonNull(reqExp) && fact.getValue().matches(reqExp);
+	}
 }

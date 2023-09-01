@@ -1,6 +1,6 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.criteria;
 
-import static generated.se.sundsvall.citizenassets.Status.ACTIVE;
+import static generated.se.sundsvall.citizenassets.Status.BLOCKED;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.PARTY_ID_PARAMETER;
@@ -21,19 +21,19 @@ import se.sundsvall.businessrules.rule.Criteria;
 import se.sundsvall.businessrules.rule.CriteriaResult;
 
 /**
- * Criteria for no other active parking permits.
+ * Criteria for recurring losses.
  *
  * Inputs:
  * stakeholders.applicant.personid
  */
 @Component
-public class NoActiveParkingPermitCriteria implements Criteria {
+public class RecurringLossesCriteria implements Criteria {
 
-	private static final String NO_ACTIVE_PARKING_PERMIT_EXISTS = "den sökande har inga aktiva parkeringstillstånd";
-	private static final String ACTIVE_PARKING_PERMIT_EXISTS = "den sökande har redan ett aktivt parkeringstillstånd";
+	private static final String FIRST_TIME_OCCURRENCE = "det finns inga tidigare förlustanmälningar";
+	private static final String RECURRING_LOSSES = "det finns tidigare förlustanmälningar";
 
 	// CitizenAssets parameter constants.
-	private static final String STATUS = ACTIVE.toString();
+	private static final String STATUS = BLOCKED.toString();
 	private static final String TYPE = "PERMIT";
 
 	@Autowired
@@ -46,23 +46,25 @@ public class NoActiveParkingPermitCriteria implements Criteria {
 		final var factMap = toFactMap(facts);
 		final var stakeHoldersApplicantPersonId = factMap.get(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey());
 
-		if (hasActiveParkingPermit(stakeHoldersApplicantPersonId.getValue())) {
-			return new CriteriaResult(false, ACTIVE_PARKING_PERMIT_EXISTS, this);
+		if (hasRecuringLosses(stakeHoldersApplicantPersonId.getValue())) {
+			return new CriteriaResult(false, RECURRING_LOSSES, this);
 		}
-		return new CriteriaResult(true, NO_ACTIVE_PARKING_PERMIT_EXISTS, this);
+
+		return new CriteriaResult(true, FIRST_TIME_OCCURRENCE, this);
 	}
 
-	private boolean hasActiveParkingPermit(String partyId) {
+	private boolean hasRecuringLosses(String partyId) {
 		if (isBlank(partyId)) {
 			return false;
 		}
 
-		// Fetch all active parking-permits for this person.
-		final var activeParkingPermits = citizenAssetsClient.getAssets(Map.of(
+		// Fetch all blocked parking-permits for this person.
+		final var blockedParkingPermits = citizenAssetsClient.getAssets(Map.of(
+			// TODO: Add status-reason parameter when available.
 			PARTY_ID_PARAMETER, partyId,
 			STATUS_PARAMETER, STATUS,
 			TYPE_PARAMETER, TYPE));
 
-		return isNotEmpty(activeParkingPermits);
+		return isNotEmpty(blockedParkingPermits);
 	}
 }

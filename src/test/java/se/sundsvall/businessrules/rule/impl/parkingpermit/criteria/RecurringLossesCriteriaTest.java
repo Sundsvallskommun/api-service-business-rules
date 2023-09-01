@@ -25,13 +25,13 @@ import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient;
 
 @ExtendWith(MockitoExtension.class)
-class NoActiveParkingPermitCriteriaTest {
+class RecurringLossesCriteriaTest {
 
 	@Mock
 	private CitizenAssetsClient citizenAssetsClientMock;
 
 	@InjectMocks
-	private NoActiveParkingPermitCriteria criteria;
+	private RecurringLossesCriteria criteria;
 
 	@Test
 	void evaluateSuccess() {
@@ -50,11 +50,11 @@ class NoActiveParkingPermitCriteriaTest {
 		assertThat(result).isNotNull();
 		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isTrue();
-		assertThat(result.description()).isEqualTo("den sökande har inga aktiva parkeringstillstånd");
+		assertThat(result.description()).isEqualTo("det finns inga tidigare förlustanmälningar");
 
 		verify(citizenAssetsClientMock).getAssets(Map.of(
 			PARTY_ID_PARAMETER, partyId,
-			STATUS_PARAMETER, "ACTIVE",
+			STATUS_PARAMETER, "BLOCKED",
 			TYPE_PARAMETER, "PERMIT"));
 	}
 
@@ -75,11 +75,11 @@ class NoActiveParkingPermitCriteriaTest {
 		assertThat(result).isNotNull();
 		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isFalse();
-		assertThat(result.description()).isEqualTo("den sökande har redan ett aktivt parkeringstillstånd");
+		assertThat(result.description()).isEqualTo("det finns tidigare förlustanmälningar");
 
 		verify(citizenAssetsClientMock).getAssets(Map.of(
 			PARTY_ID_PARAMETER, partyId,
-			STATUS_PARAMETER, "ACTIVE",
+			STATUS_PARAMETER, "BLOCKED",
 			TYPE_PARAMETER, "PERMIT"));
 	}
 }
