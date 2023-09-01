@@ -15,8 +15,8 @@ public class Result {
 	@Schema(description = "The name of the rule that generated the result", example = "The almighty business rule")
 	private String rule;
 
-	@Schema(description = "Rule result description", example = "Failed because of reasons")
-	private List<String> descriptions;
+	@Schema(description = "Rule result details")
+	private List<ResultDetail> details;
 
 	public static Result create() {
 		return new Result();
@@ -48,35 +48,35 @@ public class Result {
 		return this;
 	}
 
-	public List<String> getDescriptions() {
-		return descriptions;
+	public List<ResultDetail> getDetails() {
+		return details;
 	}
 
-	public void setDescriptions(List<String> descriptions) {
-		this.descriptions = descriptions;
+	public void setDetails(List<ResultDetail> details) {
+		this.details = details;
 	}
 
-	public Result withDescriptions(List<String> descriptions) {
-		this.descriptions = descriptions;
+	public Result withDetails(List<ResultDetail> details) {
+		this.details = details;
 		return this;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(descriptions, rule, value);
+		return Objects.hash(details, rule, value);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) { return true; }
 		if (!(obj instanceof final Result other)) { return false; }
-		return Objects.equals(descriptions, other.descriptions) && Objects.equals(rule, other.rule) && (value == other.value);
+		return Objects.equals(details, other.details) && Objects.equals(rule, other.rule) && (value == other.value);
 	}
 
 	@Override
 	public String toString() {
 		final StringBuilder builder = new StringBuilder();
-		builder.append("Result [value=").append(value).append(", rule=").append(rule).append(", descriptions=").append(descriptions).append("]");
+		builder.append("Result [value=").append(value).append(", rule=").append(rule).append(", details=").append(details).append("]");
 		return builder.toString();
 	}
 }

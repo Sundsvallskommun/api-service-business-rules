@@ -12,10 +12,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.api.model.Result;
+import se.sundsvall.businessrules.api.model.ResultDetail;
 import se.sundsvall.businessrules.api.model.RuleEngineResponse;
 import se.sundsvall.businessrules.rule.CriteriaResult;
 import se.sundsvall.businessrules.rule.Rule;
@@ -26,12 +28,24 @@ public class RuleEngineMapper {
 	private RuleEngineMapper() {}
 
 	/**
-	 * Convert a List of facts to a Map.
+	 * Convert a List of facts to a Map of facts.
 	 *
 	 * @param  facts the fact List
 	 * @return       a map of facts.
 	 */
-	public static Map<String, String> toMap(List<Fact> facts) {
+	public static Map<String, Fact> toFactMap(List<Fact> facts) {
+		return Optional.ofNullable(facts).orElse(emptyList()).stream()
+			.filter(fact -> nonNull(fact.getKey()))
+			.collect(Collectors.toMap(Fact::getKey, Function.identity()));
+	}
+
+	/**
+	 * Convert a List of facts to a Map of Strings.
+	 *
+	 * @param  facts the fact List
+	 * @return       a map of facts.
+	 */
+	public static Map<String, String> toStringMap(List<Fact> facts) {
 		return Optional.ofNullable(facts).orElse(emptyList()).stream()
 			.filter(fact -> nonNull(fact.getKey()))
 			.collect(Collectors.toMap(Fact::getKey, Fact::getValue));
@@ -46,8 +60,11 @@ public class RuleEngineMapper {
 	 */
 	public static Result toResult(Rule rule, List<CriteriaResult> criteriaResults) {
 		return Result.create()
-			.withDescriptions(Optional.ofNullable(criteriaResults).orElse(emptyList()).stream()
-				.map(CriteriaResult::description)
+			.withDetails(Optional.ofNullable(criteriaResults).orElse(emptyList()).stream()
+				.map(criteriaResult -> ResultDetail.create()
+					.withOrigin(nonNull(criteriaResult.criteria()) ? criteriaResult.criteria().getName() : null)
+					.withDescription(criteriaResult.description())
+					.withEvaluationValue(criteriaResult.value()))
 				.toList())
 			.withRule(rule.getName())
 			.withValue(allPass(criteriaResults) ? PASS : FAIL);
@@ -74,7 +91,9 @@ public class RuleEngineMapper {
 
 	public static Result toValidationErrorResult(Rule rule, List<String> errorDescriptions) {
 		return Result.create()
-			.withDescriptions(errorDescriptions)
+			.withDetails(Optional.ofNullable(errorDescriptions).orElse(emptyList()).stream()
+				.map(description -> ResultDetail.create().withDescription(description))
+				.toList())
 			.withRule(rule.getName())
 			.withValue(VALIDATION_ERROR);
 	}

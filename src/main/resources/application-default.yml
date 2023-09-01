@@ -1,0 +1,5 @@
+config:
+  integration:
+    citizenassets:
+      connectTimeout: 10
+      readTimeout: 20

@@ -1,0 +1,12 @@
+#===============================================================================
+# TEST SPECIFIC SETTINGS (junit-tests)
+#===============================================================================
+config:
+  integration:
+    citizenassets:
+      url: http://citizenAssetsUrl
+      token-url: http://tokenUrl
+      client-id: the-client-id
+      client-secret: the-client-secret
+      connectTimeout: 10
+      readTimeout: 20
