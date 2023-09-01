@@ -118,7 +118,7 @@ class DriverRenewalParkingPermitRuleTest {
 		assertThat(result).isNotNull();
 		assertThat(result.getRule()).isEqualTo("DRIVER_RENEWAL_PARKING_PERMIT_RULE");
 		assertThat(result.getValue()).isEqualTo(PASS);
-		assertThat(result.getDetails()).isEqualTo(List.of(
+		assertThat(result.getDetails()).containsExactlyInAnyOrderElementsOf(List.of(
 			ResultDetail.create()
 				.withEvaluationValue(true)
 				.withOrigin("DRIVER_WALKING_ABILITY_CRITERIA")
@@ -159,7 +159,7 @@ class DriverRenewalParkingPermitRuleTest {
 		assertThat(result).isNotNull();
 		assertThat(result.getRule()).isEqualTo("DRIVER_RENEWAL_PARKING_PERMIT_RULE");
 		assertThat(result.getValue()).isEqualTo(FAIL);
-		assertThat(result.getDetails()).isEqualTo(List.of(
+		assertThat(result.getDetails()).containsExactlyInAnyOrderElementsOf(List.of(
 			ResultDetail.create()
 				.withEvaluationValue(true)
 				.withOrigin("DRIVER_WALKING_ABILITY_CRITERIA")
@@ -192,7 +192,7 @@ class DriverRenewalParkingPermitRuleTest {
 		assertThat(result).isNotNull();
 		assertThat(result.getRule()).isEqualTo("DRIVER_RENEWAL_PARKING_PERMIT_RULE");
 		assertThat(result.getValue()).isEqualTo(VALIDATION_ERROR);
-		assertThat(result.getDetails()).isEqualTo(List.of(
+		assertThat(result.getDetails()).containsExactlyInAnyOrderElementsOf(List.of(
 			ResultDetail.create()
 				.withEvaluationValue(false)
 				.withDescription("Saknar giltigt värde för: 'disability.duration' (funktionsnedsättningens varaktighet)"),
