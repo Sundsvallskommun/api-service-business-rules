@@ -206,9 +206,7 @@ class PassengerNewParkingPermitRuleTest {
 				.withDescription("Saknar giltigt värde för: 'disability.walkingAbility' (information om sökande har kapacitet att gå eller är rullstolsburen)"),
 			ResultDetail.create()
 				.withEvaluationValue(false)
-				.withDescription("Saknar giltigt värde för: 'stakeholders.applicant.personid' (personid för sökande person)")
-
-		));
+				.withDescription("Saknar giltigt värde för: 'stakeholders.applicant.personid' (personid för sökande person)")));
 
 		verifyNoInteractions(criteriaEvaluatorSpy);
 		verifyNoInteractions(citizenAssetsClientMock);
@@ -237,9 +235,7 @@ class PassengerNewParkingPermitRuleTest {
 		assertThat(result.getDetails()).isEqualTo(List.of(
 			ResultDetail.create()
 				.withEvaluationValue(false)
-				.withDescription("Saknar giltigt värde för: 'stakeholders.applicant.personid' (personid för sökande person)")
-
-		));
+				.withDescription("Saknar giltigt värde för: 'stakeholders.applicant.personid' (personid för sökande person)")));
 
 		verifyNoInteractions(criteriaEvaluatorSpy);
 		verifyNoInteractions(citizenAssetsClientMock);
@@ -267,8 +263,7 @@ class PassengerNewParkingPermitRuleTest {
 		assertThat(result.getDetails()).isEqualTo(List.of(
 			ResultDetail.create()
 				.withEvaluationValue(false)
-				.withDescription("Saknar giltigt värde för: 'disability.canBeAloneWhileParking' (upplysning ifall den sökande kan lämnas ensam eller ej under tiden bilen parkeras)")
-		));
+				.withDescription("Saknar giltigt värde för: 'disability.canBeAloneWhileParking' (upplysning ifall den sökande kan lämnas ensam eller ej under tiden bilen parkeras)")));
 
 		verifyNoInteractions(criteriaEvaluatorSpy);
 		verifyNoInteractions(citizenAssetsClientMock);
@@ -297,9 +292,7 @@ class PassengerNewParkingPermitRuleTest {
 		assertThat(result.getDetails()).isEqualTo(List.of(
 			ResultDetail.create()
 				.withEvaluationValue(false)
-				.withDescription("Saknar giltigt värde för: 'disability.walkingDistance.max' (uppgift om maximal gångsträcka för den sökande)")
-
-		));
+				.withDescription("Saknar giltigt värde för: 'disability.walkingDistance.max' (uppgift om maximal gångsträcka för den sökande)")));
 
 		verifyNoInteractions(criteriaEvaluatorSpy);
 		verifyNoInteractions(citizenAssetsClientMock);

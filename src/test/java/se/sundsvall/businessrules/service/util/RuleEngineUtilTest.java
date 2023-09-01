@@ -95,6 +95,24 @@ class RuleEngineUtilTest {
 			Arguments.of(Fact.create(), false));
 	}
 
+	@ParameterizedTest
+	@MethodSource("matchesArguments")
+	void matches(Fact fact, String regExp, boolean expectedResult) {
+		assertThat(RuleEngineUtil.matches(fact, regExp)).isEqualTo(expectedResult);
+	}
+
+	private static Stream<Arguments> matchesArguments() {
+		return Stream.of(
+			Arguments.of(Fact.create().withValue("43"), "^[\\d]*$", true),
+			Arguments.of(Fact.create().withValue("abc"), "^[\\d]*$", false),
+			Arguments.of(Fact.create().withValue("hello-world"), "^(hello-world)$", true),
+			Arguments.of(Fact.create().withValue("hello-man"), "^(hello-world)$", false),
+			Arguments.of(Fact.create(), "", false),
+			Arguments.of(Fact.create(), null, false),
+			Arguments.of(null, "^[\\d]*$", false),
+			Arguments.of(null, null, false));
+	}
+
 	@Test
 	void toInt() {
 		assertThat(RuleEngineUtil.toInt(Fact.create().withValue("42"))).isEqualTo(42);
