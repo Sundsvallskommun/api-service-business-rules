@@ -1,0 +1,14 @@
+[
+	{
+		"assetId": "PRH-1000895188",
+		"partyId": "1cc22a36-6960-4dbf-a40d-580385752f4e",
+		"caseReferenceIds": [
+			"123e4567-e89b-12d3-a456-426614174000"
+		],
+		"type": "PERMIT",
+		"issued": "2021-01-01",
+		"validTo": "{{now offset='1 months'}}",
+		"status": "ACTIVE",
+		"description": "Parkeringstillstånd"
+	}
+]

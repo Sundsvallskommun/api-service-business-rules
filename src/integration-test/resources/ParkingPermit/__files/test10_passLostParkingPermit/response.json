@@ -1,0 +1,37 @@
+{
+	"context": "PARKING_PERMIT",
+	"results": [
+		{
+			"value": "NOT_APPLICABLE",
+			"rule": "DRIVER_NEW_PARKING_PERMIT_RULE"
+		},
+		{
+			"value": "NOT_APPLICABLE",
+			"rule": "DRIVER_RENEWAL_PARKING_PERMIT_RULE"
+		},
+		{
+			"value": "PASS",
+			"rule": "LOST_PARKING_PERMIT_RULE",
+			"details": [
+				{
+					"origin": "POLICE_REPORT_FORMAT_CRITERIA",
+					"evaluationValue": true,
+					"description": "polisrapportens diarienummer har korrekt format"
+				},
+				{
+					"origin": "RECURRING_LOSSES_CRITERIA",
+					"evaluationValue": true,
+					"description": "det finns inga tidigare förlustanmälningar"
+				}
+			]
+		},
+		{
+			"value": "NOT_APPLICABLE",
+			"rule": "PASSENGER_NEW_PARKING_PERMIT_RULE"
+		},
+		{
+			"value": "NOT_APPLICABLE",
+			"rule": "PASSENGER_RENEWAL_PARKING_PERMIT_RULE"
+		}
+	]
+}

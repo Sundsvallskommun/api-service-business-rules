@@ -1,0 +1,33 @@
+{
+	"context": "PARKING_PERMIT",
+	"facts": [
+		{
+			"key": "type",
+			"value": "PARKING_PERMIT_RENEWAL"
+		},
+		{
+			"key": "application.applicant.capacity",
+			"value": "PASSENGER"
+		},
+		{
+			"key": "disability.duration",
+			"value": "P6M"
+		},
+		{
+			"key": "application.renewal.changedCircumstances",
+			"value": "false"
+		},
+		{
+			"key": "disability.canBeAloneWhileParking",
+			"value": "false"
+		},
+		{
+			"key": "disability.walkingAbility",
+			"value": "false"
+		},
+		{
+			"key": "stakeholders.applicant.personid",
+			"value": "1cc22a36-6960-4dbf-a40d-580385752f4e"
+		}
+	]
+}
