@@ -1,0 +1,26 @@
+[
+	{
+		"assetId": "PRH-1000895188",
+		"partyId": "1cc22a36-6960-4dbf-a40d-580385752f4e",
+		"caseReferenceIds": [
+			"123e4567-e89b-12d3-a456-426614174000"
+		],
+		"type": "PERMIT",
+		"issued": "2021-01-01",
+		"validTo": "2021-12-31",
+		"status": "EXPIRED",
+		"description": "Parkeringstillstånd"
+	},
+	{
+		"assetId": "PRH-1000897917",
+		"partyId": "1cc22a36-6960-4dbf-a40d-580385752f4e",
+		"caseReferenceIds": [
+			"5f9c0b3f-b5ef-4c20-a212-f950b947b345"
+		],
+		"type": "PERMIT",
+		"issued": "2021-12-01",
+		"validTo": "{{now offset='2 months'}}",
+		"status": "ACTIVE",
+		"description": "Parkeringstillstånd"
+	}
+]

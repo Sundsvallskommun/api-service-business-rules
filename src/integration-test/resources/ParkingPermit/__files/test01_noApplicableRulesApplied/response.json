@@ -1,0 +1,25 @@
+{
+	"context": "PARKING_PERMIT",
+	"results": [
+		{
+			"value": "NOT_APPLICABLE",
+			"rule": "DRIVER_NEW_PARKING_PERMIT_RULE"
+		},
+		{
+			"value": "NOT_APPLICABLE",
+			"rule": "DRIVER_RENEWAL_PARKING_PERMIT_RULE"
+		},
+		{
+			"value": "NOT_APPLICABLE",
+			"rule": "LOST_PARKING_PERMIT_RULE"
+		},
+		{
+			"value": "NOT_APPLICABLE",
+			"rule": "PASSENGER_NEW_PARKING_PERMIT_RULE"
+		},
+		{
+			"value": "NOT_APPLICABLE",
+			"rule": "PASSENGER_RENEWAL_PARKING_PERMIT_RULE"
+		}
+	]
+}

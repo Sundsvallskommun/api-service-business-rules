@@ -1,0 +1,28 @@
+{
+	"name": "api-citizen-assets-get-active-parkingpermits",
+	"request": {
+		"headers": {
+			"Authorization": {
+				"equalTo": "Bearer MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3"
+			}
+		},
+		"method": "GET",
+		"urlPath": "/api-citizen-assets/assets",
+		"queryParameters" : {
+			"type" : {
+				"equalTo" : "PERMIT"
+			},
+			"partyId" : {
+				"equalTo" : "1cc22a36-6960-4dbf-a40d-580385752f4e"
+			}
+		}
+	},
+	"response": {
+		"headers": {
+			"Content-Type": "application/json"
+		},
+		"status": 200,
+		"bodyFileName": "test06_passRenewalOfDriverParkingPermit/responses/api-citizen-assets-response.json",
+		"transformers": ["response-template"]
+	}
+}
