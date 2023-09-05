@@ -1,0 +1,9 @@
+{
+	"context": "PARKING_PERMIT",
+	"facts": [
+		{
+			"key": "type",
+			"value": "TYPE_WITH_NO_APPLICABLE_RULES"
+		}
+	]
+}

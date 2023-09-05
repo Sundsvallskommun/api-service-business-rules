@@ -1,0 +1,17 @@
+{
+	"context": "PARKING_PERMIT",
+	"facts": [
+		{
+			"key": "type",
+			"value": "LOST_PARKING_PERMIT"
+		},
+		{
+			"key": "application.lostPermit.policeReportNumber",
+			"value": "5000-K1868487-2N"
+		},
+		{
+			"key": "stakeholders.applicant.personid",
+			"value": "1cc22a36-6960-4dbf-a40d-580385752f4e"
+		}
+	]
+}

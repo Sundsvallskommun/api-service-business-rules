@@ -1,0 +1,47 @@
+{
+	"context": "PARKING_PERMIT",
+	"results": [
+		{
+			"value": "NOT_APPLICABLE",
+			"rule": "DRIVER_NEW_PARKING_PERMIT_RULE"
+		},
+		{
+			"value": "NOT_APPLICABLE",
+			"rule": "DRIVER_RENEWAL_PARKING_PERMIT_RULE"
+		},
+		{
+			"value": "NOT_APPLICABLE",
+			"rule": "LOST_PARKING_PERMIT_RULE"
+		},
+		{
+			"value": "FAIL",
+			"rule": "PASSENGER_NEW_PARKING_PERMIT_RULE",
+			"details": [
+				{
+					"origin": "DURATION_CRITERIA",
+					"evaluationValue": true,
+					"description": "funktionsnedsättningens varaktighet är 6 månader eller längre"
+				},
+				{
+					"origin": "NO_ACTIVE_PARKING_PERMIT_CRITERIA",
+					"evaluationValue": false,
+					"description": "den sökande har redan ett aktivt parkeringstillstånd"
+				},
+				{
+					"origin": "PASSENGER_CAN_BE_ALONE_WHILE_PARKING_CRITERIA",
+					"evaluationValue": true,
+					"description": "den sökande kan inte lämnas ensam en kort stund vid parkering"
+				},
+				{
+					"origin": "PASSENGER_WALKING_ABILITY_CRITERIA",
+					"evaluationValue": true,
+					"description": "den sökande kan inte gå längre än 100 meter"
+				}
+			]
+		},
+		{
+			"value": "NOT_APPLICABLE",
+			"rule": "PASSENGER_RENEWAL_PARKING_PERMIT_RULE"
+		}
+	]
+}
