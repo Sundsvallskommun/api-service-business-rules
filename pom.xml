@@ -15,10 +15,9 @@
 		<!-- Pipeline properties -->
 		<docker.image.name>ms-business-rules</docker.image.name>
 		<exposed.app.port>8080</exposed.app.port>
-		<published.container.port.sandbox>9121</published.container.port.sandbox>
 		<published.container.port.test>9120</published.container.port.test>
 		<published.container.port.production>9120</published.container.port.production>
-		<sandbox.db>false</sandbox.db>
+		 
 		<!-- Service properties -->
 		<generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
 		<generated-sources-java-path>src/main/java</generated-sources-java-path>
