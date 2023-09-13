@@ -22,6 +22,7 @@ public interface CitizenAssetsClient {
 	String ASSET_ID_PARAMETER = "assetId";
 	String TYPE_PARAMETER = "type";
 	String STATUS_PARAMETER = "status";
+	String STATUS_REASON_PARAMETER = "statusReason";
 
 	/**
 	 * Search assets by parameter.

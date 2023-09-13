@@ -6,9 +6,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.PARTY_ID_PARAMETER;
-import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.STATUS_PARAMETER;
-import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.TYPE_PARAMETER;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
 
 import java.util.List;
@@ -26,6 +23,10 @@ import se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient;
 
 @ExtendWith(MockitoExtension.class)
 class RecurringLossesCriteriaTest {
+	private static final String PARTY_ID_PARAMETER = "partyId";
+	private static final String TYPE_PARAMETER = "type";
+	private static final String STATUS_PARAMETER = "status";
+	private static final String STATUS_REASON_PARAMETER = "statusReason";
 
 	@Mock
 	private CitizenAssetsClient citizenAssetsClientMock;
@@ -55,6 +56,7 @@ class RecurringLossesCriteriaTest {
 		verify(citizenAssetsClientMock).getAssets(Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			STATUS_PARAMETER, "BLOCKED",
+			STATUS_REASON_PARAMETER, "LOST",
 			TYPE_PARAMETER, "PERMIT"));
 	}
 
@@ -80,6 +82,7 @@ class RecurringLossesCriteriaTest {
 		verify(citizenAssetsClientMock).getAssets(Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			STATUS_PARAMETER, "BLOCKED",
+			STATUS_REASON_PARAMETER, "LOST",
 			TYPE_PARAMETER, "PERMIT"));
 	}
 }
