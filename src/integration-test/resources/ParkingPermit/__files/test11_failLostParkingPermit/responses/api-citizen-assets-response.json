@@ -9,6 +9,7 @@
 		"issued": "2021-01-01",
 		"validTo": "2024-12-31",
 		"status": "BLOCKED",
+		"statusReason": "LOST",
 		"description": "Parkeringstillstånd"
 	}
 ]

@@ -5,6 +5,7 @@ import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.PARTY_ID_PARAMETER;
 import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.STATUS_PARAMETER;
+import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.STATUS_REASON_PARAMETER;
 import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.TYPE_PARAMETER;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toFactMap;
@@ -34,6 +35,7 @@ public class RecurringLossesCriteria implements Criteria {
 
 	// CitizenAssets parameter constants.
 	private static final String STATUS = BLOCKED.toString();
+	private static final String STATUS_REASON = "LOST";
 	private static final String TYPE = "PERMIT";
 
 	@Autowired
@@ -60,9 +62,9 @@ public class RecurringLossesCriteria implements Criteria {
 
 		// Fetch all blocked parking-permits for this person.
 		final var blockedParkingPermits = citizenAssetsClient.getAssets(Map.of(
-			// TODO: Add status-reason parameter when available.
 			PARTY_ID_PARAMETER, partyId,
 			STATUS_PARAMETER, STATUS,
+			STATUS_REASON_PARAMETER, STATUS_REASON,
 			TYPE_PARAMETER, TYPE));
 
 		return isNotEmpty(blockedParkingPermits);
