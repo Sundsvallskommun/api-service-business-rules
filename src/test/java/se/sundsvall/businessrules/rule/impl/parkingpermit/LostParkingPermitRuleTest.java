@@ -10,9 +10,6 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 import static se.sundsvall.businessrules.api.model.enums.ResultValue.FAIL;
 import static se.sundsvall.businessrules.api.model.enums.ResultValue.PASS;
 import static se.sundsvall.businessrules.api.model.enums.ResultValue.VALIDATION_ERROR;
-import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.PARTY_ID_PARAMETER;
-import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.STATUS_PARAMETER;
-import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.TYPE_PARAMETER;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.APPLICATION_LOST_PERMIT_POLICE_REPORT_NUMBER;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.TYPE;
@@ -40,6 +37,10 @@ import se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFac
 @SpringBootTest(classes = Application.class, webEnvironment = MOCK)
 @ActiveProfiles("junit")
 class LostParkingPermitRuleTest {
+	private static final String PARTY_ID_PARAMETER = "partyId";
+	private static final String TYPE_PARAMETER = "type";
+	private static final String STATUS_PARAMETER = "status";
+	private static final String STATUS_REASON_PARAMETER = "statusReason";
 
 	@MockBean
 	private CitizenAssetsClient citizenAssetsClientMock;
@@ -113,7 +114,11 @@ class LostParkingPermitRuleTest {
 				.withDescription("det finns inga tidigare förlustanmälningar")));
 
 		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, facts);
-		verify(citizenAssetsClientMock).getAssets(Map.of(PARTY_ID_PARAMETER, partyId, STATUS_PARAMETER, "BLOCKED", TYPE_PARAMETER, "PERMIT"));
+		verify(citizenAssetsClientMock).getAssets(Map.of(
+			PARTY_ID_PARAMETER, partyId,
+			STATUS_PARAMETER, "BLOCKED",
+			STATUS_REASON_PARAMETER, "LOST",
+			TYPE_PARAMETER, "PERMIT"));
 	}
 
 	@Test
@@ -147,7 +152,11 @@ class LostParkingPermitRuleTest {
 				.withDescription("det finns tidigare förlustanmälningar")));
 
 		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, facts);
-		verify(citizenAssetsClientMock).getAssets(Map.of(PARTY_ID_PARAMETER, partyId, STATUS_PARAMETER, "BLOCKED", TYPE_PARAMETER, "PERMIT"));
+		verify(citizenAssetsClientMock).getAssets(Map.of(
+			PARTY_ID_PARAMETER, partyId,
+			STATUS_PARAMETER, "BLOCKED",
+			STATUS_REASON_PARAMETER, "LOST",
+			TYPE_PARAMETER, "PERMIT"));
 	}
 
 	@Test
