@@ -36,7 +36,7 @@ public class RecurringLossesCriteria implements Criteria {
 	// CitizenAssets parameter constants.
 	private static final String STATUS = BLOCKED.toString();
 	private static final String STATUS_REASON = "LOST";
-	private static final String TYPE = "PERMIT";
+	private static final String TYPE = "PARKINGPERMIT";
 
 	@Autowired
 	private CitizenAssetsClient citizenAssetsClient;

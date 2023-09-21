@@ -38,7 +38,7 @@ public class ExpiringParkingPermitCriteria implements Criteria {
 	private static final int EXPIRATION_PERIOD_IN_MONTHS = 2;
 
 	// CitizenAssets parameter constants.
-	private static final String TYPE = "PERMIT";
+	private static final String TYPE = "PARKINGPERMIT";
 
 	@Autowired
 	private CitizenAssetsClient citizenAssetsClient;

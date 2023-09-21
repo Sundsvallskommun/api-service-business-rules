@@ -61,7 +61,7 @@ class ExpiringParkingPermitCriteriaTest {
 
 		verify(citizenAssetsClientMock).getAssets(Map.of(
 			PARTY_ID_PARAMETER, partyId,
-			TYPE_PARAMETER, "PERMIT"));
+			TYPE_PARAMETER, "PARKINGPERMIT"));
 	}
 
 	@Test
@@ -88,7 +88,7 @@ class ExpiringParkingPermitCriteriaTest {
 
 		verify(citizenAssetsClientMock).getAssets(Map.of(
 			PARTY_ID_PARAMETER, partyId,
-			TYPE_PARAMETER, "PERMIT"));
+			TYPE_PARAMETER, "PARKINGPERMIT"));
 	}
 
 	@Test
@@ -112,7 +112,7 @@ class ExpiringParkingPermitCriteriaTest {
 
 		verify(citizenAssetsClientMock).getAssets(Map.of(
 			PARTY_ID_PARAMETER, partyId,
-			TYPE_PARAMETER, "PERMIT"));
+			TYPE_PARAMETER, "PARKINGPERMIT"));
 	}
 
 	@Test
@@ -137,7 +137,7 @@ class ExpiringParkingPermitCriteriaTest {
 
 		verify(citizenAssetsClientMock).getAssets(Map.of(
 			PARTY_ID_PARAMETER, partyId,
-			TYPE_PARAMETER, "PERMIT"));
+			TYPE_PARAMETER, "PARKINGPERMIT"));
 	}
 
 	@Test
@@ -162,6 +162,6 @@ class ExpiringParkingPermitCriteriaTest {
 
 		verify(citizenAssetsClientMock).getAssets(Map.of(
 			PARTY_ID_PARAMETER, partyId,
-			TYPE_PARAMETER, "PERMIT"));
+			TYPE_PARAMETER, "PARKINGPERMIT"));
 	}
 }

@@ -34,7 +34,7 @@ public class NoActiveParkingPermitCriteria implements Criteria {
 
 	// CitizenAssets parameter constants.
 	private static final String STATUS = ACTIVE.toString();
-	private static final String TYPE = "PERMIT";
+	private static final String TYPE = "PARKINGPERMIT";
 
 	@Autowired
 	private CitizenAssetsClient citizenAssetsClient;
