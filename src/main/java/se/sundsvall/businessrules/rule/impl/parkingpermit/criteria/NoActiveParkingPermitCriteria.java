@@ -6,6 +6,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.PARTY_ID_PARAMETER;
 import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.STATUS_PARAMETER;
 import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.TYPE_PARAMETER;
+import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsConstants.TYPE;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toFactMap;
 
@@ -34,7 +35,6 @@ public class NoActiveParkingPermitCriteria implements Criteria {
 
 	// CitizenAssets parameter constants.
 	private static final String STATUS = ACTIVE.toString();
-	private static final String TYPE = "PERMIT";
 
 	@Autowired
 	private CitizenAssetsClient citizenAssetsClient;

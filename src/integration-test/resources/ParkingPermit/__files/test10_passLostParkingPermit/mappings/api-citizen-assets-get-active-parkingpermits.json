@@ -10,7 +10,7 @@
 		"urlPath": "/api-citizen-assets/assets",
 		"queryParameters" : {
 			"type" : {
-				"equalTo" : "PERMIT"
+				"equalTo" : "PARKINGPERMIT"
 			},
 			"status" : {
 				"equalTo" : "BLOCKED"

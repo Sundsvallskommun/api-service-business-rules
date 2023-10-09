@@ -13,7 +13,7 @@
 				"equalTo" : "ACTIVE"
 			},
 			"type" : {
-				"equalTo" : "PERMIT"
+				"equalTo" : "PARKINGPERMIT"
 			},
 			"partyId" : {
 				"equalTo" : "1cc22a36-6960-4dbf-a40d-580385752f4e"

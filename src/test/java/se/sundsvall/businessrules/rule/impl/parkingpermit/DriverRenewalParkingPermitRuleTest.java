@@ -133,7 +133,7 @@ class DriverRenewalParkingPermitRuleTest {
 				.withDescription("den sökande har parkeringstillstånd som strax upphör eller redan har upphört")));
 
 		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, facts);
-		verify(citizenAssetsClientMock).getAssets(Map.of(PARTY_ID_PARAMETER, partyId, TYPE_PARAMETER, "PERMIT"));
+		verify(citizenAssetsClientMock).getAssets(Map.of(PARTY_ID_PARAMETER, partyId, TYPE_PARAMETER, "PARKINGPERMIT"));
 	}
 
 	@Test
@@ -174,7 +174,7 @@ class DriverRenewalParkingPermitRuleTest {
 				.withDescription("den sökande har inga parkeringstillstånd som är på väg att upphöra eller redan har upphört")));
 
 		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, facts);
-		verify(citizenAssetsClientMock).getAssets(Map.of(PARTY_ID_PARAMETER, partyId, TYPE_PARAMETER, "PERMIT"));
+		verify(citizenAssetsClientMock).getAssets(Map.of(PARTY_ID_PARAMETER, partyId, TYPE_PARAMETER, "PARKINGPERMIT"));
 	}
 
 	@Test
