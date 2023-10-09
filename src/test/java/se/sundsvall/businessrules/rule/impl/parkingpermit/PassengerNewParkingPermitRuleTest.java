@@ -133,7 +133,7 @@ class PassengerNewParkingPermitRuleTest {
 				.withDescription("den sökande har inga aktiva parkeringstillstånd")));
 
 		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, facts);
-		verify(citizenAssetsClientMock).getAssets(Map.of(PARTY_ID_PARAMETER, partyId, STATUS_PARAMETER, "ACTIVE", TYPE_PARAMETER, "PERMIT"));
+		verify(citizenAssetsClientMock).getAssets(Map.of(PARTY_ID_PARAMETER, partyId, STATUS_PARAMETER, "ACTIVE", TYPE_PARAMETER, "PARKINGPERMIT"));
 	}
 
 	@Test
@@ -176,7 +176,7 @@ class PassengerNewParkingPermitRuleTest {
 				.withDescription("den sökande har inga aktiva parkeringstillstånd")));
 
 		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, facts);
-		verify(citizenAssetsClientMock).getAssets(Map.of(PARTY_ID_PARAMETER, partyId, STATUS_PARAMETER, "ACTIVE", TYPE_PARAMETER, "PERMIT"));
+		verify(citizenAssetsClientMock).getAssets(Map.of(PARTY_ID_PARAMETER, partyId, STATUS_PARAMETER, "ACTIVE", TYPE_PARAMETER, "PARKINGPERMIT"));
 	}
 
 	@Test

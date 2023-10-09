@@ -55,7 +55,7 @@ class NoActiveParkingPermitCriteriaTest {
 		verify(citizenAssetsClientMock).getAssets(Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			STATUS_PARAMETER, "ACTIVE",
-			TYPE_PARAMETER, "PERMIT"));
+			TYPE_PARAMETER, "PARKINGPERMIT"));
 	}
 
 	@Test
@@ -80,6 +80,6 @@ class NoActiveParkingPermitCriteriaTest {
 		verify(citizenAssetsClientMock).getAssets(Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			STATUS_PARAMETER, "ACTIVE",
-			TYPE_PARAMETER, "PERMIT"));
+			TYPE_PARAMETER, "PARKINGPERMIT"));
 	}
 }
