@@ -9,6 +9,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.springframework.util.CollectionUtils.isEmpty;
 import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.PARTY_ID_PARAMETER;
 import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.TYPE_PARAMETER;
+import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsConstants.TYPE;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toFactMap;
 
@@ -36,9 +37,6 @@ public class ExpiringParkingPermitCriteria implements Criteria {
 	private static final String HAS_EXPIRING_PARKING_PERMITS = "den sökande har parkeringstillstånd som strax upphör eller redan har upphört";
 	private static final String HAS_NO_EXPIRING_PARKING_PERMITS = "den sökande har inga parkeringstillstånd som är på väg att upphöra eller redan har upphört";
 	private static final int EXPIRATION_PERIOD_IN_MONTHS = 2;
-
-	// CitizenAssets parameter constants.
-	private static final String TYPE = "PARKINGPERMIT";
 
 	@Autowired
 	private CitizenAssetsClient citizenAssetsClient;

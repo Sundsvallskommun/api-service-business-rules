@@ -7,6 +7,7 @@ import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssets
 import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.STATUS_PARAMETER;
 import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.STATUS_REASON_PARAMETER;
 import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.TYPE_PARAMETER;
+import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsConstants.TYPE;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toFactMap;
 
@@ -36,7 +37,6 @@ public class RecurringLossesCriteria implements Criteria {
 	// CitizenAssets parameter constants.
 	private static final String STATUS = BLOCKED.toString();
 	private static final String STATUS_REASON = "LOST";
-	private static final String TYPE = "PARKINGPERMIT";
 
 	@Autowired
 	private CitizenAssetsClient citizenAssetsClient;
