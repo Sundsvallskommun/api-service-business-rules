@@ -1,21 +1,20 @@
-package se.sundsvall.businessrules.integration.citizenassets.configuration;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.MOCK;
+package se.sundsvall.businessrules.integration.partyassets.configuration;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-
 import se.sundsvall.businessrules.Application;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.MOCK;
 
 @SpringBootTest(classes = Application.class, webEnvironment = MOCK)
 @ActiveProfiles("junit")
-class CitizenAssetsPropertiesTest {
+class PartyAssetsPropertiesTest {
 
 	@Autowired
-	private CitizenAssetsProperties properties;
+	private PartyAssetsProperties properties;
 
 	@Test
 	void testProperties() {
