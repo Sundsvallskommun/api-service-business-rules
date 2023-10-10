@@ -58,12 +58,12 @@
 				<version>${openapi-generator-maven-plugin.version}</version>
 				<executions>
 					<execution>
-						<id>citizenassets-api</id>
+						<id>partyassets-api</id>
 						<goals>
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<inputSpec>src/main/resources/integrations/api-citizenassets.yaml</inputSpec>
+							<inputSpec>src/main/resources/integrations/api-partyassets.yaml</inputSpec>
 							<output>${generated-sources-path}</output>
 							<generatorName>jaxrs-spec</generatorName>
 							<generateApis>false</generateApis>
@@ -74,7 +74,7 @@
 								<useSwaggerAnnotations>false</useSwaggerAnnotations>
 								<sourceFolder>${generated-sources-java-path}</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
-								<modelPackage>generated.se.sundsvall.citizenassets</modelPackage>
+								<modelPackage>generated.se.sundsvall.partyassets</modelPackage>
 								<openApiNullable>false</openApiNullable>
 								<generatePom>false</generatePom>
 								<interfaceOnly>true</interfaceOnly>

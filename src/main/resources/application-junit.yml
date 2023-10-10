@@ -3,8 +3,8 @@
 #===============================================================================
 config:
   integration:
-    citizenassets:
-      url: http://citizenAssetsUrl
+    partyassets:
+      url: http://partyAssetsUrl
       token-url: http://tokenUrl
       client-id: the-client-id
       client-secret: the-client-secret

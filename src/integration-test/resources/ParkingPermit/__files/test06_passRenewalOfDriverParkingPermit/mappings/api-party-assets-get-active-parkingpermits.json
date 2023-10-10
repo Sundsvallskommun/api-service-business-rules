@@ -1,5 +1,5 @@
 {
-	"name": "api-citizen-assets-get-active-parkingpermits",
+	"name": "api-party-assets-get-active-parkingpermits",
 	"request": {
 		"headers": {
 			"Authorization": {
@@ -7,16 +7,10 @@
 			}
 		},
 		"method": "GET",
-		"urlPath": "/api-citizen-assets/assets",
+		"urlPath": "/api-party-assets/assets",
 		"queryParameters" : {
 			"type" : {
 				"equalTo" : "PARKINGPERMIT"
-			},
-			"status" : {
-				"equalTo" : "BLOCKED"
-			},
-			"statusReason" : {
-				"equalTo" : "LOST"
 			},
 			"partyId" : {
 				"equalTo" : "1cc22a36-6960-4dbf-a40d-580385752f4e"
@@ -28,6 +22,7 @@
 			"Content-Type": "application/json"
 		},
 		"status": 200,
-		"bodyFileName": "test11_failLostParkingPermit/responses/api-citizen-assets-response.json"
+		"bodyFileName": "test06_passRenewalOfDriverParkingPermit/responses/api-party-assets-response.json",
+		"transformers": ["response-template"]
 	}
 }
