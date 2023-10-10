@@ -3,8 +3,8 @@
 #========================================
 config:
   integration:
-    citizenassets:
-      url: http://localhost:${wiremock.server.port}/api-citizen-assets
+    partyassets:
+      url: http://localhost:${wiremock.server.port}/api-party-assets
       token-url: http://localhost:${wiremock.server.port}/api-gateway/token
       client-id: the-client-id
       client-secret: the-client-secret

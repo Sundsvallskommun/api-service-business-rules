@@ -1,25 +1,23 @@
-package se.sundsvall.businessrules.integration.citizenassets;
+package se.sundsvall.businessrules.integration.partyassets;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static se.sundsvall.businessrules.integration.citizenassets.configuration.CitizenAssetsConfiguration.CLIENT_ID;
+import generated.se.sundsvall.partyassets.Asset;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import se.sundsvall.businessrules.integration.partyassets.configuration.PartyAssetsConfiguration;
 
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.cloud.openfeign.SpringQueryMap;
-import org.springframework.web.bind.annotation.GetMapping;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static se.sundsvall.businessrules.integration.partyassets.configuration.PartyAssetsConfiguration.CLIENT_ID;
 
-import generated.se.sundsvall.citizenassets.Asset;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import se.sundsvall.businessrules.integration.citizenassets.configuration.CitizenAssetsConfiguration;
-
-@CircuitBreaker(name = "citizenassets")
-@FeignClient(name = CLIENT_ID, url = "${integration.citizenassets.url}", configuration = CitizenAssetsConfiguration.class)
-public interface CitizenAssetsClient {
+@CircuitBreaker(name = "partyassets")
+@FeignClient(name = CLIENT_ID, url = "${integration.partyassets.url}", configuration = PartyAssetsConfiguration.class)
+public interface PartyAssetsClient {
 
 	String PARTY_ID_PARAMETER = "partyId";
-	String ASSET_ID_PARAMETER = "assetId";
 	String TYPE_PARAMETER = "type";
 	String STATUS_PARAMETER = "status";
 	String STATUS_REASON_PARAMETER = "statusReason";

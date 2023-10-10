@@ -1,29 +1,28 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.criteria;
 
-import static generated.se.sundsvall.citizenassets.Status.ACTIVE;
-import static generated.se.sundsvall.citizenassets.Status.EXPIRED;
+import generated.se.sundsvall.partyassets.Asset;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import se.sundsvall.businessrules.api.model.Fact;
+import se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient;
+import se.sundsvall.businessrules.rule.Criteria;
+import se.sundsvall.businessrules.rule.CriteriaResult;
+
+import java.util.List;
+import java.util.Map;
+
+import static generated.se.sundsvall.partyassets.Status.ACTIVE;
+import static generated.se.sundsvall.partyassets.Status.EXPIRED;
 import static java.time.LocalDate.MAX;
 import static java.time.LocalDate.now;
 import static java.util.Optional.ofNullable;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.springframework.util.CollectionUtils.isEmpty;
-import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.PARTY_ID_PARAMETER;
-import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient.TYPE_PARAMETER;
-import static se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsConstants.TYPE;
+import static se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient.PARTY_ID_PARAMETER;
+import static se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient.TYPE_PARAMETER;
+import static se.sundsvall.businessrules.integration.partyassets.PartyAssetsConstants.TYPE;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toFactMap;
-
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import generated.se.sundsvall.citizenassets.Asset;
-import se.sundsvall.businessrules.api.model.Fact;
-import se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient;
-import se.sundsvall.businessrules.rule.Criteria;
-import se.sundsvall.businessrules.rule.CriteriaResult;
 
 /**
  * Criteria for expired or almost expired parking permits.
@@ -39,7 +38,7 @@ public class ExpiringParkingPermitCriteria implements Criteria {
 	private static final int EXPIRATION_PERIOD_IN_MONTHS = 2;
 
 	@Autowired
-	private CitizenAssetsClient citizenAssetsClient;
+	private PartyAssetsClient partyAssetsClient;
 
 	@Override
 	public CriteriaResult evaluate(List<Fact> facts) {
@@ -60,7 +59,7 @@ public class ExpiringParkingPermitCriteria implements Criteria {
 		}
 
 		// Fetch all issued parking-permits for this person.
-		final var parkingPermits = citizenAssetsClient.getAssets(Map.of(
+		final var parkingPermits = partyAssetsClient.getAssets(Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			TYPE_PARAMETER, TYPE));
 

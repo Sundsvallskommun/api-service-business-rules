@@ -1,5 +1,5 @@
 {
-	"name": "api-citizen-assets-get-active-parkingpermits",
+	"name": "api-party-assets-get-active-parkingpermits",
 	"request": {
 		"headers": {
 			"Authorization": {
@@ -7,7 +7,7 @@
 			}
 		},
 		"method": "GET",
-		"urlPath": "/api-citizen-assets/assets",
+		"urlPath": "/api-party-assets/assets",
 		"queryParameters" : {
 			"status" : {
 				"equalTo" : "ACTIVE"
@@ -25,7 +25,7 @@
 			"Content-Type": "application/json"
 		},
 		"status": 200,
-		"bodyFileName": "test05_failNewPassengerParkingPermit/responses/api-citizen-assets-response.json",
+		"bodyFileName": "test03_failNewDriverParkingPermit/responses/api-party-assets-response.json",
 		"transformers": ["response-template"]
 	}
 }

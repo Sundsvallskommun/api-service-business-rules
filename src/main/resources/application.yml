@@ -8,14 +8,14 @@ spring:
     oauth2:
       client:
         registration:
-          citizenassets:
+          partyassets:
             authorization-grant-type: client_credentials
-            provider: citizenassets
-            client-id: ${config.integration.citizenassets.client-id}
-            client-secret: ${config.integration.citizenassets.client-secret}
+            provider: partyassets
+            client-id: ${config.integration.partyassets.client-id}
+            client-secret: ${config.integration.partyassets.client-secret}
         provider:
-          citizenassets:
-            token-uri: ${config.integration.citizenassets.token-url}
+          partyassets:
+            token-uri: ${config.integration.partyassets.token-url}
 
 #-------------------------------------------------------------------------------
 # OpenAPI/Swagger-UI
@@ -39,15 +39,15 @@ logging:
 # Integrations
 #----------------------------------------
 integration:
-  citizenassets:
-    url: ${config.integration.citizenassets.url}
-    connectTimeout: ${config.integration.citizenassets.connectTimeout}
-    readTimeout: ${config.integration.citizenassets.readTimeout}
+  partyassets:
+    url: ${config.integration.partyassets.url}
+    connectTimeout: ${config.integration.partyassets.connectTimeout}
+    readTimeout: ${config.integration.partyassets.readTimeout}
     
 #----------------------------------------
 # Circuit breakers
 #----------------------------------------
 resilience4j.circuitbreaker:
   instances:
-    citizenassets:
+    partyassets:
       ignoreExceptions: se.sundsvall.dept44.exception.ClientProblem

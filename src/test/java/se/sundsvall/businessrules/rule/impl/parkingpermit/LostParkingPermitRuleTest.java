@@ -1,5 +1,24 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit;
 
+import generated.se.sundsvall.partyassets.Asset;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.test.context.ActiveProfiles;
+import se.sundsvall.businessrules.Application;
+import se.sundsvall.businessrules.api.model.Fact;
+import se.sundsvall.businessrules.api.model.ResultDetail;
+import se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient;
+import se.sundsvall.businessrules.rule.CriteriaEvaluator;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.PoliceReportFormatCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.RecurringLossesCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum;
+
+import java.util.List;
+import java.util.Map;
+
 import static java.util.UUID.randomUUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -14,26 +33,6 @@ import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPe
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.TYPE;
 
-import java.util.List;
-import java.util.Map;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.SpyBean;
-import org.springframework.test.context.ActiveProfiles;
-
-import generated.se.sundsvall.citizenassets.Asset;
-import se.sundsvall.businessrules.Application;
-import se.sundsvall.businessrules.api.model.Fact;
-import se.sundsvall.businessrules.api.model.ResultDetail;
-import se.sundsvall.businessrules.integration.citizenassets.CitizenAssetsClient;
-import se.sundsvall.businessrules.rule.CriteriaEvaluator;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.PoliceReportFormatCriteria;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.RecurringLossesCriteria;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum;
-
 @SpringBootTest(classes = Application.class, webEnvironment = MOCK)
 @ActiveProfiles("junit")
 class LostParkingPermitRuleTest {
@@ -43,7 +42,7 @@ class LostParkingPermitRuleTest {
 	private static final String STATUS_REASON_PARAMETER = "statusReason";
 
 	@MockBean
-	private CitizenAssetsClient citizenAssetsClientMock;
+	private PartyAssetsClient partyAssetsClientMock;
 
 	@SpyBean
 	private CriteriaEvaluator criteriaEvaluatorSpy;
@@ -114,7 +113,7 @@ class LostParkingPermitRuleTest {
 				.withDescription("det finns inga tidigare förlustanmälningar")));
 
 		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, facts);
-		verify(citizenAssetsClientMock).getAssets(Map.of(
+		verify(partyAssetsClientMock).getAssets(Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			STATUS_PARAMETER, "BLOCKED",
 			STATUS_REASON_PARAMETER, "LOST",
@@ -132,7 +131,7 @@ class LostParkingPermitRuleTest {
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
 		// This will make the evaluation fail (recurring losses)
-		when(citizenAssetsClientMock.getAssets(any())).thenReturn(List.of(new Asset()));
+		when(partyAssetsClientMock.getAssets(any())).thenReturn(List.of(new Asset()));
 
 		// Act
 		final var result = rule.evaluate(facts);
@@ -152,7 +151,7 @@ class LostParkingPermitRuleTest {
 				.withDescription("det finns tidigare förlustanmälningar")));
 
 		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, facts);
-		verify(citizenAssetsClientMock).getAssets(Map.of(
+		verify(partyAssetsClientMock).getAssets(Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			STATUS_PARAMETER, "BLOCKED",
 			STATUS_REASON_PARAMETER, "LOST",
@@ -182,6 +181,6 @@ class LostParkingPermitRuleTest {
 				.withDescription("Saknar giltigt värde för: 'stakeholders.applicant.personid' (personid för sökande person)")));
 
 		verifyNoInteractions(criteriaEvaluatorSpy);
-		verifyNoInteractions(citizenAssetsClientMock);
+		verifyNoInteractions(partyAssetsClientMock);
 	}
 }
