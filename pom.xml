@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>se.sundsvall.dept44</groupId>
 		<artifactId>dept44-service-parent</artifactId>
-		<version>3.1</version>
+		<version>3.2</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>se.sundsvall</groupId>
@@ -22,7 +22,7 @@
 		<generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
 		<generated-sources-java-path>src/main/java</generated-sources-java-path>
 		<openapi-generator-maven-plugin.version>7.0.1</openapi-generator-maven-plugin.version>
-		<guava.version>32.1.2-jre</guava.version>
+		<guava.version>32.1.3-jre</guava.version>
 	</properties>
 	<dependencies>
 		<dependency>
