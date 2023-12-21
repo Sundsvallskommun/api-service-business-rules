@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import se.sundsvall.businessrules.api.model.Fact;
 
-public class RuleEngineUtil {
+public final class RuleEngineUtil {
 
 	private RuleEngineUtil() {}
 

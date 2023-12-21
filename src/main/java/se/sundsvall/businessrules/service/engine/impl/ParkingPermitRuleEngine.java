@@ -6,7 +6,6 @@ import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toRuleE
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import se.sundsvall.businessrules.api.model.RuleEngineRequest;
@@ -18,8 +17,11 @@ import se.sundsvall.businessrules.service.engine.RuleEngine;
 @Component
 public class ParkingPermitRuleEngine implements RuleEngine {
 
-	@Autowired
-	private List<ParkingPermitRule> rules;
+	private final List<ParkingPermitRule> rules;
+
+	public ParkingPermitRuleEngine(List<ParkingPermitRule> rules) {
+		this.rules = rules;
+	}
 
 	@Override
 	public Context getContext() {
