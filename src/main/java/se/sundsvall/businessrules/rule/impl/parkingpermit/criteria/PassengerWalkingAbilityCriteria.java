@@ -1,6 +1,5 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.criteria;
 
-import static java.lang.String.format;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_WALKING_ABILITY;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_WALKING_DISTANCE_MAX;
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toFactMap;
@@ -29,8 +28,8 @@ public class PassengerWalkingAbilityCriteria implements Criteria {
 
 	private static final int MAXIMUM_WALKING_DISTANCE_FOR_APPROVAL = 100;
 	private static final String WALKING_ABILITY_NONE = "den sökande är helt rullstolsburen";
-	private static final String WALKING_ABILITY_DONT_EXCEED_THRESHOLD_VALUE = format("den sökande kan inte gå längre än %s meter", MAXIMUM_WALKING_DISTANCE_FOR_APPROVAL);
-	private static final String WALKING_ABILITY_EXCEEDS_THRESHOLD_VALUE = format("den sökande kan gå längre än %s meter", MAXIMUM_WALKING_DISTANCE_FOR_APPROVAL);
+	private static final String WALKING_ABILITY_DONT_EXCEED_THRESHOLD_VALUE = "den sökande kan inte gå längre än %s meter".formatted(MAXIMUM_WALKING_DISTANCE_FOR_APPROVAL);
+	private static final String WALKING_ABILITY_EXCEEDS_THRESHOLD_VALUE = "den sökande kan gå längre än %s meter".formatted(MAXIMUM_WALKING_DISTANCE_FOR_APPROVAL);
 
 	@Override
 	public CriteriaResult evaluate(List<Fact> facts) {

@@ -1,6 +1,5 @@
 package se.sundsvall.businessrules.service;
 
-import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -82,7 +81,7 @@ class RuleEngineServiceTest {
 		// Assert
 		assertThat(exception.getStatus()).isEqualTo(NOT_FOUND);
 		assertThat(exception.getTitle()).isEqualTo(NOT_FOUND.getReasonPhrase());
-		assertThat(exception.getDetail()).isEqualTo(format(ERROR_MESSAGE_NO_ENGINE_FOUND, context));
+		assertThat(exception.getDetail()).isEqualTo(ERROR_MESSAGE_NO_ENGINE_FOUND.formatted(context));
 
 		verify(ruleEngineMock).getContext();
 		verify(ruleEngineMock, never()).run(request);

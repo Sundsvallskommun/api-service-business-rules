@@ -15,7 +15,6 @@ import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValue;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import se.sundsvall.businessrules.api.model.Fact;
@@ -28,8 +27,11 @@ import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.RecurringLoss
 @Component
 public class LostParkingPermitRule implements ParkingPermitRule {
 
-	@Autowired
-	private CriteriaEvaluator criteriaEvaluator;
+	private final CriteriaEvaluator criteriaEvaluator;
+
+	public LostParkingPermitRule(CriteriaEvaluator criteriaEvaluator) {
+		this.criteriaEvaluator = criteriaEvaluator;
+	}
 
 	@Override
 	public List<Class<? extends Criteria>> getCriteria() {

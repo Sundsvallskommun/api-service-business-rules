@@ -1,19 +1,18 @@
 package se.sundsvall.businessrules.integration.partyassets;
 
-import generated.se.sundsvall.partyassets.Asset;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.cloud.openfeign.SpringQueryMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import se.sundsvall.businessrules.integration.partyassets.configuration.PartyAssetsConfiguration;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static se.sundsvall.businessrules.integration.partyassets.configuration.PartyAssetsConfiguration.CLIENT_ID;
 
 import java.util.List;
 import java.util.Map;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static se.sundsvall.businessrules.integration.partyassets.configuration.PartyAssetsConfiguration.CLIENT_ID;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
+import org.springframework.web.bind.annotation.GetMapping;
 
-@CircuitBreaker(name = "partyassets")
+import generated.se.sundsvall.partyassets.Asset;
+import se.sundsvall.businessrules.integration.partyassets.configuration.PartyAssetsConfiguration;
+
 @FeignClient(name = CLIENT_ID, url = "${integration.partyassets.url}", configuration = PartyAssetsConfiguration.class)
 public interface PartyAssetsClient {
 

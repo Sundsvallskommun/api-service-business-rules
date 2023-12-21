@@ -1,16 +1,5 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.criteria;
 
-import generated.se.sundsvall.partyassets.Asset;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import se.sundsvall.businessrules.api.model.Fact;
-import se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient;
-import se.sundsvall.businessrules.rule.Criteria;
-import se.sundsvall.businessrules.rule.CriteriaResult;
-
-import java.util.List;
-import java.util.Map;
-
 import static generated.se.sundsvall.partyassets.Status.ACTIVE;
 import static generated.se.sundsvall.partyassets.Status.EXPIRED;
 import static java.time.LocalDate.MAX;
@@ -23,6 +12,17 @@ import static se.sundsvall.businessrules.integration.partyassets.PartyAssetsClie
 import static se.sundsvall.businessrules.integration.partyassets.PartyAssetsConstants.TYPE;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toFactMap;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Component;
+
+import generated.se.sundsvall.partyassets.Asset;
+import se.sundsvall.businessrules.api.model.Fact;
+import se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient;
+import se.sundsvall.businessrules.rule.Criteria;
+import se.sundsvall.businessrules.rule.CriteriaResult;
 
 /**
  * Criteria for expired or almost expired parking permits.
@@ -37,8 +37,11 @@ public class ExpiringParkingPermitCriteria implements Criteria {
 	private static final String HAS_NO_EXPIRING_PARKING_PERMITS = "den sökande har inga parkeringstillstånd som är på väg att upphöra eller redan har upphört";
 	private static final int EXPIRATION_PERIOD_IN_MONTHS = 2;
 
-	@Autowired
-	private PartyAssetsClient partyAssetsClient;
+	private final PartyAssetsClient partyAssetsClient;
+
+	public ExpiringParkingPermitCriteria(PartyAssetsClient partyAssetsClient) {
+		this.partyAssetsClient = partyAssetsClient;
+	}
 
 	@Override
 	public CriteriaResult evaluate(List<Fact> facts) {
