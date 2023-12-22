@@ -29,6 +29,6 @@ public enum DurationEnum {
 		return Arrays.stream(DurationEnum.values())
 			.filter(item -> item.getDuration().equalsIgnoreCase(duration))
 			.findFirst()
-			.orElseThrow(() -> new IllegalStateException(String.format("Unsupported duration value '%s'!", duration)));
+			.orElseThrow(() -> new IllegalStateException("Unsupported duration value '%s'!".formatted(duration)));
 	}
 }

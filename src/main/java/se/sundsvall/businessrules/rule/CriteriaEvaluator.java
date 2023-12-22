@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.lang3.function.Failable;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import se.sundsvall.businessrules.api.model.Fact;
@@ -14,8 +13,11 @@ import se.sundsvall.businessrules.api.model.Fact;
 @Component
 public class CriteriaEvaluator {
 
-	@Autowired
-	private List<Criteria> criteria;
+	private final List<Criteria> criteria;
+
+	public CriteriaEvaluator(List<Criteria> criteria) {
+		this.criteria = criteria;
+	}
 
 	/**
 	 * Evaluate all criteria for a specific rule.

@@ -4,7 +4,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_PROBLEM_JSON_VALUE;
 import static org.springframework.http.ResponseEntity.ok;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,8 +30,11 @@ import se.sundsvall.businessrules.service.RuleEngineService;
 @Tag(name = "BusinessRules", description = "Business rule engine resource")
 public class RuleEngineResource {
 
-	@Autowired
-	private RuleEngineService ruleEngineService;
+	private final RuleEngineService ruleEngineService;
+
+	public RuleEngineResource(RuleEngineService ruleEngineService) {
+		this.ruleEngineService = ruleEngineService;
+	}
 
 	@PostMapping(consumes = APPLICATION_JSON_VALUE, produces = { APPLICATION_JSON_VALUE, APPLICATION_PROBLEM_JSON_VALUE })
 	@Operation(summary = "Run rule engine")
