@@ -19,7 +19,7 @@
 		<published.container.port.production>9120</published.container.port.production>
 		<!-- Service properties -->
 		<generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
-		<guava.version>33.1.0-jre</guava.version>
+		<guava.version>33.2.0-jre</guava.version>
 	</properties>
 	<dependencies>
 		<dependency>
