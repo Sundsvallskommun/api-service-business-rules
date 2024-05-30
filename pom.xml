@@ -12,11 +12,7 @@
 	<version>1.0</version>
 	<name>api-service-business-rules</name>
 	<properties>
-		<!-- Pipeline properties -->
-		<docker.image.name>ms-business-rules</docker.image.name>
 		<exposed.app.port>8080</exposed.app.port>
-		<published.container.port.test>9120</published.container.port.test>
-		<published.container.port.production>9120</published.container.port.production>
 		<!-- Service properties -->
 		<generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
 		<guava.version>33.2.0-jre</guava.version>
