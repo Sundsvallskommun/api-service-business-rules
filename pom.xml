@@ -15,7 +15,7 @@
 		<exposed.app.port>8080</exposed.app.port>
 		<!-- Service properties -->
 		<generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
-		<guava.version>33.2.0-jre</guava.version>
+		<guava.version>33.2.1-jre</guava.version>
 	</properties>
 	<dependencies>
 		<dependency>
