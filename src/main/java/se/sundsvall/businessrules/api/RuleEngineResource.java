@@ -6,6 +6,7 @@ import static org.springframework.http.ResponseEntity.ok;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.zalando.problem.Problem;
 import org.zalando.problem.violations.ConstraintViolationProblem;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -23,10 +25,11 @@ import jakarta.validation.constraints.NotNull;
 import se.sundsvall.businessrules.api.model.RuleEngineRequest;
 import se.sundsvall.businessrules.api.model.RuleEngineResponse;
 import se.sundsvall.businessrules.service.RuleEngineService;
+import se.sundsvall.dept44.common.validators.annotation.ValidMunicipalityId;
 
 @RestController
 @Validated
-@RequestMapping("/engine")
+@RequestMapping("/{municipalityId}/engine")
 @Tag(name = "BusinessRules", description = "Business rule engine resource")
 public class RuleEngineResource {
 
@@ -41,7 +44,9 @@ public class RuleEngineResource {
 	@ApiResponse(responseCode = "200", description = "Successful operation", useReturnTypeSchema = true)
 	@ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(oneOf = { Problem.class, ConstraintViolationProblem.class })))
 	@ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = Problem.class)))
-	public ResponseEntity<RuleEngineResponse> run(@NotNull @Valid @RequestBody final RuleEngineRequest body) {
-		return ok(ruleEngineService.run(body));
+	public ResponseEntity<RuleEngineResponse> run(
+		@Parameter(name = "municipalityId", description = "Municipality id", example = "2281") @ValidMunicipalityId @PathVariable final String municipalityId,
+		@NotNull @Valid @RequestBody final RuleEngineRequest ruleEngineRequest) {
+		return ok(ruleEngineService.run(municipalityId, ruleEngineRequest));
 	}
 }

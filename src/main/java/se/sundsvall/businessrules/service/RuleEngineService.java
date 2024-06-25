@@ -1,6 +1,7 @@
 package se.sundsvall.businessrules.service;
 
 import static org.zalando.problem.Status.NOT_FOUND;
+import static se.sundsvall.businessrules.service.Constants.ERROR_MESSAGE_NO_ENGINE_FOUND;
 
 import java.util.List;
 import java.util.Objects;
@@ -16,16 +17,14 @@ import se.sundsvall.businessrules.service.engine.RuleEngine;
 @Service
 public class RuleEngineService {
 
-	static final String ERROR_MESSAGE_NO_ENGINE_FOUND = "No engine for context: '%s' was found!";
-
 	private final List<RuleEngine> ruleEngines;
 
 	public RuleEngineService(List<RuleEngine> ruleEngines) {
 		this.ruleEngines = ruleEngines;
 	}
 
-	public RuleEngineResponse run(RuleEngineRequest request) {
-		return findRuleEngineByContext(Context.valueOf(request.getContext())).run(request);
+	public RuleEngineResponse run(String municipalityId, RuleEngineRequest request) {
+		return findRuleEngineByContext(Context.valueOf(request.getContext())).run(municipalityId, request);
 	}
 
 	private RuleEngine findRuleEngineByContext(Context context) {

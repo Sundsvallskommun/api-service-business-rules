@@ -26,13 +26,13 @@ class CriteriaEvaluatorTest {
 
 		// Arrange
 		ReflectionTestUtils.setField(criteriaEvaluator, "criteria", List.of(new TestCriteria()));
-
+		final var municipalityId = "2281";
 		final var rule = new TestRule();
 		final var facts = List.of(
 			Fact.create().withKey("key").withValue("value"));
 
 		// Act
-		final var result = criteriaEvaluator.evaluateCriteriaComponent(rule, facts);
+		final var result = criteriaEvaluator.evaluateCriteriaComponent(rule, municipalityId, facts);
 
 		// Assert
 		assertThat(result)
@@ -44,12 +44,13 @@ class CriteriaEvaluatorTest {
 	void evaluateComponent() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var rule = new TestRule();
 		final var facts = List.of(
 			Fact.create().withKey("key").withValue("value"));
 
 		// Act
-		final var result = CriteriaEvaluator.evaluateCriteria(rule, facts);
+		final var result = CriteriaEvaluator.evaluateCriteria(rule, municipalityId, facts);
 
 		// Assert
 		assertThat(result)

@@ -8,7 +8,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.util.ReflectionTestUtils.setField;
 import static org.zalando.problem.Status.NOT_FOUND;
-import static se.sundsvall.businessrules.service.RuleEngineService.ERROR_MESSAGE_NO_ENGINE_FOUND;
 
 import java.util.List;
 
@@ -44,6 +43,7 @@ class RuleEngineServiceTest {
 	void ruleEngineExistsAndIsExecuted() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var request = RuleEngineRequest.create()
 			.withContext(Context.PARKING_PERMIT.toString())
 			.withFacts(List.of(Fact.create()
@@ -51,21 +51,22 @@ class RuleEngineServiceTest {
 				.withValue("value")));
 
 		when(ruleEngineMock.getContext()).thenReturn(Context.PARKING_PERMIT);
-		when(ruleEngineMock.run(any(RuleEngineRequest.class))).thenReturn(RuleEngineResponse.create());
+		when(ruleEngineMock.run(any(), any(RuleEngineRequest.class))).thenReturn(RuleEngineResponse.create());
 
 		// Act
-		final var result = ruleEngineExecutor.run(request);
+		final var result = ruleEngineExecutor.run(municipalityId, request);
 
 		// Assert
 		assertThat(result).isNotNull();
 		verify(ruleEngineMock).getContext();
-		verify(ruleEngineMock).run(request);
+		verify(ruleEngineMock).run(municipalityId, request);
 	}
 
 	@Test
 	void ruleEngineNotFound() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var context = Context.PARKING_PERMIT;
 		final var request = RuleEngineRequest.create()
 			.withContext(context.toString())
@@ -76,14 +77,14 @@ class RuleEngineServiceTest {
 		when(ruleEngineMock.getContext()).thenReturn(null);
 
 		// Act
-		final var exception = assertThrows(ThrowableProblem.class, () -> ruleEngineExecutor.run(request));
+		final var exception = assertThrows(ThrowableProblem.class, () -> ruleEngineExecutor.run(municipalityId, request));
 
 		// Assert
 		assertThat(exception.getStatus()).isEqualTo(NOT_FOUND);
 		assertThat(exception.getTitle()).isEqualTo(NOT_FOUND.getReasonPhrase());
-		assertThat(exception.getDetail()).isEqualTo(ERROR_MESSAGE_NO_ENGINE_FOUND.formatted(context));
+		assertThat(exception.getDetail()).isEqualTo("No engine for context: 'PARKING_PERMIT' was found!");
 
 		verify(ruleEngineMock).getContext();
-		verify(ruleEngineMock, never()).run(request);
+		verify(ruleEngineMock, never()).run(municipalityId, request);
 	}
 }

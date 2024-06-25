@@ -32,7 +32,7 @@ public class PassengerWalkingAbilityCriteria implements Criteria {
 	private static final String WALKING_ABILITY_EXCEEDS_THRESHOLD_VALUE = "den sökande kan gå längre än %s meter".formatted(MAXIMUM_WALKING_DISTANCE_FOR_APPROVAL);
 
 	@Override
-	public CriteriaResult evaluate(List<Fact> facts) {
+	public CriteriaResult evaluate(String municipalityId, List<Fact> facts) {
 
 		// Input
 		final var factMap = toFactMap(facts);

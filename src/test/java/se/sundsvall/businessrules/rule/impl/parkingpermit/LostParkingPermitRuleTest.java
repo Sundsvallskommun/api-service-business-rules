@@ -1,24 +1,5 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit;
 
-import generated.se.sundsvall.partyassets.Asset;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.SpyBean;
-import org.springframework.test.context.ActiveProfiles;
-import se.sundsvall.businessrules.Application;
-import se.sundsvall.businessrules.api.model.Fact;
-import se.sundsvall.businessrules.api.model.ResultDetail;
-import se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient;
-import se.sundsvall.businessrules.rule.CriteriaEvaluator;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.PoliceReportFormatCriteria;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.RecurringLossesCriteria;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum;
-
-import java.util.List;
-import java.util.Map;
-
 import static java.util.UUID.randomUUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -33,9 +14,30 @@ import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPe
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.TYPE;
 
+import java.util.List;
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.test.context.ActiveProfiles;
+
+import generated.se.sundsvall.partyassets.Asset;
+import se.sundsvall.businessrules.Application;
+import se.sundsvall.businessrules.api.model.Fact;
+import se.sundsvall.businessrules.api.model.ResultDetail;
+import se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient;
+import se.sundsvall.businessrules.rule.CriteriaEvaluator;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.PoliceReportFormatCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.RecurringLossesCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum;
+
 @SpringBootTest(classes = Application.class, webEnvironment = MOCK)
 @ActiveProfiles("junit")
 class LostParkingPermitRuleTest {
+
 	private static final String PARTY_ID_PARAMETER = "partyId";
 	private static final String TYPE_PARAMETER = "type";
 	private static final String STATUS_PARAMETER = "status";
@@ -89,6 +91,7 @@ class LostParkingPermitRuleTest {
 	void evaluateSuccess() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var partyId = randomUUID().toString();
 		final var facts = List.of(
 			Fact.create().withKey(TYPE.getKey()).withValue("LOST_PARKING_PERMIT"),
@@ -96,7 +99,7 @@ class LostParkingPermitRuleTest {
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
 		// Act
-		final var result = rule.evaluate(facts);
+		final var result = rule.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -112,7 +115,7 @@ class LostParkingPermitRuleTest {
 				.withOrigin("RECURRING_LOSSES_CRITERIA")
 				.withDescription("det finns inga tidigare förlustanmälningar")));
 
-		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, facts);
+		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, municipalityId, facts);
 		verify(partyAssetsClientMock).getAssets(Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			STATUS_PARAMETER, "BLOCKED",
@@ -124,6 +127,7 @@ class LostParkingPermitRuleTest {
 	void evaluateFailureDueToFailedCriteria() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var partyId = randomUUID().toString();
 		final var facts = List.of(
 			Fact.create().withKey(TYPE.getKey()).withValue("LOST_PARKING_PERMIT"),
@@ -134,7 +138,7 @@ class LostParkingPermitRuleTest {
 		when(partyAssetsClientMock.getAssets(any())).thenReturn(List.of(new Asset()));
 
 		// Act
-		final var result = rule.evaluate(facts);
+		final var result = rule.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -150,7 +154,7 @@ class LostParkingPermitRuleTest {
 				.withOrigin("RECURRING_LOSSES_CRITERIA")
 				.withDescription("det finns tidigare förlustanmälningar")));
 
-		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, facts);
+		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, municipalityId, facts);
 		verify(partyAssetsClientMock).getAssets(Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			STATUS_PARAMETER, "BLOCKED",
@@ -162,11 +166,12 @@ class LostParkingPermitRuleTest {
 	void evaluateFailureDueToAllMandatoryParametersMissing() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var facts = List.of(
 			Fact.create().withKey(ParkingPermitFactKeyEnum.TYPE.getKey()).withValue("LOST_PARKING_PERMIT"));
 
 		// Act
-		final var result = rule.evaluate(facts);
+		final var result = rule.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();

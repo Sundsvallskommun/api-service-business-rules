@@ -57,6 +57,7 @@ class ParkingPermitRuleEngineTest {
 	void ruleEngineExecutesTheRules() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var request = RuleEngineRequest.create()
 			.withContext(Context.PARKING_PERMIT.toString())
 			.withFacts(List.of(Fact.create()
@@ -67,7 +68,7 @@ class ParkingPermitRuleEngineTest {
 		when(rule2Mock.isApplicable(any())).thenReturn(true);
 
 		// Act
-		final var result = parkingPermitRuleEngine.run(request);
+		final var result = parkingPermitRuleEngine.run(municipalityId, request);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -76,14 +77,15 @@ class ParkingPermitRuleEngineTest {
 
 		verify(rule1Mock).isApplicable(request.getFacts());
 		verify(rule2Mock).isApplicable(request.getFacts());
-		verify(rule1Mock).evaluate(request.getFacts());
-		verify(rule2Mock).evaluate(request.getFacts());
+		verify(rule1Mock).evaluate(municipalityId, request.getFacts());
+		verify(rule2Mock).evaluate(municipalityId, request.getFacts());
 	}
 
 	@Test
 	void ruleEngineWhenRulesAreNotApplicable() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var request = RuleEngineRequest.create()
 			.withContext(Context.PARKING_PERMIT.toString())
 			.withFacts(List.of(Fact.create()
@@ -96,7 +98,7 @@ class ParkingPermitRuleEngineTest {
 		when(rule2Mock.isApplicable(any())).thenReturn(false);
 
 		// Act
-		final var result = parkingPermitRuleEngine.run(request);
+		final var result = parkingPermitRuleEngine.run(municipalityId, request);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -109,7 +111,7 @@ class ParkingPermitRuleEngineTest {
 
 		verify(rule1Mock).isApplicable(request.getFacts());
 		verify(rule2Mock).isApplicable(request.getFacts());
-		verify(rule1Mock, never()).evaluate(request.getFacts());
-		verify(rule2Mock, never()).evaluate(request.getFacts());
+		verify(rule1Mock, never()).evaluate(municipalityId, request.getFacts());
+		verify(rule2Mock, never()).evaluate(municipalityId, request.getFacts());
 	}
 }

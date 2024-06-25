@@ -29,12 +29,12 @@ public class ParkingPermitRuleEngine implements RuleEngine {
 	}
 
 	@Override
-	public RuleEngineResponse run(RuleEngineRequest request) {
+	public RuleEngineResponse run(String municipalityId, RuleEngineRequest request) {
 
 		final var results = rules.stream()
 			.map(rule -> {
 				if (rule.isApplicable(request.getFacts())) {
-					return rule.evaluate(request.getFacts());
+					return rule.evaluate(municipalityId, request.getFacts());
 				}
 				return toNonApplicableResult(rule);
 			})

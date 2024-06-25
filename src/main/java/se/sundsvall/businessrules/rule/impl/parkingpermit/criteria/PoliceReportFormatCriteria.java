@@ -28,7 +28,7 @@ public class PoliceReportFormatCriteria implements Criteria {
 	private static final String INVALID_POLICE_REPORT_MISSING = "diarienummer för polisrapport saknas";
 
 	@Override
-	public CriteriaResult evaluate(List<Fact> facts) {
+	public CriteriaResult evaluate(String municipalityId, List<Fact> facts) {
 
 		// Input
 		final var factMap = toFactMap(facts);

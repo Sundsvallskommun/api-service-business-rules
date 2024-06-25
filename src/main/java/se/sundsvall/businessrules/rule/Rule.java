@@ -33,9 +33,11 @@ public interface Rule {
 	 * The rule evaluation method.
 	 * This is where all conditions and criterias are evaluated.
 	 *
-	 * @return the evaluation result.
+	 * @param  municipalityId the municipalityId
+	 * @param  facts          the facts to evaluate
+	 * @return                the evaluation result.
 	 */
-	Result evaluate(List<Fact> facts);
+	Result evaluate(String municipalityId, List<Fact> facts);
 
 	/**
 	 * The criteria classes that will be evaluated by this rule.

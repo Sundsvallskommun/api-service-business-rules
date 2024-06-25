@@ -26,7 +26,7 @@ public class PassengerCanBeAloneWhileParkingCriteria implements Criteria {
 	private static final String APPLICANT_CANT_BE_ALONE = "den sökande kan inte lämnas ensam en kort stund vid parkering";
 
 	@Override
-	public CriteriaResult evaluate(List<Fact> facts) {
+	public CriteriaResult evaluate(String municipalityId, List<Fact> facts) {
 
 		// Input
 		final var factMap = toFactMap(facts);

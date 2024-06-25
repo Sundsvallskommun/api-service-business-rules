@@ -22,7 +22,10 @@ public interface Criteria {
 	 * The criteria evaluation method.
 	 * This is where all conditions are evaluated.
 	 *
-	 * @return the evaluation result.
+	 * @param  municipalityId the municipalityId
+	 * @param  facts          the facts to evaluate
+	 *
+	 * @return                the evaluation result.
 	 */
-	CriteriaResult evaluate(List<Fact> facts);
+	CriteriaResult evaluate(String municipalityId, List<Fact> facts);
 }

@@ -22,11 +22,12 @@ class PassengerCanBeAloneWhileParkingCriteriaTest {
 	void evaluateSuccessDueToApplicantCanNotBeLeftAlone() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var facts = List.of(
 			Fact.create().withKey(DISABILITY_CAN_BE_ALONE_WHILE_PARKING.getKey()).withValue("false"));
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -39,11 +40,12 @@ class PassengerCanBeAloneWhileParkingCriteriaTest {
 	void evaluateFailureDueToApplicantCanBeLeftAlone() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var facts = List.of(
 			Fact.create().withKey(DISABILITY_CAN_BE_ALONE_WHILE_PARKING.getKey()).withValue("true"));
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();

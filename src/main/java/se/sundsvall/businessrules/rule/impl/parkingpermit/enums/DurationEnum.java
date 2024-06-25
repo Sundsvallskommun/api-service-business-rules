@@ -3,6 +3,7 @@ package se.sundsvall.businessrules.rule.impl.parkingpermit.enums;
 import java.util.Arrays;
 
 public enum DurationEnum {
+
 	LESS_THAN_6_MONTHS("P6M"),
 	LESS_THAN_1_YEAR("P1Y"),
 	LESS_THAN_2_YEARS("P2Y"),

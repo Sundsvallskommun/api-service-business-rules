@@ -44,7 +44,7 @@ public class RecurringLossesCriteria implements Criteria {
 	}
 
 	@Override
-	public CriteriaResult evaluate(List<Fact> facts) {
+	public CriteriaResult evaluate(String municipalityId, List<Fact> facts) {
 
 		// Input
 		final var factMap = toFactMap(facts);
