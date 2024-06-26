@@ -23,12 +23,13 @@ class PassengerWalkingAbilityCriteriaTest {
 	void evaluateSuccessDueToWalkingDistance() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var facts = List.of(
 			Fact.create().withKey(DISABILITY_WALKING_ABILITY.getKey()).withValue("true"),
 			Fact.create().withKey(DISABILITY_WALKING_DISTANCE_MAX.getKey()).withValue("99"));
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -41,11 +42,12 @@ class PassengerWalkingAbilityCriteriaTest {
 	void evaluateSuccessDueToWalkingAbility() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var facts = List.of(
 			Fact.create().withKey(DISABILITY_WALKING_ABILITY.getKey()).withValue("false"));
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -58,12 +60,13 @@ class PassengerWalkingAbilityCriteriaTest {
 	void evaluateFailureDueToWalkingDistance() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var facts = List.of(
 			Fact.create().withKey(DISABILITY_WALKING_ABILITY.getKey()).withValue("true"),
 			Fact.create().withKey(DISABILITY_WALKING_DISTANCE_MAX.getKey()).withValue("101"));
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();

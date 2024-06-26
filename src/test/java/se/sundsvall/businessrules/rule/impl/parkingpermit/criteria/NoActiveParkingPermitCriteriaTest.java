@@ -1,17 +1,5 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.criteria;
 
-import generated.se.sundsvall.partyassets.Asset;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import se.sundsvall.businessrules.api.model.Fact;
-import se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient;
-
-import java.util.List;
-import java.util.Map;
-
 import static java.util.Collections.emptyList;
 import static java.util.UUID.randomUUID;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,6 +10,19 @@ import static se.sundsvall.businessrules.integration.partyassets.PartyAssetsClie
 import static se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient.STATUS_PARAMETER;
 import static se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient.TYPE_PARAMETER;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
+
+import java.util.List;
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import generated.se.sundsvall.partyassets.Asset;
+import se.sundsvall.businessrules.api.model.Fact;
+import se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient;
 
 @ExtendWith(MockitoExtension.class)
 class NoActiveParkingPermitCriteriaTest {
@@ -36,6 +37,7 @@ class NoActiveParkingPermitCriteriaTest {
 	void evaluateSuccess() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var partyId = randomUUID().toString();
 		final var facts = List.of(
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
@@ -43,7 +45,7 @@ class NoActiveParkingPermitCriteriaTest {
 		when(partyAssetsClientMock.getAssets(any())).thenReturn(emptyList());
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -61,6 +63,7 @@ class NoActiveParkingPermitCriteriaTest {
 	void evaluateFailure() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var partyId = randomUUID().toString();
 		final var facts = List.of(
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
@@ -68,7 +71,7 @@ class NoActiveParkingPermitCriteriaTest {
 		when(partyAssetsClientMock.getAssets(any())).thenReturn(List.of(new Asset()));
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();

@@ -23,11 +23,12 @@ class PoliceReportFormatCriteriaTest {
 	void evaluateSuccess() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var facts = List.of(
 			Fact.create().withKey(APPLICATION_LOST_PERMIT_POLICE_REPORT_NUMBER.getKey()).withValue("5000-KXXXXXXX-2X"));
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -40,11 +41,12 @@ class PoliceReportFormatCriteriaTest {
 	void evaluateFailureDueToPoliceReportBadFormat() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var facts = List.of(
 			Fact.create().withKey(APPLICATION_LOST_PERMIT_POLICE_REPORT_NUMBER.getKey()).withValue("KXXXXXXX"));
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -57,7 +59,8 @@ class PoliceReportFormatCriteriaTest {
 	void evaluateFailureDueToPoliceReportMissing() {
 
 		// Act
-		final var result = criteria.evaluate(emptyList());
+		final var municipalityId = "2281";
+		final var result = criteria.evaluate(municipalityId, emptyList());
 
 		// Assert
 		assertThat(result).isNotNull();

@@ -1,18 +1,5 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.criteria;
 
-import generated.se.sundsvall.partyassets.Asset;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import se.sundsvall.businessrules.api.model.Fact;
-import se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-
 import static generated.se.sundsvall.partyassets.Status.ACTIVE;
 import static generated.se.sundsvall.partyassets.Status.EXPIRED;
 import static java.util.Collections.emptyList;
@@ -24,6 +11,20 @@ import static org.mockito.Mockito.when;
 import static se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient.PARTY_ID_PARAMETER;
 import static se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient.TYPE_PARAMETER;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import generated.se.sundsvall.partyassets.Asset;
+import se.sundsvall.businessrules.api.model.Fact;
+import se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient;
 
 @ExtendWith(MockitoExtension.class)
 class ExpiringParkingPermitCriteriaTest {
@@ -40,6 +41,7 @@ class ExpiringParkingPermitCriteriaTest {
 	void evaluateSuccessAllPermitsHasExpired() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var partyId = randomUUID().toString();
 		final var facts = List.of(
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
@@ -50,7 +52,7 @@ class ExpiringParkingPermitCriteriaTest {
 			new Asset().partyId(PARTY_ID_PARAMETER).status(EXPIRED)));
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -67,6 +69,7 @@ class ExpiringParkingPermitCriteriaTest {
 	void evaluateSuccessActivePermitAboutToExpire() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var partyId = randomUUID().toString();
 		final var facts = List.of(
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
@@ -77,7 +80,7 @@ class ExpiringParkingPermitCriteriaTest {
 			new Asset().partyId(PARTY_ID_PARAMETER).status(EXPIRED)));
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -94,6 +97,7 @@ class ExpiringParkingPermitCriteriaTest {
 	void evaluateFailureNoExisitingPermits() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var partyId = randomUUID().toString();
 		final var facts = List.of(
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
@@ -101,7 +105,7 @@ class ExpiringParkingPermitCriteriaTest {
 		when(partyAssetsClientMock.getAssets(any())).thenReturn(emptyList());
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -118,6 +122,7 @@ class ExpiringParkingPermitCriteriaTest {
 	void evaluateFailureNoExpiredPermits() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var partyId = randomUUID().toString();
 		final var facts = List.of(
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
@@ -126,7 +131,7 @@ class ExpiringParkingPermitCriteriaTest {
 			new Asset().partyId(PARTY_ID_PARAMETER).status(ACTIVE)));
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -143,6 +148,7 @@ class ExpiringParkingPermitCriteriaTest {
 	void evaluateFailureNoActivePermitAboutToExpire() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var partyId = randomUUID().toString();
 		final var facts = List.of(
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
@@ -151,7 +157,7 @@ class ExpiringParkingPermitCriteriaTest {
 			new Asset().partyId(PARTY_ID_PARAMETER).status(ACTIVE).validTo(LocalDate.now().plusMonths(EXPIRATION_PERIOD_IN_MONTHS).plusDays(1)))); // 1 day more than the grace period.
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();

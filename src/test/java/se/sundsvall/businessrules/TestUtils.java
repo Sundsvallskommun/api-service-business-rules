@@ -26,7 +26,7 @@ public class TestUtils {
 		}
 
 		@Override
-		public RuleEngineResponse run(RuleEngineRequest request) {
+		public RuleEngineResponse run(String municipalityId, RuleEngineRequest request) {
 			return null;
 		}
 	}
@@ -34,8 +34,8 @@ public class TestUtils {
 	public static class TestRule implements Rule {
 
 		@Override
-		public Result evaluate(List<Fact> facts) {
-			return toResult(this, CriteriaEvaluator.evaluateCriteria(this, facts));
+		public Result evaluate(String municipalityId, List<Fact> facts) {
+			return toResult(this, CriteriaEvaluator.evaluateCriteria(this, municipalityId, facts));
 		}
 
 		@Override
@@ -47,7 +47,7 @@ public class TestUtils {
 	public static class TestCriteria implements Criteria {
 
 		@Override
-		public CriteriaResult evaluate(List<Fact> facts) {
+		public CriteriaResult evaluate(String municipalityId, List<Fact> facts) {
 			return new CriteriaResult(true, "OK", this);
 		}
 	}

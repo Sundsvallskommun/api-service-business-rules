@@ -12,12 +12,12 @@ import se.sundsvall.dept44.test.annotation.wiremock.WireMockAppTestSuite;
 @WireMockAppTestSuite(files = "classpath:/ParkingPermit/", classes = Application.class)
 class ParkingPermitIT extends AbstractAppTest {
 
-	private static final String BASE_PATH = "/engine";
+	private static final String BASE_PATH = "/2281/engine";
 	private static final String REQUEST = "request.json";
 	private static final String RESPONSE = "response.json";
 
 	@Test
-	void test01_noApplicableRulesApplied() throws Exception {
+	void test01_noApplicableRulesApplied() {
 
 		setupCall()
 			.withServicePath(BASE_PATH)
@@ -29,7 +29,7 @@ class ParkingPermitIT extends AbstractAppTest {
 	}
 
 	@Test
-	void test02_passNewDriverParkingPermit() throws Exception {
+	void test02_passNewDriverParkingPermit() {
 
 		setupCall()
 			.withServicePath(BASE_PATH)
@@ -41,7 +41,7 @@ class ParkingPermitIT extends AbstractAppTest {
 	}
 
 	@Test
-	void test03_failNewDriverParkingPermit() throws Exception { // Already has an active parkingpermit
+	void test03_failNewDriverParkingPermit() { // Already has an active parkingpermit
 
 		setupCall()
 			.withServicePath(BASE_PATH)
@@ -53,7 +53,7 @@ class ParkingPermitIT extends AbstractAppTest {
 	}
 
 	@Test
-	void test04_passNewPassengerParkingPermit() throws Exception {
+	void test04_passNewPassengerParkingPermit() {
 
 		setupCall()
 			.withServicePath(BASE_PATH)
@@ -65,7 +65,7 @@ class ParkingPermitIT extends AbstractAppTest {
 	}
 
 	@Test
-	void test05_failNewPassengerParkingPermit() throws Exception { // Already has an active parkingpermit
+	void test05_failNewPassengerParkingPermit() { // Already has an active parkingpermit
 
 		setupCall()
 			.withServicePath(BASE_PATH)
@@ -77,7 +77,7 @@ class ParkingPermitIT extends AbstractAppTest {
 	}
 
 	@Test
-	void test06_passRenewalOfDriverParkingPermit() throws Exception { // Has an active parking permit about to expire
+	void test06_passRenewalOfDriverParkingPermit() { // Has an active parking permit about to expire
 
 		setupCall()
 			.withServicePath(BASE_PATH)
@@ -89,7 +89,7 @@ class ParkingPermitIT extends AbstractAppTest {
 	}
 
 	@Test
-	void test07_failRenewalOfDriverParkingPermit() throws Exception { // Has a active parking permit not about to expire
+	void test07_failRenewalOfDriverParkingPermit() { // Has a active parking permit not about to expire
 
 		setupCall()
 			.withServicePath(BASE_PATH)
@@ -101,7 +101,7 @@ class ParkingPermitIT extends AbstractAppTest {
 	}
 
 	@Test
-	void test08_passRenewalOfPassengerParkingPermit() throws Exception { // Has two parking permits, one exipired and one about to expire
+	void test08_passRenewalOfPassengerParkingPermit() { // Has two parking permits, one exipired and one about to expire
 
 		setupCall()
 			.withServicePath(BASE_PATH)
@@ -113,7 +113,7 @@ class ParkingPermitIT extends AbstractAppTest {
 	}
 
 	@Test
-	void test09_failRenewalOfPassengerParkingPermit() throws Exception { // Has two parking permits, one expired and one still active
+	void test09_failRenewalOfPassengerParkingPermit() { // Has two parking permits, one expired and one still active
 
 		setupCall()
 			.withServicePath(BASE_PATH)
@@ -125,7 +125,7 @@ class ParkingPermitIT extends AbstractAppTest {
 	}
 
 	@Test
-	void test10_passLostParkingPermit() throws Exception {
+	void test10_passLostParkingPermit() {
 
 		setupCall()
 			.withServicePath(BASE_PATH)
@@ -137,7 +137,7 @@ class ParkingPermitIT extends AbstractAppTest {
 	}
 
 	@Test
-	void test11_failLostParkingPermit() throws Exception { // Reoccurring reports of lost permit exists for applicant
+	void test11_failLostParkingPermit() { // Reoccurring reports of lost permit exists for applicant
 
 		setupCall()
 			.withServicePath(BASE_PATH)

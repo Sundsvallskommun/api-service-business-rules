@@ -1,6 +1,8 @@
 package se.sundsvall.businessrules.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -28,7 +30,7 @@ import se.sundsvall.businessrules.service.RuleEngineService;
 @ActiveProfiles("junit")
 class RuleEngineResourceTest {
 
-	private static final String PATH = "/engine";
+	private static final String PATH = "/2281/engine";
 
 	@Autowired
 	private WebTestClient webTestClient;
@@ -45,7 +47,7 @@ class RuleEngineResourceTest {
 		// Arrange
 		final var ruleEngineRequest = ruleEngineRequest();
 
-		when(ruleEngineServiceMock.run(ruleEngineRequest)).thenReturn(RuleEngineResponse.create()
+		when(ruleEngineServiceMock.run(any(), eq(ruleEngineRequest))).thenReturn(RuleEngineResponse.create()
 			.withContext(PARKING_PERMIT.toString())
 			.withResults(List.of(Result.create())));
 
@@ -63,7 +65,7 @@ class RuleEngineResourceTest {
 
 		// Assert
 		assertThat(response).isNotNull();
-		verify(ruleEngineServiceMock).run(ruleEngineRequest);
+		verify(ruleEngineServiceMock).run("2281", ruleEngineRequest);
 	}
 
 	private static RuleEngineRequest ruleEngineRequest() {

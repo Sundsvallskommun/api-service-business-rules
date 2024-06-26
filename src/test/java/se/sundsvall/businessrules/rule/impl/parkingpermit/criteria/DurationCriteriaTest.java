@@ -23,11 +23,12 @@ class DurationCriteriaTest {
 	void evaluateNewApplicationSuccessDueToDuration() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var facts = List.of(
 			Fact.create().withKey(DISABILITY_DURATION.getKey()).withValue("P1Y"));
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -40,11 +41,12 @@ class DurationCriteriaTest {
 	void evaluateNewApplicationFailureDueToDuration() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var facts = List.of(
 			Fact.create().withKey(DISABILITY_DURATION.getKey()).withValue("P6M"));
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -57,12 +59,13 @@ class DurationCriteriaTest {
 	void evaluateRenewalApplicationSuccessDueToDuration() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var facts = List.of(
 			Fact.create().withKey(APPLICATION_RENEWAL_CHANGED_CIRCUMSTANCES.getKey()).withValue("true"),
 			Fact.create().withKey(DISABILITY_DURATION.getKey()).withValue("P1Y"));
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -75,12 +78,13 @@ class DurationCriteriaTest {
 	void evaluateRenewalApplicationSuccessDueToNoChangedCircumstances() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var facts = List.of(
 			Fact.create().withKey(APPLICATION_RENEWAL_CHANGED_CIRCUMSTANCES.getKey()).withValue("false"),
 			Fact.create().withKey(DISABILITY_DURATION.getKey()).withValue("P6M"));
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -93,12 +97,13 @@ class DurationCriteriaTest {
 	void evaluateRenewalApplicationFailureDueToDuration() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var facts = List.of(
 			Fact.create().withKey(APPLICATION_RENEWAL_CHANGED_CIRCUMSTANCES.getKey()).withValue("true"),
 			Fact.create().withKey(DISABILITY_DURATION.getKey()).withValue("P6M"));
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();

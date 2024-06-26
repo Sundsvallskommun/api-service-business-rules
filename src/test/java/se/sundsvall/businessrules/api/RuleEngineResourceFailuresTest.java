@@ -30,7 +30,7 @@ import se.sundsvall.businessrules.service.RuleEngineService;
 @ActiveProfiles("junit")
 class RuleEngineResourceFailuresTest {
 
-	private static final String PATH = "/engine";
+	private static final String PATH = "/2281/engine";
 
 	@Autowired
 	private WebTestClient webTestClient;
@@ -129,6 +129,39 @@ class RuleEngineResourceFailuresTest {
 			.extracting(Violation::getField, Violation::getMessage)
 			.containsExactlyInAnyOrder(
 				tuple("facts[0].key", "must not be blank"));
+
+		verifyNoInteractions(ruleEngineServiceMock);
+	}
+
+	@Test
+	void runEngineInvalidMunicipalityId() {
+
+		// Arrange
+		final var ruleEngineRequest = ruleEngineRequest()
+			.withFacts(List.of(Fact.create()
+				.withKey("key")
+				.withValue("value")));
+
+		// Act
+		final var response = webTestClient.post()
+			.uri("/666/engine") // Invalid municipalityId
+			.contentType(APPLICATION_JSON)
+			.bodyValue(ruleEngineRequest)
+			.exchange()
+			.expectStatus().isBadRequest()
+			.expectHeader().contentType(APPLICATION_PROBLEM_JSON)
+			.expectBody(ConstraintViolationProblem.class)
+			.returnResult()
+			.getResponseBody();
+
+		// Assert
+		assertThat(response).isNotNull();
+		assertThat(response.getTitle()).isEqualTo("Constraint Violation");
+		assertThat(response.getStatus()).isEqualTo(BAD_REQUEST);
+		assertThat(response.getViolations())
+			.extracting(Violation::getField, Violation::getMessage)
+			.containsExactlyInAnyOrder(
+				tuple("run.municipalityId", "not a valid municipality ID"));
 
 		verifyNoInteractions(ruleEngineServiceMock);
 	}

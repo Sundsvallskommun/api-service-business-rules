@@ -3,6 +3,7 @@ package se.sundsvall.businessrules.service.mapper;
 import static java.util.Collections.emptyList;
 import static java.util.Objects.nonNull;
 import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.toMap;
 import static se.sundsvall.businessrules.api.model.enums.ResultValue.FAIL;
 import static se.sundsvall.businessrules.api.model.enums.ResultValue.NOT_APPLICABLE;
 import static se.sundsvall.businessrules.api.model.enums.ResultValue.PASS;
@@ -13,7 +14,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.api.model.Result;
@@ -23,7 +23,7 @@ import se.sundsvall.businessrules.rule.CriteriaResult;
 import se.sundsvall.businessrules.rule.Rule;
 import se.sundsvall.businessrules.service.engine.RuleEngine;
 
-public class RuleEngineMapper {
+public final class RuleEngineMapper {
 
 	private RuleEngineMapper() {}
 
@@ -36,7 +36,7 @@ public class RuleEngineMapper {
 	public static Map<String, Fact> toFactMap(List<Fact> facts) {
 		return Optional.ofNullable(facts).orElse(emptyList()).stream()
 			.filter(fact -> nonNull(fact.getKey()))
-			.collect(Collectors.toMap(Fact::getKey, Function.identity()));
+			.collect(toMap(Fact::getKey, Function.identity()));
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class RuleEngineMapper {
 	public static Map<String, String> toStringMap(List<Fact> facts) {
 		return Optional.ofNullable(facts).orElse(emptyList()).stream()
 			.filter(fact -> nonNull(fact.getKey()))
-			.collect(Collectors.toMap(Fact::getKey, Fact::getValue));
+			.collect(toMap(Fact::getKey, Fact::getValue));
 	}
 
 	/**

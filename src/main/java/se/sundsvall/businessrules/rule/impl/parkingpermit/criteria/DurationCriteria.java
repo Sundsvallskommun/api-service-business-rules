@@ -30,7 +30,7 @@ public class DurationCriteria implements Criteria {
 	private static final String DURATION_MORE_THAN_THRESHOLD_VALUE = "funktionsnedsättningens varaktighet är 6 månader eller längre";
 
 	@Override
-	public CriteriaResult evaluate(List<Fact> facts) {
+	public CriteriaResult evaluate(String municipalityId, List<Fact> facts) {
 
 		// Input
 		final var factMap = toFactMap(facts);

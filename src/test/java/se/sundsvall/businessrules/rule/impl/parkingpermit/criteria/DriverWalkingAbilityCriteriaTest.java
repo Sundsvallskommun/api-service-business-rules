@@ -23,12 +23,13 @@ class DriverWalkingAbilityCriteriaTest {
 	void evaluateSuccessDueToWalkingDistance() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var facts = List.of(
 			Fact.create().withKey(DISABILITY_WALKING_ABILITY.getKey()).withValue("true"),
 			Fact.create().withKey(DISABILITY_WALKING_DISTANCE_MAX.getKey()).withValue("499"));
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -41,12 +42,13 @@ class DriverWalkingAbilityCriteriaTest {
 	void evaluateSuccessDueToWalkingAbility() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var facts = List.of(
 			Fact.create().withKey(DISABILITY_WALKING_ABILITY.getKey()).withValue("false"),
 			Fact.create().withKey(DISABILITY_WALKING_DISTANCE_MAX.getKey()).withValue("0"));
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -59,12 +61,13 @@ class DriverWalkingAbilityCriteriaTest {
 	void evaluateFailureDueToWalkingDistance() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var facts = List.of(
 			Fact.create().withKey(DISABILITY_WALKING_ABILITY.getKey()).withValue("true"),
 			Fact.create().withKey(DISABILITY_WALKING_DISTANCE_MAX.getKey()).withValue("501"));
 
 		// Act
-		final var result = criteria.evaluate(facts);
+		final var result = criteria.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();

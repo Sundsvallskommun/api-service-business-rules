@@ -1,26 +1,5 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit;
 
-import generated.se.sundsvall.partyassets.Asset;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.SpyBean;
-import org.springframework.test.context.ActiveProfiles;
-import se.sundsvall.businessrules.Application;
-import se.sundsvall.businessrules.api.model.Fact;
-import se.sundsvall.businessrules.api.model.ResultDetail;
-import se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient;
-import se.sundsvall.businessrules.rule.CriteriaEvaluator;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.DurationCriteria;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.ExpiringParkingPermitCriteria;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.PassengerCanBeAloneWhileParkingCriteria;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.PassengerWalkingAbilityCriteria;
-
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
 import static generated.se.sundsvall.partyassets.Status.EXPIRED;
 import static java.util.Collections.emptyList;
 import static java.util.UUID.randomUUID;
@@ -42,6 +21,28 @@ import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPe
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_WALKING_DISTANCE_MAX;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.TYPE;
+
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.test.context.ActiveProfiles;
+
+import generated.se.sundsvall.partyassets.Asset;
+import se.sundsvall.businessrules.Application;
+import se.sundsvall.businessrules.api.model.Fact;
+import se.sundsvall.businessrules.api.model.ResultDetail;
+import se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient;
+import se.sundsvall.businessrules.rule.CriteriaEvaluator;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.DurationCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.ExpiringParkingPermitCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.PassengerCanBeAloneWhileParkingCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.PassengerWalkingAbilityCriteria;
 
 @SpringBootTest(classes = Application.class, webEnvironment = MOCK)
 @ActiveProfiles("junit")
@@ -99,6 +100,7 @@ class PassengerRenewalParkingPermitRuleTest {
 	void evaluateSuccess() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var partyId = randomUUID().toString();
 		final var facts = List.of(
 			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT_RENEWAL"),
@@ -115,7 +117,7 @@ class PassengerRenewalParkingPermitRuleTest {
 			new Asset().partyId(PARTY_ID_PARAMETER).status(EXPIRED)));
 
 		// Act
-		final var result = rule.evaluate(facts);
+		final var result = rule.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -139,7 +141,7 @@ class PassengerRenewalParkingPermitRuleTest {
 				.withOrigin("EXPIRING_PARKING_PERMIT_CRITERIA")
 				.withDescription("den sökande har parkeringstillstånd som strax upphör eller redan har upphört")));
 
-		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, facts);
+		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, municipalityId, facts);
 		verify(partyAssetsClientMock).getAssets(Map.of(PARTY_ID_PARAMETER, partyId, TYPE_PARAMETER, "PARKINGPERMIT"));
 	}
 
@@ -147,6 +149,7 @@ class PassengerRenewalParkingPermitRuleTest {
 	void evaluateFailureDueToFailedCriteria() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var partyId = randomUUID().toString();
 		final var facts = List.of(
 			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT_RENEWAL"),
@@ -161,7 +164,7 @@ class PassengerRenewalParkingPermitRuleTest {
 		when(partyAssetsClientMock.getAssets(any())).thenReturn(emptyList());
 
 		// Act
-		final var result = rule.evaluate(facts);
+		final var result = rule.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -185,7 +188,7 @@ class PassengerRenewalParkingPermitRuleTest {
 				.withOrigin("EXPIRING_PARKING_PERMIT_CRITERIA")
 				.withDescription("den sökande har inga parkeringstillstånd som är på väg att upphöra eller redan har upphört")));
 
-		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, facts);
+		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, municipalityId, facts);
 		verify(partyAssetsClientMock).getAssets(Map.of(PARTY_ID_PARAMETER, partyId, TYPE_PARAMETER, "PARKINGPERMIT"));
 	}
 
@@ -193,12 +196,13 @@ class PassengerRenewalParkingPermitRuleTest {
 	void evaluateFailureDueToAllMandatoryParametersMissing() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var facts = List.of(
 			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT_RENEWAL"),
 			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("DRIVER"));
 
 		// Act
-		final var result = rule.evaluate(facts);
+		final var result = rule.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -226,6 +230,7 @@ class PassengerRenewalParkingPermitRuleTest {
 	void evaluateFailureDueToInvalidPartyId() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var facts = List.of(
 			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT_RENEWAL"),
 			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("PASSENGER"),
@@ -236,7 +241,7 @@ class PassengerRenewalParkingPermitRuleTest {
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue("invalid-uuid")); // Will make validation fail.
 
 		// Act
-		final var result = rule.evaluate(facts);
+		final var result = rule.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -255,6 +260,7 @@ class PassengerRenewalParkingPermitRuleTest {
 	void evaluateFailureDueToMissingWalkingDistanceMax() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var facts = List.of(
 			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT_RENEWAL"),
 			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("PASSENGER"),
@@ -265,7 +271,7 @@ class PassengerRenewalParkingPermitRuleTest {
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(UUID.randomUUID().toString()));
 
 		// Act
-		final var result = rule.evaluate(facts);
+		final var result = rule.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();
@@ -284,6 +290,7 @@ class PassengerRenewalParkingPermitRuleTest {
 	void evaluateFailureDueToNonNumericValueInWalkingDistanceMax() {
 
 		// Arrange
+		final var municipalityId = "2281";
 		final var facts = List.of(
 			Fact.create().withKey(TYPE.getKey()).withValue("PARKING_PERMIT_RENEWAL"),
 			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue("PASSENGER"),
@@ -294,7 +301,7 @@ class PassengerRenewalParkingPermitRuleTest {
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(UUID.randomUUID().toString()));
 
 		// Act
-		final var result = rule.evaluate(facts);
+		final var result = rule.evaluate(municipalityId, facts);
 
 		// Assert
 		assertThat(result).isNotNull();

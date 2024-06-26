@@ -58,7 +58,7 @@ public class DriverRenewalParkingPermitRule implements ParkingPermitRule {
 	}
 
 	@Override
-	public Result evaluate(List<Fact> facts) {
+	public Result evaluate(String municipalityId, List<Fact> facts) {
 
 		final var validationErrors = validateInput(facts);
 		if (isNotEmpty(validationErrors)) {
@@ -66,7 +66,7 @@ public class DriverRenewalParkingPermitRule implements ParkingPermitRule {
 		}
 
 		// Evaluate all criteria for this rule.
-		return toResult(this, criteriaEvaluator.evaluateCriteriaComponent(this, facts));
+		return toResult(this, criteriaEvaluator.evaluateCriteriaComponent(this, municipalityId, facts));
 	}
 
 	private List<String> validateInput(List<Fact> facts) {
