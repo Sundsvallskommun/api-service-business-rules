@@ -7,7 +7,7 @@
 			}
 		},
 		"method": "GET",
-		"urlPath": "/api-party-assets/assets",
+		"urlPath": "/api-party-assets/2281/assets",
 		"queryParameters" : {
 			"status" : {
 				"equalTo" : "ACTIVE"

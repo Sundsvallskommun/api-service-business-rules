@@ -50,20 +50,20 @@ public class RecurringLossesCriteria implements Criteria {
 		final var factMap = toFactMap(facts);
 		final var stakeHoldersApplicantPersonId = factMap.get(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey());
 
-		if (hasRecuringLosses(stakeHoldersApplicantPersonId.getValue())) {
+		if (hasRecuringLosses(municipalityId, stakeHoldersApplicantPersonId.getValue())) {
 			return new CriteriaResult(false, RECURRING_LOSSES, this);
 		}
 
 		return new CriteriaResult(true, FIRST_TIME_OCCURRENCE, this);
 	}
 
-	private boolean hasRecuringLosses(String partyId) {
+	private boolean hasRecuringLosses(String municipalityId, String partyId) {
 		if (isBlank(partyId)) {
 			return false;
 		}
 
 		// Fetch all blocked parking-permits for this person.
-		final var blockedParkingPermits = partyAssetsClient.getAssets(Map.of(
+		final var blockedParkingPermits = partyAssetsClient.getAssets(municipalityId, Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			STATUS_PARAMETER, STATUS,
 			STATUS_REASON_PARAMETER, STATUS_REASON,

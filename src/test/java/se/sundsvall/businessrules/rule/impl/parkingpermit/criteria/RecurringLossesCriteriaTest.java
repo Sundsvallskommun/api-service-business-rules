@@ -43,7 +43,7 @@ class RecurringLossesCriteriaTest {
 		final var facts = List.of(
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
-		when(partyAssetsClientMock.getAssets(any())).thenReturn(emptyList());
+		when(partyAssetsClientMock.getAssets(any(), any())).thenReturn(emptyList());
 
 		// Act
 		final var result = criteria.evaluate(municipalityId, facts);
@@ -54,7 +54,7 @@ class RecurringLossesCriteriaTest {
 		assertThat(result.value()).isTrue();
 		assertThat(result.description()).isEqualTo("det finns inga tidigare förlustanmälningar");
 
-		verify(partyAssetsClientMock).getAssets(Map.of(
+		verify(partyAssetsClientMock).getAssets(municipalityId, Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			STATUS_PARAMETER, "BLOCKED",
 			STATUS_REASON_PARAMETER, "LOST",
@@ -70,7 +70,7 @@ class RecurringLossesCriteriaTest {
 		final var facts = List.of(
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
-		when(partyAssetsClientMock.getAssets(any())).thenReturn(List.of(new Asset()));
+		when(partyAssetsClientMock.getAssets(any(), any())).thenReturn(List.of(new Asset()));
 
 		// Act
 		final var result = criteria.evaluate(municipalityId, facts);
@@ -81,7 +81,7 @@ class RecurringLossesCriteriaTest {
 		assertThat(result.value()).isFalse();
 		assertThat(result.description()).isEqualTo("det finns tidigare förlustanmälningar");
 
-		verify(partyAssetsClientMock).getAssets(Map.of(
+		verify(partyAssetsClientMock).getAssets(municipalityId, Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			STATUS_PARAMETER, "BLOCKED",
 			STATUS_REASON_PARAMETER, "LOST",

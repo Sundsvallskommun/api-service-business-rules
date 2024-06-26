@@ -42,7 +42,7 @@ class NoActiveParkingPermitCriteriaTest {
 		final var facts = List.of(
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
-		when(partyAssetsClientMock.getAssets(any())).thenReturn(emptyList());
+		when(partyAssetsClientMock.getAssets(any(), any())).thenReturn(emptyList());
 
 		// Act
 		final var result = criteria.evaluate(municipalityId, facts);
@@ -53,7 +53,7 @@ class NoActiveParkingPermitCriteriaTest {
 		assertThat(result.value()).isTrue();
 		assertThat(result.description()).isEqualTo("den sökande har inga aktiva parkeringstillstånd");
 
-		verify(partyAssetsClientMock).getAssets(Map.of(
+		verify(partyAssetsClientMock).getAssets(municipalityId, Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			STATUS_PARAMETER, "ACTIVE",
 			TYPE_PARAMETER, "PARKINGPERMIT"));
@@ -68,7 +68,7 @@ class NoActiveParkingPermitCriteriaTest {
 		final var facts = List.of(
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
-		when(partyAssetsClientMock.getAssets(any())).thenReturn(List.of(new Asset()));
+		when(partyAssetsClientMock.getAssets(any(), any())).thenReturn(List.of(new Asset()));
 
 		// Act
 		final var result = criteria.evaluate(municipalityId, facts);
@@ -79,7 +79,7 @@ class NoActiveParkingPermitCriteriaTest {
 		assertThat(result.value()).isFalse();
 		assertThat(result.description()).isEqualTo("den sökande har redan ett aktivt parkeringstillstånd");
 
-		verify(partyAssetsClientMock).getAssets(Map.of(
+		verify(partyAssetsClientMock).getAssets(municipalityId, Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			STATUS_PARAMETER, "ACTIVE",
 			TYPE_PARAMETER, "PARKINGPERMIT"));

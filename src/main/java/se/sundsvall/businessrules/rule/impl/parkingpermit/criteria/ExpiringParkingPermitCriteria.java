@@ -50,19 +50,19 @@ public class ExpiringParkingPermitCriteria implements Criteria {
 		final var factMap = toFactMap(facts);
 		final var stakeHoldersApplicantPersonId = factMap.get(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey());
 
-		if (hasExpiringParkingPermit(stakeHoldersApplicantPersonId.getValue())) {
+		if (hasExpiringParkingPermit(municipalityId, stakeHoldersApplicantPersonId.getValue())) {
 			return new CriteriaResult(true, HAS_EXPIRING_PARKING_PERMITS, this);
 		}
 		return new CriteriaResult(false, HAS_NO_EXPIRING_PARKING_PERMITS, this);
 	}
 
-	private boolean hasExpiringParkingPermit(String partyId) {
+	private boolean hasExpiringParkingPermit(String municipalityId, String partyId) {
 		if (isBlank(partyId)) {
 			return false;
 		}
 
 		// Fetch all issued parking-permits for this person.
-		final var parkingPermits = partyAssetsClient.getAssets(Map.of(
+		final var parkingPermits = partyAssetsClient.getAssets(municipalityId, Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			TYPE_PARAMETER, TYPE));
 
