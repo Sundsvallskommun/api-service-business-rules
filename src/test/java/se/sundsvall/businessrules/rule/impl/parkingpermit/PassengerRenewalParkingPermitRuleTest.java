@@ -112,7 +112,7 @@ class PassengerRenewalParkingPermitRuleTest {
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
 		// All previous permits are expired.
-		when(partyAssetsClientMock.getAssets(any())).thenReturn(List.of(
+		when(partyAssetsClientMock.getAssets(any(), any())).thenReturn(List.of(
 			new Asset().partyId(PARTY_ID_PARAMETER).status(EXPIRED),
 			new Asset().partyId(PARTY_ID_PARAMETER).status(EXPIRED)));
 
@@ -142,7 +142,7 @@ class PassengerRenewalParkingPermitRuleTest {
 				.withDescription("den sökande har parkeringstillstånd som strax upphör eller redan har upphört")));
 
 		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, municipalityId, facts);
-		verify(partyAssetsClientMock).getAssets(Map.of(PARTY_ID_PARAMETER, partyId, TYPE_PARAMETER, "PARKINGPERMIT"));
+		verify(partyAssetsClientMock).getAssets(municipalityId, Map.of(PARTY_ID_PARAMETER, partyId, TYPE_PARAMETER, "PARKINGPERMIT"));
 	}
 
 	@Test
@@ -161,7 +161,7 @@ class PassengerRenewalParkingPermitRuleTest {
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
 		// No parking permits at all. Will make EXPIRING_PARKING_PERMIT_CRITERIA to fail.
-		when(partyAssetsClientMock.getAssets(any())).thenReturn(emptyList());
+		when(partyAssetsClientMock.getAssets(any(), any())).thenReturn(emptyList());
 
 		// Act
 		final var result = rule.evaluate(municipalityId, facts);
@@ -189,7 +189,7 @@ class PassengerRenewalParkingPermitRuleTest {
 				.withDescription("den sökande har inga parkeringstillstånd som är på väg att upphöra eller redan har upphört")));
 
 		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, municipalityId, facts);
-		verify(partyAssetsClientMock).getAssets(Map.of(PARTY_ID_PARAMETER, partyId, TYPE_PARAMETER, "PARKINGPERMIT"));
+		verify(partyAssetsClientMock).getAssets(municipalityId, Map.of(PARTY_ID_PARAMETER, partyId, TYPE_PARAMETER, "PARKINGPERMIT"));
 	}
 
 	@Test

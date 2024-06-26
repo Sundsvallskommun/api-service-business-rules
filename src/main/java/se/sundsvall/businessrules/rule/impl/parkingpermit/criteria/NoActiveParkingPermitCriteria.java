@@ -48,19 +48,19 @@ public class NoActiveParkingPermitCriteria implements Criteria {
 		final var factMap = toFactMap(facts);
 		final var stakeHoldersApplicantPersonId = factMap.get(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey());
 
-		if (hasActiveParkingPermit(stakeHoldersApplicantPersonId.getValue())) {
+		if (hasActiveParkingPermit(municipalityId, stakeHoldersApplicantPersonId.getValue())) {
 			return new CriteriaResult(false, ACTIVE_PARKING_PERMIT_EXISTS, this);
 		}
 		return new CriteriaResult(true, NO_ACTIVE_PARKING_PERMIT_EXISTS, this);
 	}
 
-	private boolean hasActiveParkingPermit(String partyId) {
+	private boolean hasActiveParkingPermit(String municipalityId, String partyId) {
 		if (isBlank(partyId)) {
 			return false;
 		}
 
 		// Fetch all active parking-permits for this person.
-		final var activeParkingPermits = partyAssetsClient.getAssets(Map.of(
+		final var activeParkingPermits = partyAssetsClient.getAssets(municipalityId, Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			STATUS_PARAMETER, STATUS,
 			TYPE_PARAMETER, TYPE));

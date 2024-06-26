@@ -46,7 +46,7 @@ class ExpiringParkingPermitCriteriaTest {
 		final var facts = List.of(
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
-		when(partyAssetsClientMock.getAssets(any())).thenReturn(List.of(
+		when(partyAssetsClientMock.getAssets(any(), any())).thenReturn(List.of(
 			new Asset().partyId(PARTY_ID_PARAMETER).status(EXPIRED),
 			new Asset().partyId(PARTY_ID_PARAMETER).status(EXPIRED),
 			new Asset().partyId(PARTY_ID_PARAMETER).status(EXPIRED)));
@@ -60,7 +60,7 @@ class ExpiringParkingPermitCriteriaTest {
 		assertThat(result.value()).isTrue();
 		assertThat(result.description()).isEqualTo("den sökande har parkeringstillstånd som strax upphör eller redan har upphört");
 
-		verify(partyAssetsClientMock).getAssets(Map.of(
+		verify(partyAssetsClientMock).getAssets(municipalityId, Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			TYPE_PARAMETER, "PARKINGPERMIT"));
 	}
@@ -74,7 +74,7 @@ class ExpiringParkingPermitCriteriaTest {
 		final var facts = List.of(
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
-		when(partyAssetsClientMock.getAssets(any())).thenReturn(List.of(
+		when(partyAssetsClientMock.getAssets(any(), any())).thenReturn(List.of(
 			new Asset().partyId(PARTY_ID_PARAMETER).status(EXPIRED),
 			new Asset().partyId(PARTY_ID_PARAMETER).status(ACTIVE).validTo(LocalDate.now().plusMonths(EXPIRATION_PERIOD_IN_MONTHS).minusDays(1)),
 			new Asset().partyId(PARTY_ID_PARAMETER).status(EXPIRED)));
@@ -88,7 +88,7 @@ class ExpiringParkingPermitCriteriaTest {
 		assertThat(result.value()).isTrue();
 		assertThat(result.description()).isEqualTo("den sökande har parkeringstillstånd som strax upphör eller redan har upphört");
 
-		verify(partyAssetsClientMock).getAssets(Map.of(
+		verify(partyAssetsClientMock).getAssets(municipalityId, Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			TYPE_PARAMETER, "PARKINGPERMIT"));
 	}
@@ -102,7 +102,7 @@ class ExpiringParkingPermitCriteriaTest {
 		final var facts = List.of(
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
-		when(partyAssetsClientMock.getAssets(any())).thenReturn(emptyList());
+		when(partyAssetsClientMock.getAssets(any(), any())).thenReturn(emptyList());
 
 		// Act
 		final var result = criteria.evaluate(municipalityId, facts);
@@ -113,7 +113,7 @@ class ExpiringParkingPermitCriteriaTest {
 		assertThat(result.value()).isFalse();
 		assertThat(result.description()).isEqualTo("den sökande har inga parkeringstillstånd som är på väg att upphöra eller redan har upphört");
 
-		verify(partyAssetsClientMock).getAssets(Map.of(
+		verify(partyAssetsClientMock).getAssets(municipalityId, Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			TYPE_PARAMETER, "PARKINGPERMIT"));
 	}
@@ -127,7 +127,7 @@ class ExpiringParkingPermitCriteriaTest {
 		final var facts = List.of(
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
-		when(partyAssetsClientMock.getAssets(any())).thenReturn(List.of(
+		when(partyAssetsClientMock.getAssets(any(), any())).thenReturn(List.of(
 			new Asset().partyId(PARTY_ID_PARAMETER).status(ACTIVE)));
 
 		// Act
@@ -139,7 +139,7 @@ class ExpiringParkingPermitCriteriaTest {
 		assertThat(result.value()).isFalse();
 		assertThat(result.description()).isEqualTo("den sökande har inga parkeringstillstånd som är på väg att upphöra eller redan har upphört");
 
-		verify(partyAssetsClientMock).getAssets(Map.of(
+		verify(partyAssetsClientMock).getAssets(municipalityId, Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			TYPE_PARAMETER, "PARKINGPERMIT"));
 	}
@@ -153,7 +153,7 @@ class ExpiringParkingPermitCriteriaTest {
 		final var facts = List.of(
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
-		when(partyAssetsClientMock.getAssets(any())).thenReturn(List.of(
+		when(partyAssetsClientMock.getAssets(any(), any())).thenReturn(List.of(
 			new Asset().partyId(PARTY_ID_PARAMETER).status(ACTIVE).validTo(LocalDate.now().plusMonths(EXPIRATION_PERIOD_IN_MONTHS).plusDays(1)))); // 1 day more than the grace period.
 
 		// Act
@@ -165,7 +165,7 @@ class ExpiringParkingPermitCriteriaTest {
 		assertThat(result.value()).isFalse();
 		assertThat(result.description()).isEqualTo("den sökande har inga parkeringstillstånd som är på väg att upphöra eller redan har upphört");
 
-		verify(partyAssetsClientMock).getAssets(Map.of(
+		verify(partyAssetsClientMock).getAssets(municipalityId, Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			TYPE_PARAMETER, "PARKINGPERMIT"));
 	}

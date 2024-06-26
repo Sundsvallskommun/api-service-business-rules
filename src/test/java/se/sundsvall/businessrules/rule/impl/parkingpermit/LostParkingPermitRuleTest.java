@@ -116,7 +116,7 @@ class LostParkingPermitRuleTest {
 				.withDescription("det finns inga tidigare förlustanmälningar")));
 
 		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, municipalityId, facts);
-		verify(partyAssetsClientMock).getAssets(Map.of(
+		verify(partyAssetsClientMock).getAssets(municipalityId, Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			STATUS_PARAMETER, "BLOCKED",
 			STATUS_REASON_PARAMETER, "LOST",
@@ -135,7 +135,7 @@ class LostParkingPermitRuleTest {
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
 		// This will make the evaluation fail (recurring losses)
-		when(partyAssetsClientMock.getAssets(any())).thenReturn(List.of(new Asset()));
+		when(partyAssetsClientMock.getAssets(any(), any())).thenReturn(List.of(new Asset()));
 
 		// Act
 		final var result = rule.evaluate(municipalityId, facts);
@@ -155,7 +155,7 @@ class LostParkingPermitRuleTest {
 				.withDescription("det finns tidigare förlustanmälningar")));
 
 		verify(criteriaEvaluatorSpy).evaluateCriteriaComponent(rule, municipalityId, facts);
-		verify(partyAssetsClientMock).getAssets(Map.of(
+		verify(partyAssetsClientMock).getAssets(municipalityId, Map.of(
 			PARTY_ID_PARAMETER, partyId,
 			STATUS_PARAMETER, "BLOCKED",
 			STATUS_REASON_PARAMETER, "LOST",

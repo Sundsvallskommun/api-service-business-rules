@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import generated.se.sundsvall.partyassets.Asset;
 import se.sundsvall.businessrules.integration.partyassets.configuration.PartyAssetsConfiguration;
@@ -28,6 +29,6 @@ public interface PartyAssetsClient {
 	 * @return                                      list of of <code>GetParkingPermitDTO</code> representing the assets.
 	 * @throws org.zalando.problem.ThrowableProblem on error
 	 */
-	@GetMapping(path = "/assets", produces = APPLICATION_JSON_VALUE)
-	List<Asset> getAssets(@SpringQueryMap Map<String, String> parameters);
+	@GetMapping(path = "/{municipalityId}/assets", produces = APPLICATION_JSON_VALUE)
+	List<Asset> getAssets(@PathVariable("municipalityId") String municipalityId, @SpringQueryMap Map<String, String> parameters);
 }
