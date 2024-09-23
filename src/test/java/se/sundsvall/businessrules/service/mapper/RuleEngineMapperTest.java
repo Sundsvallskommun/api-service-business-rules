@@ -77,7 +77,7 @@ class RuleEngineMapperTest {
 	}
 
 	@Test
-	void toResultWithOneFail() throws Exception {
+	void toResultWithOneFail() {
 
 		final var rule = new TestUtils.TestRule();
 		final var criteria = new TestCriteria();
@@ -97,7 +97,7 @@ class RuleEngineMapperTest {
 	}
 
 	@Test
-	void toResultWithAllFail() throws Exception {
+	void toResultWithAllFail() {
 
 		final var rule = new TestUtils.TestRule();
 		final var criteria = new TestCriteria();
@@ -117,7 +117,7 @@ class RuleEngineMapperTest {
 	}
 
 	@Test
-	void toResultWithAllPass() throws Exception {
+	void toResultWithAllPass() {
 
 		final var rule = new TestUtils.TestRule();
 		final var criteria = new TestCriteria();
