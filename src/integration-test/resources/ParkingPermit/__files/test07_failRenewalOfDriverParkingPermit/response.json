@@ -2,11 +2,10 @@
 	"context": "PARKING_PERMIT",
 	"results": [
 		{
-			"value": "NOT_APPLICABLE",
-			"rule": "DRIVER_NEW_PARKING_PERMIT_RULE"
+			"rule": "DRIVER_NEW_PARKING_PERMIT_RULE",
+			"value": "NOT_APPLICABLE"
 		},
 		{
-			"value": "FAIL",
 			"rule": "DRIVER_RENEWAL_PARKING_PERMIT_RULE",
 			"details": [
 				{
@@ -24,19 +23,20 @@
 					"evaluationValue": false,
 					"description": "den sökande har inga parkeringstillstånd som är på väg att upphöra eller redan har upphört"
 				}
-			]
+			],
+			"value": "FAIL"
 		},
 		{
-			"value": "NOT_APPLICABLE",
-			"rule": "LOST_PARKING_PERMIT_RULE"
+			"rule": "LOST_PARKING_PERMIT_RULE",
+			"value": "NOT_APPLICABLE"
 		},
 		{
-			"value": "NOT_APPLICABLE",
-			"rule": "PASSENGER_NEW_PARKING_PERMIT_RULE"
+			"rule": "PASSENGER_NEW_PARKING_PERMIT_RULE",
+			"value": "NOT_APPLICABLE"
 		},
 		{
-			"value": "NOT_APPLICABLE",
-			"rule": "PASSENGER_RENEWAL_PARKING_PERMIT_RULE"
+			"rule": "PASSENGER_RENEWAL_PARKING_PERMIT_RULE",
+			"value": "NOT_APPLICABLE"
 		}
 	]
 }

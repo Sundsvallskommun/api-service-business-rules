@@ -1,28 +1,18 @@
 {
-	"name": "api-party-assets-get-active-parkingpermits",
 	"request": {
-		"headers": {
-			"Authorization": {
-				"equalTo": "Bearer MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3"
-			}
-		},
+		"headers": {"Authorization": {"equalTo": "Bearer MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3"}},
 		"method": "GET",
-		"urlPath": "/api-party-assets/2281/assets",
-		"queryParameters" : {
-			"type" : {
-				"equalTo" : "PARKINGPERMIT"
-			},
-			"partyId" : {
-				"equalTo" : "1cc22a36-6960-4dbf-a40d-580385752f4e"
-			}
-		}
+		"queryParameters": {
+			"type": {"equalTo": "PARKINGPERMIT"},
+			"partyId": {"equalTo": "1cc22a36-6960-4dbf-a40d-580385752f4e"}
+		},
+		"urlPath": "/api-party-assets/2281/assets"
 	},
 	"response": {
-		"headers": {
-			"Content-Type": "application/json"
-		},
-		"status": 200,
+		"headers": {"Content-Type": "application/json"},
+		"transformers": ["response-template"],
 		"bodyFileName": "test07_failRenewalOfDriverParkingPermit/responses/api-party-assets-response.json",
-		"transformers": ["response-template"]
-	}
+		"status": 200
+	},
+	"name": "api-party-assets-get-active-parkingpermits"
 }
