@@ -35,7 +35,9 @@ class ValueOfEnumConstraintValidatorTest {
 	@InjectMocks
 	private ValueOfEnumConstraintValidator validator;
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({
+		"unchecked", "rawtypes"
+	})
 	@ParameterizedTest
 	@MethodSource("valueOfEnumProvider")
 	void validContactChannel(Class enumType, String enumValue, boolean exprectedResult) {

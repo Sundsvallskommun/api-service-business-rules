@@ -1,15 +1,11 @@
-[
-	{
-		"assetId": "PRH-1000895188",
-		"partyId": "1cc22a36-6960-4dbf-a40d-580385752f4e",
-		"caseReferenceIds": [
-			"123e4567-e89b-12d3-a456-426614174000"
-		],
-		"type": "PARKINGPERMIT",
-		"issued": "2021-01-01",
-		"validTo": "2024-12-31",
-		"status": "BLOCKED",
-		"statusReason": "LOST",
-		"description": "Parkeringstillstånd"
-	}
-]
+[{
+	"statusReason": "LOST",
+	"assetId": "PRH-1000895188",
+	"description": "Parkeringstillstånd",
+	"caseReferenceIds": ["123e4567-e89b-12d3-a456-426614174000"],
+	"partyId": "1cc22a36-6960-4dbf-a40d-580385752f4e",
+	"type": "PARKINGPERMIT",
+	"issued": "2021-01-01",
+	"validTo": "2024-12-31",
+	"status": "BLOCKED"
+}]

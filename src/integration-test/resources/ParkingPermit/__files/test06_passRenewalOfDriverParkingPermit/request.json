@@ -2,32 +2,32 @@
 	"context": "PARKING_PERMIT",
 	"facts": [
 		{
-			"key": "type",
-			"value": "PARKING_PERMIT_RENEWAL"
+			"value": "PARKING_PERMIT_RENEWAL",
+			"key": "type"
 		},
 		{
-			"key": "application.applicant.capacity",
-			"value": "DRIVER"
+			"value": "DRIVER",
+			"key": "application.applicant.capacity"
 		},
 		{
-			"key": "disability.duration",
-			"value": "P1Y"
+			"value": "P1Y",
+			"key": "disability.duration"
 		},
 		{
-			"key": "application.renewal.changedCircumstances",
-			"value": "true"
+			"value": "true",
+			"key": "application.renewal.changedCircumstances"
 		},
 		{
-			"key": "disability.walkingAbility",
-			"value": "true"
+			"value": "true",
+			"key": "disability.walkingAbility"
 		},
 		{
-			"key": "disability.walkingDistance.max",
-			"value": "500"
+			"value": "500",
+			"key": "disability.walkingDistance.max"
 		},
 		{
-			"key": "stakeholders.applicant.personid",
-			"value": "1cc22a36-6960-4dbf-a40d-580385752f4e"
+			"value": "1cc22a36-6960-4dbf-a40d-580385752f4e",
+			"key": "stakeholders.applicant.personid"
 		}
 	]
 }

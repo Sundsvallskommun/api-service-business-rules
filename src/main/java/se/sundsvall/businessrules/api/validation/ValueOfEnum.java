@@ -15,7 +15,9 @@ import se.sundsvall.businessrules.api.validation.impl.ValueOfEnumConstraintValid
  * The annotated String element must contain a valid enum value (from the provided enum type).
  */
 @Documented
-@Target({ ElementType.FIELD, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE })
+@Target({
+	ElementType.FIELD, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE
+})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = ValueOfEnumConstraintValidator.class)
 @NotNull
