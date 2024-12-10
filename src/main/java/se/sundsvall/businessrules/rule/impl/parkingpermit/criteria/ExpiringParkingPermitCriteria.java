@@ -13,12 +13,10 @@ import static se.sundsvall.businessrules.integration.partyassets.PartyAssetsCons
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toFactMap;
 
+import generated.se.sundsvall.partyassets.Asset;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.stereotype.Component;
-
-import generated.se.sundsvall.partyassets.Asset;
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient;
 import se.sundsvall.businessrules.rule.Criteria;

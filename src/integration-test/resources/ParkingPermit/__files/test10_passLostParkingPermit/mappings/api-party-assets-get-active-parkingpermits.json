@@ -1,17 +1,31 @@
 {
 	"request": {
-		"headers": {"Authorization": {"equalTo": "Bearer MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3"}},
+		"headers": {
+			"Authorization": {
+				"equalTo": "Bearer MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3"
+			}
+		},
 		"method": "GET",
 		"queryParameters": {
-			"statusReason": {"equalTo": "LOST"},
-			"type": {"equalTo": "PARKINGPERMIT"},
-			"partyId": {"equalTo": "1cc22a36-6960-4dbf-a40d-580385752f4e"},
-			"status": {"equalTo": "BLOCKED"}
+			"statusReason": {
+				"equalTo": "LOST"
+			},
+			"type": {
+				"equalTo": "PARKINGPERMIT"
+			},
+			"partyId": {
+				"equalTo": "1cc22a36-6960-4dbf-a40d-580385752f4e"
+			},
+			"status": {
+				"equalTo": "BLOCKED"
+			}
 		},
 		"urlPath": "/api-party-assets/2281/assets"
 	},
 	"response": {
-		"headers": {"Content-Type": "application/json"},
+		"headers": {
+			"Content-Type": "application/json"
+		},
 		"bodyFileName": "test10_passLostParkingPermit/responses/api-party-assets-response.json",
 		"status": 200
 	},

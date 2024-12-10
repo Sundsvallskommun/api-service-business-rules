@@ -5,9 +5,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
+import jakarta.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidatorContext.ConstraintViolationBuilder;
 import java.lang.annotation.ElementType;
 import java.util.stream.Stream;
-
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -15,9 +16,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import jakarta.validation.ConstraintValidatorContext;
-import jakarta.validation.ConstraintValidatorContext.ConstraintViolationBuilder;
 import se.sundsvall.businessrules.api.validation.ValueOfEnum;
 
 @ExtendWith(MockitoExtension.class)

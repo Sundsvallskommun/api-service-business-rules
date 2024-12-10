@@ -5,10 +5,8 @@ import static se.sundsvall.businessrules.service.Constants.ERROR_MESSAGE_NO_ENGI
 
 import java.util.List;
 import java.util.Objects;
-
 import org.springframework.stereotype.Service;
 import org.zalando.problem.Problem;
-
 import se.sundsvall.businessrules.api.model.RuleEngineRequest;
 import se.sundsvall.businessrules.api.model.RuleEngineResponse;
 import se.sundsvall.businessrules.api.model.enums.Context;

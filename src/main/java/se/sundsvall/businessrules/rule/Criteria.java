@@ -4,7 +4,6 @@ import static com.google.common.base.CaseFormat.UPPER_CAMEL;
 import static com.google.common.base.CaseFormat.UPPER_UNDERSCORE;
 
 import java.util.List;
-
 import se.sundsvall.businessrules.api.model.Fact;
 
 public interface Criteria {

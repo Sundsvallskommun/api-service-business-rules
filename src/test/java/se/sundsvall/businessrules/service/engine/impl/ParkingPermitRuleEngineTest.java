@@ -11,14 +11,12 @@ import static se.sundsvall.businessrules.api.model.enums.Context.PARKING_PERMIT;
 import static se.sundsvall.businessrules.api.model.enums.ResultValue.NOT_APPLICABLE;
 
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.api.model.Result;
 import se.sundsvall.businessrules.api.model.RuleEngineRequest;

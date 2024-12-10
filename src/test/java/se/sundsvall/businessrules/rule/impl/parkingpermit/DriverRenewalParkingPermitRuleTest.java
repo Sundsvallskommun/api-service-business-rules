@@ -21,18 +21,16 @@ import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPe
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.TYPE;
 
+import generated.se.sundsvall.partyassets.Asset;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.ActiveProfiles;
-
-import generated.se.sundsvall.partyassets.Asset;
 import se.sundsvall.businessrules.Application;
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.api.model.ResultDetail;

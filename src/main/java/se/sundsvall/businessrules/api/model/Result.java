@@ -1,9 +1,8 @@
 package se.sundsvall.businessrules.api.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import java.util.Objects;
-
-import io.swagger.v3.oas.annotations.media.Schema;
 import se.sundsvall.businessrules.api.model.enums.ResultValue;
 
 @Schema(description = "Result model")

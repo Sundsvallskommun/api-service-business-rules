@@ -11,7 +11,6 @@ import static org.zalando.problem.Status.BAD_REQUEST;
 import static se.sundsvall.businessrules.api.model.enums.Context.PARKING_PERMIT;
 
 import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +19,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.zalando.problem.violations.ConstraintViolationProblem;
 import org.zalando.problem.violations.Violation;
-
 import se.sundsvall.businessrules.Application;
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.api.model.RuleEngineRequest;
