@@ -9,9 +9,7 @@ import static se.sundsvall.businessrules.api.model.enums.ResultValue.PASS;
 import static se.sundsvall.businessrules.api.model.enums.ResultValue.VALIDATION_ERROR;
 
 import java.util.List;
-
 import org.junit.jupiter.api.Test;
-
 import se.sundsvall.businessrules.TestUtils;
 import se.sundsvall.businessrules.TestUtils.TestCriteria;
 import se.sundsvall.businessrules.TestUtils.TestRule;

@@ -2,11 +2,10 @@ package se.sundsvall.businessrules.api.model;
 
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 
-import java.util.Objects;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Schema(description = "Fact model")
 public class Fact {

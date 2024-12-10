@@ -3,7 +3,6 @@ package se.sundsvall.businessrules.service.util;
 import static java.util.Objects.nonNull;
 
 import java.util.UUID;
-
 import se.sundsvall.businessrules.api.model.Fact;
 
 public final class RuleEngineUtil {

@@ -21,14 +21,12 @@ import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPe
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.ActiveProfiles;
-
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import se.sundsvall.businessrules.Application;
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.api.model.ResultDetail;
@@ -43,7 +41,7 @@ import se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFac
 @ActiveProfiles("junit")
 class DriverNewParkingPermitRuleTest {
 
-	@MockBean
+	@MockitoBean
 	private PartyAssetsClient partyAssetsClientMock;
 
 	@SpyBean

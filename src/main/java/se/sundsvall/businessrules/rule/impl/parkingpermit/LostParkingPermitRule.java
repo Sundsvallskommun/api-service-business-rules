@@ -14,9 +14,7 @@ import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValue;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Component;
-
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.api.model.Result;
 import se.sundsvall.businessrules.rule.Criteria;

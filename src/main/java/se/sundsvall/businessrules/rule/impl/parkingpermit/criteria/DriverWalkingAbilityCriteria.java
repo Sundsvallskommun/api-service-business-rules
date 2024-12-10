@@ -9,9 +9,7 @@ import static se.sundsvall.businessrules.service.util.RuleEngineUtil.toBoolean;
 import static se.sundsvall.businessrules.service.util.RuleEngineUtil.toInt;
 
 import java.util.List;
-
 import org.springframework.stereotype.Component;
-
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.rule.Criteria;
 import se.sundsvall.businessrules.rule.CriteriaResult;
