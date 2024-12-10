@@ -28,7 +28,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -46,7 +46,7 @@ import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.ExpiringParki
 @ActiveProfiles("junit")
 class DriverRenewalParkingPermitRuleTest {
 
-	@MockBean
+	@MockitoBean
 	private PartyAssetsClient partyAssetsClientMock;
 
 	@SpyBean

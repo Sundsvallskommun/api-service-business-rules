@@ -20,7 +20,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -43,7 +43,7 @@ class LostParkingPermitRuleTest {
 	private static final String STATUS_PARAMETER = "status";
 	private static final String STATUS_REASON_PARAMETER = "statusReason";
 
-	@MockBean
+	@MockitoBean
 	private PartyAssetsClient partyAssetsClientMock;
 
 	@SpyBean
