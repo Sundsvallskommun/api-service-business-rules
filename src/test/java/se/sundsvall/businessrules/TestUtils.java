@@ -4,7 +4,6 @@ import static se.sundsvall.businessrules.api.model.enums.Context.PARKING_PERMIT;
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toResult;
 
 import java.util.List;
-
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.api.model.Result;
 import se.sundsvall.businessrules.api.model.RuleEngineRequest;

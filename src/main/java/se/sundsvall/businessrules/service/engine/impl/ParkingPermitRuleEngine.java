@@ -5,9 +5,7 @@ import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toNonAp
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toRuleEngineResponse;
 
 import java.util.List;
-
 import org.springframework.stereotype.Component;
-
 import se.sundsvall.businessrules.api.model.RuleEngineRequest;
 import se.sundsvall.businessrules.api.model.RuleEngineResponse;
 import se.sundsvall.businessrules.api.model.enums.Context;

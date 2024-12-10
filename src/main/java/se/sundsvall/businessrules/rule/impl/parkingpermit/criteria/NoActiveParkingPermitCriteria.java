@@ -12,9 +12,7 @@ import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toFactM
 
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.stereotype.Component;
-
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient;
 import se.sundsvall.businessrules.rule.Criteria;

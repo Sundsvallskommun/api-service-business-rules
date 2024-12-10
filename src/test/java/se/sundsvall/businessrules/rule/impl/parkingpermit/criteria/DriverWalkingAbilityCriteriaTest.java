@@ -5,12 +5,10 @@ import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPe
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_WALKING_DISTANCE_MAX;
 
 import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import se.sundsvall.businessrules.api.model.Fact;
 
 @ExtendWith(MockitoExtension.class)

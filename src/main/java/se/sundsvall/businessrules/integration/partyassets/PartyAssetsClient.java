@@ -3,15 +3,13 @@ package se.sundsvall.businessrules.integration.partyassets;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static se.sundsvall.businessrules.integration.partyassets.configuration.PartyAssetsConfiguration.CLIENT_ID;
 
+import generated.se.sundsvall.partyassets.Asset;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import generated.se.sundsvall.partyassets.Asset;
 import se.sundsvall.businessrules.integration.partyassets.configuration.PartyAssetsConfiguration;
 
 @FeignClient(name = CLIENT_ID, url = "${integration.partyassets.url}", configuration = PartyAssetsConfiguration.class)

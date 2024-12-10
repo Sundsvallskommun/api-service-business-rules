@@ -12,17 +12,15 @@ import static se.sundsvall.businessrules.integration.partyassets.PartyAssetsClie
 import static se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient.TYPE_PARAMETER;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
 
+import generated.se.sundsvall.partyassets.Asset;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import generated.se.sundsvall.partyassets.Asset;
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient;
 
