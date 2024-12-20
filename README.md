@@ -70,7 +70,7 @@ See [API Documentation](#api-documentation) for detailed information on availabl
 ### Example Request
 
 ```bash
-curl -X 'GET' 'http://localhost:8080/2281/assets?assetId=PRH-123456789' -H 'accept: application/json'
+curl -X 'GET' 'http://localhost:8080/2281/engine' -H 'accept: application/json'
 ```
 
 ## Configuration
@@ -94,7 +94,7 @@ Configuration is crucial for the application to run successfully. Ensure all nec
   ```yaml
   config:
     integration:
-      citizenassets:
+      partyassets:
         url: http://dependency_service_url
         token: http://token_url
         client-id: some-client-id
