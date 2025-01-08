@@ -1,32 +1,32 @@
 openapi: 3.0.1
 info:
   title: api-business-rules
-  contact: {}
+  contact: { }
   license:
     name: MIT License
     url: https://opensource.org/licenses/MIT
   version: "2.0"
 servers:
-- url: http://localhost:8080
-  description: Generated server url
+  - url: http://localhost:63259
+    description: Generated server url
 tags:
-- name: BusinessRules
-  description: Business rule engine resource
+  - name: BusinessRules
+    description: Business rule engine resource
 paths:
   /{municipalityId}/engine:
     post:
       tags:
-      - BusinessRules
+        - BusinessRules
       summary: Run rule engine
       operationId: run
       parameters:
-      - name: municipalityId
-        in: path
-        description: Municipality id
-        required: true
-        schema:
-          type: string
-        example: 2281
+        - name: municipalityId
+          in: path
+          description: Municipality id
+          required: true
+          schema:
+            type: string
+          example: 2281
       requestBody:
         content:
           application/json:
@@ -34,21 +34,10 @@ paths:
               $ref: "#/components/schemas/RuleEngineRequest"
         required: true
       responses:
-        "400":
-          description: Bad request
-          content:
-            application/problem+json:
-              schema:
-                oneOf:
-                - $ref: "#/components/schemas/Problem"
-                - $ref: "#/components/schemas/ConstraintViolationProblem"
         "200":
           description: Successful operation
           content:
             application/json:
-              schema:
-                $ref: "#/components/schemas/RuleEngineResponse"
-            application/problem+json:
               schema:
                 $ref: "#/components/schemas/RuleEngineResponse"
         "500":
@@ -57,10 +46,18 @@ paths:
             application/problem+json:
               schema:
                 $ref: "#/components/schemas/Problem"
+        "400":
+          description: Bad request
+          content:
+            application/problem+json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/schemas/Problem"
+                  - $ref: "#/components/schemas/ConstraintViolationProblem"
   /api-docs:
     get:
       tags:
-      - API
+        - API
       summary: OpenAPI
       operationId: getApiDocs
       responses:
@@ -77,8 +74,8 @@ components:
   schemas:
     Fact:
       required:
-      - key
-      - value
+        - key
+        - value
       type: object
       properties:
         key:
@@ -92,8 +89,8 @@ components:
       description: Fact model
     RuleEngineRequest:
       required:
-      - context
-      - facts
+        - context
+        - facts
       type: object
       properties:
         context:
@@ -119,12 +116,12 @@ components:
           type: object
           additionalProperties:
             type: object
-        status:
-          $ref: "#/components/schemas/StatusType"
         title:
           type: string
         detail:
           type: string
+        status:
+          $ref: "#/components/schemas/StatusType"
     StatusType:
       type: object
       properties:
@@ -254,12 +251,12 @@ components:
           type: object
           additionalProperties:
             type: object
-        status:
-          $ref: "#/components/schemas/StatusType"
         title:
           type: string
         detail:
           type: string
+        status:
+          $ref: "#/components/schemas/StatusType"
         suppressed:
           type: array
           items:
@@ -336,10 +333,10 @@ components:
       description: ResultValue model
       example: PASS
       enum:
-      - PASS
-      - FAIL
-      - VALIDATION_ERROR
-      - NOT_APPLICABLE
+        - PASS
+        - FAIL
+        - VALIDATION_ERROR
+        - NOT_APPLICABLE
     RuleEngineResponse:
       type: object
       properties:
@@ -353,4 +350,4 @@ components:
           items:
             $ref: "#/components/schemas/Result"
       description: RuleEngineResponse model
-  securitySchemes: {}
+  securitySchemes: { }
