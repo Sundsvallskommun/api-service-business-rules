@@ -38,9 +38,7 @@ public class RuleEngineResource {
 		this.ruleEngineService = ruleEngineService;
 	}
 
-	@PostMapping(consumes = APPLICATION_JSON_VALUE, produces = {
-		APPLICATION_JSON_VALUE, APPLICATION_PROBLEM_JSON_VALUE
-	})
+	@PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 	@Operation(summary = "Run rule engine")
 	@ApiResponse(responseCode = "200", description = "Successful operation", useReturnTypeSchema = true)
 	@ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(oneOf = {
