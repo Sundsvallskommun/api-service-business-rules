@@ -15,7 +15,9 @@ import se.sundsvall.businessrules.rule.CriteriaResult;
 import se.sundsvall.businessrules.rule.Rule;
 import se.sundsvall.businessrules.service.engine.RuleEngine;
 
-public class TestUtils {
+public final class TestUtils {
+
+	private TestUtils() {}
 
 	public static class TestRuleEngine implements RuleEngine {
 
