@@ -13,9 +13,7 @@
 	<version>2.0</version>
 	<name>api-service-business-rules</name>
 	<properties>
-		<!-- Service properties -->
 		<generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
-		<guava.version>33.4.0-jre</guava.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -36,7 +34,6 @@
 			<!-- Needed for: com.google.common.base.CaseFormat library -->
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>${guava.version}</version>
 		</dependency>
 		<!-- Test -->
 		<dependency>

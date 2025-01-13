@@ -30,24 +30,26 @@ import se.sundsvall.dept44.common.validators.annotation.ValidMunicipalityId;
 @Validated
 @RequestMapping("/{municipalityId}/engine")
 @Tag(name = "BusinessRules", description = "Business rule engine resource")
-public class RuleEngineResource {
+class RuleEngineResource {
 
 	private final RuleEngineService ruleEngineService;
 
-	public RuleEngineResource(RuleEngineService ruleEngineService) {
+	RuleEngineResource(RuleEngineService ruleEngineService) {
 		this.ruleEngineService = ruleEngineService;
 	}
 
 	@PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-	@Operation(summary = "Run rule engine")
-	@ApiResponse(responseCode = "200", description = "Successful operation", useReturnTypeSchema = true)
-	@ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(oneOf = {
-		Problem.class, ConstraintViolationProblem.class
-	})))
-	@ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = Problem.class)))
-	public ResponseEntity<RuleEngineResponse> run(
+	@Operation(summary = "Run rule engine", responses = {
+		@ApiResponse(responseCode = "200", description = "Successful operation", useReturnTypeSchema = true),
+		@ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(oneOf = {
+			Problem.class, ConstraintViolationProblem.class
+		}))),
+		@ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = Problem.class)))
+	})
+	ResponseEntity<RuleEngineResponse> run(
 		@Parameter(name = "municipalityId", description = "Municipality id", example = "2281") @ValidMunicipalityId @PathVariable final String municipalityId,
 		@NotNull @Valid @RequestBody final RuleEngineRequest ruleEngineRequest) {
+
 		return ok(ruleEngineService.run(municipalityId, ruleEngineRequest));
 	}
 }
