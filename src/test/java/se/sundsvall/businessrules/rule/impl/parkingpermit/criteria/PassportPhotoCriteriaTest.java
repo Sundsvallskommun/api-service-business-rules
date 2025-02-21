@@ -11,7 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import se.sundsvall.businessrules.api.model.Fact;
 
 @ExtendWith(MockitoExtension.class)
-public class PassportPhotoCriteriaTest {
+class PassportPhotoCriteriaTest {
 
 	@InjectMocks
 	private PassportPhotoCriteria criteria;

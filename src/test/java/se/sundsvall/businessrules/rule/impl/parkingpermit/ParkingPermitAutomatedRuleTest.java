@@ -43,7 +43,7 @@ import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.SignatureCrit
 
 @SpringBootTest(classes = Application.class, webEnvironment = MOCK)
 @ActiveProfiles("junit")
-public class ParkingPermitAutomatedRuleTest {
+class ParkingPermitAutomatedRuleTest {
 
 	@MockitoBean
 	private PartyAssetsClient partyAssetsClientMock;

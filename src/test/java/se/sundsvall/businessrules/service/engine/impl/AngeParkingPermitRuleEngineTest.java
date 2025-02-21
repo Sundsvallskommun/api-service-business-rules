@@ -26,7 +26,7 @@ import se.sundsvall.businessrules.rule.impl.parkingpermit.ParkingPermitRuleAutom
 import se.sundsvall.businessrules.service.engine.RuleEngine;
 
 @ExtendWith(MockitoExtension.class)
-public class AngeParkingPermitRuleEngineTest {
+class AngeParkingPermitRuleEngineTest {
 	@Mock
 	private ParkingPermitRuleAutomated rule1Mock;
 

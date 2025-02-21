@@ -14,7 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import se.sundsvall.businessrules.api.model.Fact;
 
 @ExtendWith(MockitoExtension.class)
-public class SignatureCriteriaTest {
+class SignatureCriteriaTest {
 
 	@InjectMocks
 	private SignatureCriteria criteria;
