@@ -22,12 +22,13 @@ public class RuleEngineService {
 	}
 
 	public RuleEngineResponse run(String municipalityId, RuleEngineRequest request) {
-		return findRuleEngineByContext(Context.valueOf(request.getContext())).run(municipalityId, request);
+		return findRuleEngineByContext(Context.valueOf(request.getContext()), municipalityId).run(municipalityId, request);
 	}
 
-	private RuleEngine findRuleEngineByContext(Context context) {
+	private RuleEngine findRuleEngineByContext(Context context, String municipalityId) {
 		return ruleEngines.stream()
 			.filter(engine -> Objects.equals(engine.getContext(), context))
-			.findFirst().orElseThrow(() -> Problem.valueOf(NOT_FOUND, ERROR_MESSAGE_NO_ENGINE_FOUND.formatted(context)));
+			.filter(engine -> Objects.equals(municipalityId, engine.getMunicipalityId()))
+			.findFirst().orElseThrow(() -> Problem.valueOf(NOT_FOUND, ERROR_MESSAGE_NO_ENGINE_FOUND.formatted(municipalityId, context)));
 	}
 }

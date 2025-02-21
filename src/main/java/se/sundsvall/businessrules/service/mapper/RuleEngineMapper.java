@@ -35,6 +35,7 @@ public final class RuleEngineMapper {
 	public static Map<String, Fact> toFactMap(List<Fact> facts) {
 		return Optional.ofNullable(facts).orElse(emptyList()).stream()
 			.filter(fact -> nonNull(fact.getKey()))
+			.filter(fact -> nonNull(fact.getValue()))
 			.collect(toMap(Fact::getKey, Function.identity()));
 	}
 
@@ -47,6 +48,7 @@ public final class RuleEngineMapper {
 	public static Map<String, String> toStringMap(List<Fact> facts) {
 		return Optional.ofNullable(facts).orElse(emptyList()).stream()
 			.filter(fact -> nonNull(fact.getKey()))
+			.filter(fact -> nonNull(fact.getValue()))
 			.collect(toMap(Fact::getKey, Fact::getValue));
 	}
 
@@ -70,8 +72,8 @@ public final class RuleEngineMapper {
 	}
 
 	/**
-	 * Evaluates all criteria results. If all results have positive (true) values, this
-	 * method returns true, otherwise false.
+	 * Evaluates all criteria results. If all results have positive (true) values, this method returns true, otherwise
+	 * false.
 	 *
 	 * @param  criteriaResults the List of critera results.
 	 * @return                 true if all results are positive or if the criteriaResults are null or empty.

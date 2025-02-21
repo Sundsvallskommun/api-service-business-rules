@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.util.ReflectionTestUtils.setField;
 import static se.sundsvall.businessrules.api.model.enums.Context.PARKING_PERMIT;
 import static se.sundsvall.businessrules.api.model.enums.ResultValue.NOT_APPLICABLE;
+import static se.sundsvall.businessrules.service.Constants.MUNICIPALITY_ID_ANGE;
 
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,20 +22,19 @@ import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.api.model.Result;
 import se.sundsvall.businessrules.api.model.RuleEngineRequest;
 import se.sundsvall.businessrules.api.model.enums.Context;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.ParkingPermitRule;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.ParkingPermitRuleAutomated;
 import se.sundsvall.businessrules.service.engine.RuleEngine;
 
 @ExtendWith(MockitoExtension.class)
-class ParkingPermitRuleEngineTest {
+class AngeParkingPermitRuleEngineTest {
+	@Mock
+	private ParkingPermitRuleAutomated rule1Mock;
 
 	@Mock
-	private ParkingPermitRule rule1Mock;
-
-	@Mock
-	private ParkingPermitRule rule2Mock;
+	private ParkingPermitRuleAutomated rule2Mock;
 
 	@InjectMocks
-	private ParkingPermitRuleEngine parkingPermitRuleEngine;
+	private AngeParkingPermitRuleEngine parkingPermitRuleEngine;
 
 	@BeforeEach
 	void setup() {
@@ -46,16 +46,17 @@ class ParkingPermitRuleEngineTest {
 
 		assertThat(parkingPermitRuleEngine)
 			.isInstanceOf(RuleEngine.class)
-			.isExactlyInstanceOf(ParkingPermitRuleEngine.class);
+			.isExactlyInstanceOf(AngeParkingPermitRuleEngine.class);
 
 		assertThat(parkingPermitRuleEngine.getContext()).isEqualTo(PARKING_PERMIT);
+		assertThat(parkingPermitRuleEngine.getMunicipalityId()).isEqualTo(MUNICIPALITY_ID_ANGE);
 	}
 
 	@Test
 	void ruleEngineExecutesTheRules() {
 
 		// Arrange
-		final var municipalityId = "2281";
+		final var municipalityId = MUNICIPALITY_ID_ANGE;
 		final var request = RuleEngineRequest.create()
 			.withContext(Context.PARKING_PERMIT.toString())
 			.withFacts(List.of(Fact.create()
@@ -83,7 +84,7 @@ class ParkingPermitRuleEngineTest {
 	void ruleEngineWhenRulesAreNotApplicable() {
 
 		// Arrange
-		final var municipalityId = "2281";
+		final var municipalityId = MUNICIPALITY_ID_ANGE;
 		final var request = RuleEngineRequest.create()
 			.withContext(Context.PARKING_PERMIT.toString())
 			.withFacts(List.of(Fact.create()

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import se.sundsvall.businessrules.rule.impl.parkingpermit.enums.DurationEnum;
 import se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum;
 
-class ParkingPermitRuleEngineUtilTest {
+class SundsvallParkingPermitRuleEngineUtilTest {
 
 	@Test
 	void createErrorMessageForMissingFact() {

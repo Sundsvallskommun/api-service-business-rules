@@ -1,6 +1,7 @@
 package se.sundsvall.businessrules;
 
 import static se.sundsvall.businessrules.api.model.enums.Context.PARKING_PERMIT;
+import static se.sundsvall.businessrules.service.Constants.MUNICIPALITY_ID_SUNDSVALL;
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toResult;
 
 import java.util.List;
@@ -20,6 +21,11 @@ public final class TestUtils {
 	private TestUtils() {}
 
 	public static class TestRuleEngine implements RuleEngine {
+
+		@Override
+		public String getMunicipalityId() {
+			return MUNICIPALITY_ID_SUNDSVALL;
+		}
 
 		@Override
 		public Context getContext() {

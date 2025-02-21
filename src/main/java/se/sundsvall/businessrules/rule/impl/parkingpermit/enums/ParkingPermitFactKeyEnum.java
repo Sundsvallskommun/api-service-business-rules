@@ -38,7 +38,23 @@ public enum ParkingPermitFactKeyEnum {
 
 	STAKEHOLDERS_APPLICANT_PERSON_ID(
 		"stakeholders.applicant.personid",
-		"personid för sökande person");
+		"personid för sökande person"),
+
+	MEDICAL_CONFIRMATION_ATTACHMENT(
+		"attachment.medicalConfirmation",
+		"läkarintyg för sökande"),
+
+	SIGNATURE_ATTACHMENT(
+		"attachment.signature",
+		"signatur för sökande"),
+
+	SIGNATURE_ABILITY(
+		"application.applicant.signingAbility",
+		"sökande har anget att denne signera själv"),
+
+	PASSPORT_PHOTO_ATTACHMENT(
+		"attachment.passportPhoto",
+		"passfoto för den sökande");
 
 	private final String description;
 	private final String key;

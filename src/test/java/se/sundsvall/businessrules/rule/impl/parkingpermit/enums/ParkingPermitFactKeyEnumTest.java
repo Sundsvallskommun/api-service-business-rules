@@ -20,7 +20,11 @@ class ParkingPermitFactKeyEnumTest {
 				"disability.duration",
 				"disability.walkingAbility",
 				"disability.walkingDistance.max",
-				"stakeholders.applicant.personid");
+				"stakeholders.applicant.personid",
+				"attachment.medicalConfirmation",
+				"attachment.signature",
+				"application.applicant.signingAbility",
+				"attachment.passportPhoto");
 	}
 
 	@Test
@@ -34,6 +38,10 @@ class ParkingPermitFactKeyEnumTest {
 		assertThat(ParkingPermitFactKeyEnum.DISABILITY_WALKING_ABILITY.getKey()).isEqualTo("disability.walkingAbility");
 		assertThat(ParkingPermitFactKeyEnum.DISABILITY_WALKING_DISTANCE_MAX.getKey()).isEqualTo("disability.walkingDistance.max");
 		assertThat(ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).isEqualTo("stakeholders.applicant.personid");
+		assertThat(ParkingPermitFactKeyEnum.MEDICAL_CONFIRMATION_ATTACHMENT.getKey()).isEqualTo("attachment.medicalConfirmation");
+		assertThat(ParkingPermitFactKeyEnum.SIGNATURE_ATTACHMENT.getKey()).isEqualTo("attachment.signature");
+		assertThat(ParkingPermitFactKeyEnum.SIGNATURE_ABILITY.getKey()).isEqualTo("application.applicant.signingAbility");
+		assertThat(ParkingPermitFactKeyEnum.PASSPORT_PHOTO_ATTACHMENT.getKey()).isEqualTo("attachment.passportPhoto");
 	}
 
 	@Test
@@ -47,5 +55,9 @@ class ParkingPermitFactKeyEnumTest {
 		assertThat(ParkingPermitFactKeyEnum.DISABILITY_WALKING_ABILITY.getDescription()).isEqualTo("information om sökande har kapacitet att gå eller är rullstolsburen");
 		assertThat(ParkingPermitFactKeyEnum.DISABILITY_WALKING_DISTANCE_MAX.getDescription()).isEqualTo("uppgift om maximal gångsträcka för den sökande");
 		assertThat(ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID.getDescription()).isEqualTo("personid för sökande person");
+		assertThat(ParkingPermitFactKeyEnum.MEDICAL_CONFIRMATION_ATTACHMENT.getDescription()).isEqualTo("läkarintyg för sökande");
+		assertThat(ParkingPermitFactKeyEnum.SIGNATURE_ATTACHMENT.getDescription()).isEqualTo("signatur för sökande");
+		assertThat(ParkingPermitFactKeyEnum.SIGNATURE_ABILITY.getDescription()).isEqualTo("sökande har anget att denne signera själv");
+		assertThat(ParkingPermitFactKeyEnum.PASSPORT_PHOTO_ATTACHMENT.getDescription()).isEqualTo("passfoto för den sökande");
 	}
 }

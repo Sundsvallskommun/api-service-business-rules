@@ -5,30 +5,25 @@ import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toNonAp
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toRuleEngineResponse;
 
 import java.util.List;
-import org.springframework.stereotype.Component;
 import se.sundsvall.businessrules.api.model.RuleEngineRequest;
 import se.sundsvall.businessrules.api.model.RuleEngineResponse;
 import se.sundsvall.businessrules.api.model.enums.Context;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.ParkingPermitRule;
+import se.sundsvall.businessrules.rule.Rule;
 import se.sundsvall.businessrules.service.engine.RuleEngine;
 
-@Component
-public class ParkingPermitRuleEngine implements RuleEngine {
+public abstract class ParkingPermitRuleEngine implements RuleEngine {
 
-	private final List<ParkingPermitRule> rules;
+	private final List<? extends Rule> rules;
 
-	public ParkingPermitRuleEngine(List<ParkingPermitRule> rules) {
+	protected ParkingPermitRuleEngine(List<? extends Rule> rules) {
 		this.rules = rules;
 	}
 
-	@Override
 	public Context getContext() {
 		return PARKING_PERMIT;
 	}
 
-	@Override
 	public RuleEngineResponse run(String municipalityId, RuleEngineRequest request) {
-
 		final var results = rules.stream()
 			.map(rule -> {
 				if (rule.isApplicable(request.getFacts())) {

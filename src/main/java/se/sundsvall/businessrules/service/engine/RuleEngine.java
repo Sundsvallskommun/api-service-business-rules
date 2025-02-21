@@ -7,6 +7,13 @@ import se.sundsvall.businessrules.api.model.enums.Context;
 public interface RuleEngine {
 
 	/**
+	 * Returns the municipality id for which this rule engine is applicable for.
+	 *
+	 * @return the municipalityId
+	 */
+	String getMunicipalityId();
+
+	/**
 	 * Returns the current rule engine context.
 	 *
 	 * @return
