@@ -1,0 +1,9 @@
+{
+	"context": "PARKING_PERMIT",
+	"results": [
+		{
+			"value": "NOT_APPLICABLE",
+			"rule": "PARKING_PERMIT_AUTOMATED_RULE"
+		}
+	]
+}

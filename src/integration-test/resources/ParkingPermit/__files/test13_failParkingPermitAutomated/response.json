@@ -1,0 +1,31 @@
+{
+	"context": "PARKING_PERMIT",
+	"results": [
+		{
+			"value": "VALIDATION_ERROR",
+			"rule": "PARKING_PERMIT_AUTOMATED_RULE",
+			"details": [
+				{
+					"evaluationValue": false,
+					"description": "Saknar giltigt värde för: 'attachment.medicalConfirmation' (läkarintyg för sökande)"
+				},
+				{
+					"evaluationValue": false,
+					"description": "Saknar giltigt värde för: 'attachment.signature' (signatur för sökande)"
+				},
+				{
+					"evaluationValue": false,
+					"description": "Saknar giltigt värde för: 'application.applicant.signingAbility' (sökande har anget att denne signera själv)"
+				},
+				{
+					"evaluationValue": false,
+					"description": "Saknar giltigt värde för: 'attachment.passportPhoto' (passfoto för den sökande)"
+				},
+				{
+					"evaluationValue": false,
+					"description": "Saknar giltigt värde för: 'stakeholders.applicant.personid' (personid för sökande person)"
+				}
+			]
+		}
+	]
+}
