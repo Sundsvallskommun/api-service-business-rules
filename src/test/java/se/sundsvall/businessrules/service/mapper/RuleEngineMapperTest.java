@@ -29,7 +29,8 @@ class RuleEngineMapperTest {
 		final var fact1 = Fact.create().withKey("a").withValue("a-value");
 		final var fact2 = Fact.create().withKey("b").withValue("b-value");
 		final var fact3 = Fact.create().withKey("c").withValue("c-value");
-		final var factList = List.of(fact1, fact2, fact3);
+		final var fact4 = Fact.create().withKey("c").withValue(null);
+		final var factList = List.of(fact1, fact2, fact3, fact4);
 
 		// Act
 		final var result = RuleEngineMapper.toFactMap(factList);
@@ -49,7 +50,8 @@ class RuleEngineMapperTest {
 		final var fact1 = Fact.create().withKey("a").withValue("a-value");
 		final var fact2 = Fact.create().withKey("b").withValue("b-value");
 		final var fact3 = Fact.create().withKey("c").withValue("c-value");
-		final var factList = List.of(fact1, fact2, fact3);
+		final var fact4 = Fact.create().withKey("c").withValue(null);
+		final var factList = List.of(fact1, fact2, fact3, fact4);
 
 		// Act
 		final var result = RuleEngineMapper.toStringMap(factList);

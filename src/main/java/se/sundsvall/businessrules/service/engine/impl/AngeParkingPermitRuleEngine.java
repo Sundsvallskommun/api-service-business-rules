@@ -1,24 +1,29 @@
 package se.sundsvall.businessrules.service.engine.impl;
 
 import static se.sundsvall.businessrules.api.model.enums.Context.PARKING_PERMIT;
+import static se.sundsvall.businessrules.service.Constants.MUNICIPALITY_ID_ANGE;
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toNonApplicableResult;
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toRuleEngineResponse;
 
 import java.util.List;
-import org.springframework.stereotype.Component;
 import se.sundsvall.businessrules.api.model.RuleEngineRequest;
 import se.sundsvall.businessrules.api.model.RuleEngineResponse;
 import se.sundsvall.businessrules.api.model.enums.Context;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.ParkingPermitRule;
+import se.sundsvall.businessrules.rule.Rule;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.ParkingPermitRuleAutomated;
 import se.sundsvall.businessrules.service.engine.RuleEngine;
 
-@Component
-public class ParkingPermitRuleEngine implements RuleEngine {
+public class AngeParkingPermitRuleEngine implements RuleEngine {
 
-	private final List<ParkingPermitRule> rules;
+	private final List<? extends Rule> rules;
 
-	public ParkingPermitRuleEngine(List<ParkingPermitRule> rules) {
-		this.rules = rules;
+	public AngeParkingPermitRuleEngine(List<ParkingPermitRuleAutomated> automatedRules) {
+		this.rules = automatedRules;
+	}
+
+	@Override
+	public String getMunicipalityId() {
+		return MUNICIPALITY_ID_ANGE;
 	}
 
 	@Override
@@ -28,7 +33,6 @@ public class ParkingPermitRuleEngine implements RuleEngine {
 
 	@Override
 	public RuleEngineResponse run(String municipalityId, RuleEngineRequest request) {
-
 		final var results = rules.stream()
 			.map(rule -> {
 				if (rule.isApplicable(request.getFacts())) {

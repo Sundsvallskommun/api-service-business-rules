@@ -28,9 +28,9 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import se.sundsvall.businessrules.Application;
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.api.model.ResultDetail;
@@ -47,7 +47,7 @@ class DriverRenewalParkingPermitRuleTest {
 	@MockitoBean
 	private PartyAssetsClient partyAssetsClientMock;
 
-	@SpyBean
+	@MockitoSpyBean
 	private CriteriaEvaluator criteriaEvaluatorSpy;
 
 	@Autowired

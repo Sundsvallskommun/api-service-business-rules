@@ -49,6 +49,7 @@ class RuleEngineServiceTest {
 				.withValue("value")));
 
 		when(ruleEngineMock.getContext()).thenReturn(Context.PARKING_PERMIT);
+		when(ruleEngineMock.getMunicipalityId()).thenReturn(municipalityId);
 		when(ruleEngineMock.run(any(), any(RuleEngineRequest.class))).thenReturn(RuleEngineResponse.create());
 
 		// Act
@@ -57,6 +58,7 @@ class RuleEngineServiceTest {
 		// Assert
 		assertThat(result).isNotNull();
 		verify(ruleEngineMock).getContext();
+		verify(ruleEngineMock).getMunicipalityId();
 		verify(ruleEngineMock).run(municipalityId, request);
 	}
 
@@ -80,7 +82,33 @@ class RuleEngineServiceTest {
 		// Assert
 		assertThat(exception.getStatus()).isEqualTo(NOT_FOUND);
 		assertThat(exception.getTitle()).isEqualTo(NOT_FOUND.getReasonPhrase());
-		assertThat(exception.getDetail()).isEqualTo("No engine for context: 'PARKING_PERMIT' was found!");
+		assertThat(exception.getDetail()).isEqualTo("No engine for municipalityId: '2281' and context: 'PARKING_PERMIT' was found!");
+
+		verify(ruleEngineMock).getContext();
+		verify(ruleEngineMock, never()).run(municipalityId, request);
+	}
+
+	@Test
+	void ruleEngineNotFoundByMunicipalityId() {
+		// Arrange
+		final var municipalityId = "2281";
+		final var context = Context.PARKING_PERMIT;
+		final var request = RuleEngineRequest.create()
+			.withContext(context.toString())
+			.withFacts(List.of(Fact.create()
+				.withKey("key")
+				.withValue("value")));
+
+		when(ruleEngineMock.getContext()).thenReturn(Context.PARKING_PERMIT);
+		when(ruleEngineMock.getMunicipalityId()).thenReturn("1234");
+
+		// Act
+		final var exception = assertThrows(ThrowableProblem.class, () -> ruleEngineExecutor.run(municipalityId, request));
+
+		// Assert
+		assertThat(exception.getStatus()).isEqualTo(NOT_FOUND);
+		assertThat(exception.getTitle()).isEqualTo(NOT_FOUND.getReasonPhrase());
+		assertThat(exception.getDetail()).isEqualTo("No engine for municipalityId: '2281' and context: 'PARKING_PERMIT' was found!");
 
 		verify(ruleEngineMock).getContext();
 		verify(ruleEngineMock, never()).run(municipalityId, request);

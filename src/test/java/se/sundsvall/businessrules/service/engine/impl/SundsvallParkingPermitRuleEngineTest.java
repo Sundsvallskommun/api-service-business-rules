@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.util.ReflectionTestUtils.setField;
 import static se.sundsvall.businessrules.api.model.enums.Context.PARKING_PERMIT;
 import static se.sundsvall.businessrules.api.model.enums.ResultValue.NOT_APPLICABLE;
+import static se.sundsvall.businessrules.service.Constants.MUNICIPALITY_ID_SUNDSVALL;
 
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +26,7 @@ import se.sundsvall.businessrules.rule.impl.parkingpermit.ParkingPermitRule;
 import se.sundsvall.businessrules.service.engine.RuleEngine;
 
 @ExtendWith(MockitoExtension.class)
-class ParkingPermitRuleEngineTest {
+class SundsvallParkingPermitRuleEngineTest {
 
 	@Mock
 	private ParkingPermitRule rule1Mock;
@@ -34,7 +35,7 @@ class ParkingPermitRuleEngineTest {
 	private ParkingPermitRule rule2Mock;
 
 	@InjectMocks
-	private ParkingPermitRuleEngine parkingPermitRuleEngine;
+	private SundsvallParkingPermitRuleEngine parkingPermitRuleEngine;
 
 	@BeforeEach
 	void setup() {
@@ -46,9 +47,10 @@ class ParkingPermitRuleEngineTest {
 
 		assertThat(parkingPermitRuleEngine)
 			.isInstanceOf(RuleEngine.class)
-			.isExactlyInstanceOf(ParkingPermitRuleEngine.class);
+			.isExactlyInstanceOf(SundsvallParkingPermitRuleEngine.class);
 
 		assertThat(parkingPermitRuleEngine.getContext()).isEqualTo(PARKING_PERMIT);
+		assertThat(parkingPermitRuleEngine.getMunicipalityId()).isEqualTo(MUNICIPALITY_ID_SUNDSVALL);
 	}
 
 	@Test
