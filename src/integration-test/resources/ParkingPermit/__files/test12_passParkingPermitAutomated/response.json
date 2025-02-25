@@ -1,0 +1,31 @@
+{
+	"context": "PARKING_PERMIT",
+	"results": [
+		{
+			"value": "PASS",
+			"rule": "PARKING_PERMIT_AUTOMATED_RULE",
+			"details": [
+				{
+					"origin": "MEDICAL_CONFORMATION_CRITERIA",
+					"evaluationValue": true,
+					"description": "läkarintyg har skickats in"
+				},
+				{
+					"origin": "NO_ACTIVE_PARKING_PERMIT_CRITERIA",
+					"evaluationValue": true,
+					"description": "den sökande har inga aktiva parkeringstillstånd"
+				},
+				{
+					"origin": "PASSPORT_PHOTO_CRITERIA",
+					"evaluationValue": true,
+					"description": "passfoto har skickats in"
+				},
+				{
+					"origin": "SIGNATURE_CRITERIA",
+					"evaluationValue": true,
+					"description": "signatur har skickats in"
+				}
+			]
+		}
+	]
+}
