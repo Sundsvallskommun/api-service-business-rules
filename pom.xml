@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>se.sundsvall.dept44</groupId>
 		<artifactId>dept44-service-parent</artifactId>
-		<version>6.0.7</version>
+		<version>6.0.8</version>
 		<relativePath />
 		<!-- lookup parent from repository -->
 	</parent>
@@ -14,6 +14,7 @@
 	<name>api-service-business-rules</name>
 	<properties>
 		<generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
+		<google-guava.version>33.4.6-jre</google-guava.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -34,6 +35,7 @@
 			<!-- Needed for: com.google.common.base.CaseFormat library -->
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
+			<version>${google-guava.version}</version>
 		</dependency>
 		<!-- Test -->
 		<dependency>
