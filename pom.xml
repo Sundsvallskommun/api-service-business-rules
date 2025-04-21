@@ -14,7 +14,7 @@
 	<name>api-service-business-rules</name>
 	<properties>
 		<generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
-		<google-guava.version>33.4.7-jre</google-guava.version>
+		<google-guava.version>33.4.8-jre</google-guava.version>
 	</properties>
 	<dependencies>
 		<dependency>
