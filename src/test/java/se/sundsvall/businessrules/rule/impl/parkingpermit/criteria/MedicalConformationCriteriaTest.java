@@ -20,7 +20,7 @@ class MedicalConformationCriteriaTest {
 	void evaluateSuccess() {
 
 		final var municipalityId = "1234";
-		final var facts = List.of(Fact.create().withKey(MEDICAL_CONFIRMATION_ATTACHMENT.getKey()).withValue("exists"));
+		final var facts = List.of(Fact.create().withKey(MEDICAL_CONFIRMATION_ATTACHMENT.getKey()).withValue("true"));
 
 		final var result = criteria.evaluate(municipalityId, facts);
 
@@ -33,7 +33,7 @@ class MedicalConformationCriteriaTest {
 	@Test
 	void evaluateFailure() {
 		final var municipalityId = "1234";
-		final var facts = List.of(Fact.create().withKey(MEDICAL_CONFIRMATION_ATTACHMENT.getKey()).withValue("missing"));
+		final var facts = List.of(Fact.create().withKey(MEDICAL_CONFIRMATION_ATTACHMENT.getKey()).withValue("false"));
 
 		final var result = criteria.evaluate(municipalityId, facts);
 

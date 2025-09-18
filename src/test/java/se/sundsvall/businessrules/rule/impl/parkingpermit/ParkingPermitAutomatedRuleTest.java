@@ -104,9 +104,9 @@ class ParkingPermitAutomatedRuleTest {
 		final var facts = List.of(
 			Fact.create().withKey(TYPE.getKey()).withValue(type),
 			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue(capability),
-			Fact.create().withKey(MEDICAL_CONFIRMATION_ATTACHMENT.getKey()).withValue("exists"),
-			Fact.create().withKey(PASSPORT_PHOTO_ATTACHMENT.getKey()).withValue("exists"),
-			Fact.create().withKey(SIGNATURE_ATTACHMENT.getKey()).withValue("exists"),
+			Fact.create().withKey(MEDICAL_CONFIRMATION_ATTACHMENT.getKey()).withValue("true"),
+			Fact.create().withKey(PASSPORT_PHOTO_ATTACHMENT.getKey()).withValue("true"),
+			Fact.create().withKey(SIGNATURE_ATTACHMENT.getKey()).withValue("true"),
 			Fact.create().withKey(SIGNATURE_ABILITY.getKey()).withValue("true"),
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
@@ -145,9 +145,9 @@ class ParkingPermitAutomatedRuleTest {
 		final var facts = List.of(
 			Fact.create().withKey(TYPE.getKey()).withValue(type),
 			Fact.create().withKey(APPLICATION_APPLICANT_CAPACITY.getKey()).withValue(capability),
-			Fact.create().withKey(MEDICAL_CONFIRMATION_ATTACHMENT.getKey()).withValue("missing"), // Will make it fail
-			Fact.create().withKey(PASSPORT_PHOTO_ATTACHMENT.getKey()).withValue("exists"),
-			Fact.create().withKey(SIGNATURE_ATTACHMENT.getKey()).withValue("exists"),
+			Fact.create().withKey(MEDICAL_CONFIRMATION_ATTACHMENT.getKey()).withValue("false"), // Will make it fail
+			Fact.create().withKey(PASSPORT_PHOTO_ATTACHMENT.getKey()).withValue("true"),
+			Fact.create().withKey(SIGNATURE_ATTACHMENT.getKey()).withValue("true"),
 			Fact.create().withKey(SIGNATURE_ABILITY.getKey()).withValue("true"),
 			Fact.create().withKey(STAKEHOLDERS_APPLICANT_PERSON_ID.getKey()).withValue(partyId));
 
