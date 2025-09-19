@@ -4,7 +4,6 @@ import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPe
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.SIGNATURE_ATTACHMENT;
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toFactMap;
 import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValidBooleanValue;
-import static se.sundsvall.businessrules.service.util.RuleEngineUtil.matches;
 import static se.sundsvall.businessrules.service.util.RuleEngineUtil.toBoolean;
 
 import java.util.List;
@@ -21,7 +20,6 @@ import se.sundsvall.businessrules.rule.CriteriaResult;
 @Component
 public class SignatureCriteria implements Criteria {
 
-	private static final String VALID_SIGNATURE_ATTACHMENT_VALUE = "^exists$";
 	private static final String VALID_SIGNATURE = "signatur har skickats in";
 	private static final String VALID_NO_SIGNATURE_NEEDED = "signatur behövs ej";
 	private static final String INVALID_SIGNATURE = "signatur saknas";
@@ -33,10 +31,11 @@ public class SignatureCriteria implements Criteria {
 		final var signatureAttachment = factMap.get(SIGNATURE_ATTACHMENT.getKey());
 		final var signatureAbility = factMap.get(SIGNATURE_ABILITY.getKey());
 
-		if (matches(signatureAttachment, VALID_SIGNATURE_ATTACHMENT_VALUE) && toBoolean(signatureAbility)) {
-			return new CriteriaResult(true, VALID_SIGNATURE, this);
-		} else if (hasValidBooleanValue(signatureAbility) && !toBoolean(signatureAbility)) {
+		// Evaluation
+		if (hasValidBooleanValue(signatureAbility) && !toBoolean(signatureAbility)) {
 			return new CriteriaResult(true, VALID_NO_SIGNATURE_NEEDED, this);
+		} else if (hasValidBooleanValue(signatureAttachment) && toBoolean((signatureAttachment))) {
+			return new CriteriaResult(true, VALID_SIGNATURE, this);
 		} else {
 			return new CriteriaResult(false, INVALID_SIGNATURE, this);
 		}

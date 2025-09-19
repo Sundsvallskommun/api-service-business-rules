@@ -20,7 +20,7 @@ class PassportPhotoCriteriaTest {
 	void evaluateSuccess() {
 
 		final var municipalityId = "1234";
-		final var facts = List.of(Fact.create().withKey(PASSPORT_PHOTO_ATTACHMENT.getKey()).withValue("exists"));
+		final var facts = List.of(Fact.create().withKey(PASSPORT_PHOTO_ATTACHMENT.getKey()).withValue("true"));
 
 		final var result = criteria.evaluate(municipalityId, facts);
 
@@ -33,13 +33,13 @@ class PassportPhotoCriteriaTest {
 	@Test
 	void evaluateFailure() {
 		final var municipalityId = "1234";
-		final var facts = List.of(Fact.create().withKey(PASSPORT_PHOTO_ATTACHMENT.getKey()).withValue("missing"));
+		final var facts = List.of(Fact.create().withKey(PASSPORT_PHOTO_ATTACHMENT.getKey()).withValue("false"));
 
 		final var result = criteria.evaluate(municipalityId, facts);
 
 		assertThat(result).isNotNull();
 		assertThat(result.criteria()).isEqualTo(criteria);
 		assertThat(result.value()).isFalse();
-		assertThat(result.description()).isEqualTo("passfoto har skickats in");
+		assertThat(result.description()).isEqualTo("passfoto har ej skickats in");
 	}
 }

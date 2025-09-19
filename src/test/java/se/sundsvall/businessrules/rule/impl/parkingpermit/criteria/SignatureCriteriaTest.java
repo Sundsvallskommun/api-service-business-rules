@@ -23,7 +23,7 @@ class SignatureCriteriaTest {
 	void evaluateSuccessWithSignature() {
 
 		final var municipalityId = "1234";
-		final var facts = List.of(Fact.create().withKey(SIGNATURE_ATTACHMENT.getKey()).withValue("exists"),
+		final var facts = List.of(Fact.create().withKey(SIGNATURE_ATTACHMENT.getKey()).withValue("true"),
 			Fact.create().withKey(SIGNATURE_ABILITY.getKey()).withValue("true"));
 
 		final var result = criteria.evaluate(municipalityId, facts);
@@ -36,7 +36,7 @@ class SignatureCriteriaTest {
 
 	@ParameterizedTest
 	@ValueSource(strings = {
-		"missing", "exists"
+		"false", "true"
 	})
 	void evaluateSuccessWithoutSignature(String attachmentValue) {
 		final var municipalityId = "1234";
