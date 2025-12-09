@@ -10,11 +10,11 @@ import java.util.Objects;
 @Schema(description = "Fact model")
 public class Fact {
 
-	@Schema(description = "The attribute key", example = "attribute-x", requiredMode = REQUIRED)
+	@Schema(description = "The attribute key", examples = "attribute-x", requiredMode = REQUIRED)
 	@NotBlank
 	private String key;
 
-	@Schema(description = "The attribute value", example = "Some value")
+	@Schema(description = "The attribute value", examples = "Some value")
 	@NotNull
 	private String value;
 

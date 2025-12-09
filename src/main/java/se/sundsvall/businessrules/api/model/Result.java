@@ -8,10 +8,10 @@ import se.sundsvall.businessrules.api.model.enums.ResultValue;
 @Schema(description = "Result model")
 public class Result {
 
-	@Schema(description = "The result value", example = "PASS")
+	@Schema(description = "The result value", examples = "PASS")
 	private ResultValue value;
 
-	@Schema(description = "The name of the rule that generated the result", example = "The almighty business rule")
+	@Schema(description = "The name of the rule that generated the result", examples = "The almighty business rule")
 	private String rule;
 
 	@Schema(description = "Rule result details")
