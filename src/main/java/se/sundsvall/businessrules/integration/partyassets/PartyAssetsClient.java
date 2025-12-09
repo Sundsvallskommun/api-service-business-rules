@@ -27,7 +27,7 @@ public interface PartyAssetsClient {
 	 *
 	 * @param  municipalityId                       the municipalityId to use.
 	 * @param  parameters                           a Map of parameters to narrow the result.
-	 * @return                                      list of of <code>GetParkingPermitDTO</code> representing the assets.
+	 * @return                                      list of <code>GetParkingPermitDTO</code> representing the assets.
 	 * @throws org.zalando.problem.ThrowableProblem on error
 	 */
 	@GetMapping(path = "/{municipalityId}/assets", produces = APPLICATION_JSON_VALUE)

@@ -6,13 +6,13 @@ import java.util.Objects;
 @Schema(description = "RuleResultDetail model")
 public class ResultDetail {
 
-	@Schema(description = "The result detail origin", example = "THE_SPECIAL_RULE_CRITERIA")
+	@Schema(description = "The result detail origin", examples = "THE_SPECIAL_RULE_CRITERIA")
 	private String origin;
 
-	@Schema(description = "The result detail evaluation value", example = "false")
+	@Schema(description = "The result detail evaluation value", examples = "false")
 	private boolean evaluationValue;
 
-	@Schema(description = "The result detail description", example = "Failed because of reasons")
+	@Schema(description = "The result detail description", examples = "Failed because of reasons")
 	private String description;
 
 	public static ResultDetail create() {

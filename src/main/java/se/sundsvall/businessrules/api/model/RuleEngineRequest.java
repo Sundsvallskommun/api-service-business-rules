@@ -13,7 +13,7 @@ import se.sundsvall.businessrules.api.validation.ValueOfEnum;
 @Schema(description = "RuleEngineRequest model")
 public class RuleEngineRequest {
 
-	@Schema(description = "The rule engine context", example = "PARKING_PERMIT", requiredMode = REQUIRED)
+	@Schema(description = "The rule engine context", examples = "PARKING_PERMIT", requiredMode = REQUIRED)
 	@ValueOfEnum(enumClass = Context.class, message = "Invalid context value!")
 	private String context;
 

@@ -7,7 +7,7 @@ import java.util.Objects;
 @Schema(description = "RuleEngineResponse model")
 public class RuleEngineResponse {
 
-	@Schema(description = "The rule engine context", example = "PARKING_PERMIT")
+	@Schema(description = "The rule engine context", examples = "PARKING_PERMIT")
 	private String context;
 
 	@Schema(description = "The rule engine results")
