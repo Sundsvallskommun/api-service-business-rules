@@ -1,15 +1,15 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.criteria;
 
-import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_CAN_BE_ALONE_WHILE_PARKING;
-import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toFactMap;
-import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValidBooleanValue;
-import static se.sundsvall.businessrules.service.util.RuleEngineUtil.toBoolean;
-
 import java.util.List;
 import org.springframework.stereotype.Component;
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.rule.Criteria;
 import se.sundsvall.businessrules.rule.CriteriaResult;
+
+import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_CAN_BE_ALONE_WHILE_PARKING;
+import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toFactMap;
+import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValidBooleanValue;
+import static se.sundsvall.businessrules.service.util.RuleEngineUtil.toBoolean;
 
 /**
  * Criteria if passenger can be left alone or not during parking.

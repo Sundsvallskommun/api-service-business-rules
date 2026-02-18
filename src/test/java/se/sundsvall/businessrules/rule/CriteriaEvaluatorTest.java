@@ -1,8 +1,5 @@
 package se.sundsvall.businessrules.rule;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.tuple;
-
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +9,9 @@ import org.springframework.test.util.ReflectionTestUtils;
 import se.sundsvall.businessrules.TestUtils.TestCriteria;
 import se.sundsvall.businessrules.TestUtils.TestRule;
 import se.sundsvall.businessrules.api.model.Fact;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 
 @ExtendWith(MockitoExtension.class)
 class CriteriaEvaluatorTest {

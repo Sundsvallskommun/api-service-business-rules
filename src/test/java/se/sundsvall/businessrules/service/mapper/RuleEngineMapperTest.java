@@ -1,13 +1,5 @@
 package se.sundsvall.businessrules.service.mapper;
 
-import static java.util.Map.entry;
-import static org.assertj.core.api.Assertions.assertThat;
-import static se.sundsvall.businessrules.api.model.enums.Context.PARKING_PERMIT;
-import static se.sundsvall.businessrules.api.model.enums.ResultValue.FAIL;
-import static se.sundsvall.businessrules.api.model.enums.ResultValue.NOT_APPLICABLE;
-import static se.sundsvall.businessrules.api.model.enums.ResultValue.PASS;
-import static se.sundsvall.businessrules.api.model.enums.ResultValue.VALIDATION_ERROR;
-
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import se.sundsvall.businessrules.TestUtils;
@@ -19,6 +11,14 @@ import se.sundsvall.businessrules.api.model.Result;
 import se.sundsvall.businessrules.api.model.ResultDetail;
 import se.sundsvall.businessrules.api.model.RuleEngineResponse;
 import se.sundsvall.businessrules.rule.CriteriaResult;
+
+import static java.util.Map.entry;
+import static org.assertj.core.api.Assertions.assertThat;
+import static se.sundsvall.businessrules.api.model.enums.Context.PARKING_PERMIT;
+import static se.sundsvall.businessrules.api.model.enums.ResultValue.FAIL;
+import static se.sundsvall.businessrules.api.model.enums.ResultValue.NOT_APPLICABLE;
+import static se.sundsvall.businessrules.api.model.enums.ResultValue.PASS;
+import static se.sundsvall.businessrules.api.model.enums.ResultValue.VALIDATION_ERROR;
 
 class RuleEngineMapperTest {
 

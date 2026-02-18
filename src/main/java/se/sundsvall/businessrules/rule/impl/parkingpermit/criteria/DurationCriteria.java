@@ -1,17 +1,17 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.criteria;
 
+import java.util.List;
+import org.springframework.stereotype.Component;
+import se.sundsvall.businessrules.api.model.Fact;
+import se.sundsvall.businessrules.rule.Criteria;
+import se.sundsvall.businessrules.rule.CriteriaResult;
+
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.DurationEnum.LESS_THAN_6_MONTHS;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.APPLICATION_RENEWAL_CHANGED_CIRCUMSTANCES;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_DURATION;
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toFactMap;
 import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValidBooleanValue;
 import static se.sundsvall.businessrules.service.util.RuleEngineUtil.toBoolean;
-
-import java.util.List;
-import org.springframework.stereotype.Component;
-import se.sundsvall.businessrules.api.model.Fact;
-import se.sundsvall.businessrules.rule.Criteria;
-import se.sundsvall.businessrules.rule.CriteriaResult;
 
 /**
  * Criteria for disability duration.

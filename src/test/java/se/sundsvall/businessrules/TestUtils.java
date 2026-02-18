@@ -1,9 +1,5 @@
 package se.sundsvall.businessrules;
 
-import static se.sundsvall.businessrules.api.model.enums.Context.PARKING_PERMIT;
-import static se.sundsvall.businessrules.service.Constants.MUNICIPALITY_ID_SUNDSVALL;
-import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toResult;
-
 import java.util.List;
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.api.model.Result;
@@ -15,6 +11,10 @@ import se.sundsvall.businessrules.rule.CriteriaEvaluator;
 import se.sundsvall.businessrules.rule.CriteriaResult;
 import se.sundsvall.businessrules.rule.Rule;
 import se.sundsvall.businessrules.service.engine.RuleEngine;
+
+import static se.sundsvall.businessrules.api.model.enums.Context.PARKING_PERMIT;
+import static se.sundsvall.businessrules.service.Constants.MUNICIPALITY_ID_SUNDSVALL;
+import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toResult;
 
 public final class TestUtils {
 

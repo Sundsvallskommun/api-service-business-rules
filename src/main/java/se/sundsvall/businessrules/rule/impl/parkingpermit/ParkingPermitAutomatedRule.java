@@ -1,5 +1,17 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.stereotype.Component;
+import se.sundsvall.businessrules.api.model.Fact;
+import se.sundsvall.businessrules.api.model.Result;
+import se.sundsvall.businessrules.rule.Criteria;
+import se.sundsvall.businessrules.rule.CriteriaEvaluator;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.MedicalConformationCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.NoActiveParkingPermitCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.PassportPhotoCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.SignatureCriteria;
+
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.APPLICATION_APPLICANT_CAPACITY;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.MEDICAL_CONFIRMATION_ATTACHMENT;
@@ -15,18 +27,6 @@ import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toStrin
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toValidationErrorResult;
 import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValidUUIDValue;
 import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValue;
-
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.stereotype.Component;
-import se.sundsvall.businessrules.api.model.Fact;
-import se.sundsvall.businessrules.api.model.Result;
-import se.sundsvall.businessrules.rule.Criteria;
-import se.sundsvall.businessrules.rule.CriteriaEvaluator;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.MedicalConformationCriteria;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.NoActiveParkingPermitCriteria;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.PassportPhotoCriteria;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.SignatureCriteria;
 
 @Component
 public class ParkingPermitAutomatedRule implements ParkingPermitRuleAutomated {

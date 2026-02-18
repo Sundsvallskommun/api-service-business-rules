@@ -1,16 +1,5 @@
 package se.sundsvall.businessrules.service.engine.impl;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.tuple;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.util.ReflectionTestUtils.setField;
-import static se.sundsvall.businessrules.api.model.enums.Context.PARKING_PERMIT;
-import static se.sundsvall.businessrules.api.model.enums.ResultValue.NOT_APPLICABLE;
-import static se.sundsvall.businessrules.service.Constants.MUNICIPALITY_ID_SUNDSVALL;
-
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,6 +13,17 @@ import se.sundsvall.businessrules.api.model.RuleEngineRequest;
 import se.sundsvall.businessrules.api.model.enums.Context;
 import se.sundsvall.businessrules.rule.impl.parkingpermit.ParkingPermitRule;
 import se.sundsvall.businessrules.service.engine.RuleEngine;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.util.ReflectionTestUtils.setField;
+import static se.sundsvall.businessrules.api.model.enums.Context.PARKING_PERMIT;
+import static se.sundsvall.businessrules.api.model.enums.ResultValue.NOT_APPLICABLE;
+import static se.sundsvall.businessrules.service.Constants.MUNICIPALITY_ID_SUNDSVALL;
 
 @ExtendWith(MockitoExtension.class)
 class SundsvallParkingPermitRuleEngineTest {

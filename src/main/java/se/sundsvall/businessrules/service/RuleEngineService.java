@@ -1,8 +1,5 @@
 package se.sundsvall.businessrules.service;
 
-import static org.zalando.problem.Status.NOT_FOUND;
-import static se.sundsvall.businessrules.service.Constants.ERROR_MESSAGE_NO_ENGINE_FOUND;
-
 import java.util.List;
 import java.util.Objects;
 import org.springframework.stereotype.Service;
@@ -11,6 +8,9 @@ import se.sundsvall.businessrules.api.model.RuleEngineRequest;
 import se.sundsvall.businessrules.api.model.RuleEngineResponse;
 import se.sundsvall.businessrules.api.model.enums.Context;
 import se.sundsvall.businessrules.service.engine.RuleEngine;
+
+import static org.zalando.problem.Status.NOT_FOUND;
+import static se.sundsvall.businessrules.service.Constants.ERROR_MESSAGE_NO_ENGINE_FOUND;
 
 @Service
 public class RuleEngineService {

@@ -1,12 +1,12 @@
 package se.sundsvall.businessrules.api.validation.impl;
 
-import static java.util.Objects.isNull;
-
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import java.util.List;
 import java.util.stream.Stream;
 import se.sundsvall.businessrules.api.validation.ValueOfEnum;
+
+import static java.util.Objects.isNull;
 
 public class ValueOfEnumConstraintValidator implements ConstraintValidator<ValueOfEnum, String> {
 
