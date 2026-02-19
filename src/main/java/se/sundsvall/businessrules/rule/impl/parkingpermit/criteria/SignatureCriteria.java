@@ -1,16 +1,16 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.criteria;
 
-import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.SIGNATURE_ABILITY;
-import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.SIGNATURE_ATTACHMENT;
-import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toFactMap;
-import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValidBooleanValue;
-import static se.sundsvall.businessrules.service.util.RuleEngineUtil.toBoolean;
-
 import java.util.List;
 import org.springframework.stereotype.Component;
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.rule.Criteria;
 import se.sundsvall.businessrules.rule.CriteriaResult;
+
+import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.SIGNATURE_ABILITY;
+import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.SIGNATURE_ATTACHMENT;
+import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toFactMap;
+import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValidBooleanValue;
+import static se.sundsvall.businessrules.service.util.RuleEngineUtil.toBoolean;
 
 /**
  * Criteria for signature:

@@ -1,11 +1,11 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.util;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import se.sundsvall.businessrules.rule.impl.parkingpermit.enums.DurationEnum;
 import se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SundsvallParkingPermitRuleEngineUtilTest {
 

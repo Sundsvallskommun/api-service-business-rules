@@ -1,12 +1,12 @@
 package se.sundsvall.businessrules.rule;
 
-import static java.util.Collections.emptyList;
-
 import java.util.List;
 import java.util.Optional;
 import org.apache.commons.lang3.function.Failable;
 import org.springframework.stereotype.Component;
 import se.sundsvall.businessrules.api.model.Fact;
+
+import static java.util.Collections.emptyList;
 
 @Component
 public class CriteriaEvaluator {

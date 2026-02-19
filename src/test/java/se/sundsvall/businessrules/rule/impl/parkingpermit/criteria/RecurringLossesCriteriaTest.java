@@ -1,13 +1,5 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.criteria;
 
-import static java.util.Collections.emptyList;
-import static java.util.UUID.randomUUID;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
-
 import generated.se.sundsvall.partyassets.Asset;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +10,14 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient;
+
+import static java.util.Collections.emptyList;
+import static java.util.UUID.randomUUID;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
 
 @ExtendWith(MockitoExtension.class)
 class RecurringLossesCriteriaTest {

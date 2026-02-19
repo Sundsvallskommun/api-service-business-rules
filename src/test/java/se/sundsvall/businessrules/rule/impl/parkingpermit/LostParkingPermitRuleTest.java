@@ -1,19 +1,5 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit;
 
-import static java.util.UUID.randomUUID;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.Mockito.when;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.MOCK;
-import static se.sundsvall.businessrules.api.model.enums.ResultValue.FAIL;
-import static se.sundsvall.businessrules.api.model.enums.ResultValue.PASS;
-import static se.sundsvall.businessrules.api.model.enums.ResultValue.VALIDATION_ERROR;
-import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.APPLICATION_LOST_PERMIT_POLICE_REPORT_NUMBER;
-import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
-import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.TYPE;
-
 import generated.se.sundsvall.partyassets.Asset;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +17,20 @@ import se.sundsvall.businessrules.rule.CriteriaEvaluator;
 import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.PoliceReportFormatCriteria;
 import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.RecurringLossesCriteria;
 import se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum;
+
+import static java.util.UUID.randomUUID;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.when;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.MOCK;
+import static se.sundsvall.businessrules.api.model.enums.ResultValue.FAIL;
+import static se.sundsvall.businessrules.api.model.enums.ResultValue.PASS;
+import static se.sundsvall.businessrules.api.model.enums.ResultValue.VALIDATION_ERROR;
+import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.APPLICATION_LOST_PERMIT_POLICE_REPORT_NUMBER;
+import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
+import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.TYPE;
 
 @SpringBootTest(classes = Application.class, webEnvironment = MOCK)
 @ActiveProfiles("junit")

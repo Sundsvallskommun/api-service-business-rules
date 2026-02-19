@@ -1,9 +1,9 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.util;
 
-import static se.sundsvall.businessrules.service.Constants.ERROR_MESSAGE_MISSING_FACT;
-
 import se.sundsvall.businessrules.rule.impl.parkingpermit.enums.DurationEnum;
 import se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum;
+
+import static se.sundsvall.businessrules.service.Constants.ERROR_MESSAGE_MISSING_FACT;
 
 public final class ParkingPermitRuleEngineUtil {
 

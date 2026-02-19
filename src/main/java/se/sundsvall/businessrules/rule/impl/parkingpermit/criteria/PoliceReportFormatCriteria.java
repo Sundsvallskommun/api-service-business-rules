@@ -1,15 +1,15 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.criteria;
 
-import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.APPLICATION_LOST_PERMIT_POLICE_REPORT_NUMBER;
-import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toFactMap;
-import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValue;
-import static se.sundsvall.businessrules.service.util.RuleEngineUtil.matches;
-
 import java.util.List;
 import org.springframework.stereotype.Component;
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.rule.Criteria;
 import se.sundsvall.businessrules.rule.CriteriaResult;
+
+import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.APPLICATION_LOST_PERMIT_POLICE_REPORT_NUMBER;
+import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toFactMap;
+import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValue;
+import static se.sundsvall.businessrules.service.util.RuleEngineUtil.matches;
 
 /**
  * Criteria for valid police report format.

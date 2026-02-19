@@ -1,5 +1,11 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.criteria;
 
+import java.util.List;
+import org.springframework.stereotype.Component;
+import se.sundsvall.businessrules.api.model.Fact;
+import se.sundsvall.businessrules.rule.Criteria;
+import se.sundsvall.businessrules.rule.CriteriaResult;
+
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_WALKING_ABILITY;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_WALKING_DISTANCE_MAX;
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toFactMap;
@@ -7,12 +13,6 @@ import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValidBoo
 import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValidNumericValue;
 import static se.sundsvall.businessrules.service.util.RuleEngineUtil.toBoolean;
 import static se.sundsvall.businessrules.service.util.RuleEngineUtil.toInt;
-
-import java.util.List;
-import org.springframework.stereotype.Component;
-import se.sundsvall.businessrules.api.model.Fact;
-import se.sundsvall.businessrules.rule.Criteria;
-import se.sundsvall.businessrules.rule.CriteriaResult;
 
 /**
  * Criteria for passenger walking ability.

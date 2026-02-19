@@ -1,5 +1,16 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.stereotype.Component;
+import se.sundsvall.businessrules.api.model.Fact;
+import se.sundsvall.businessrules.api.model.Result;
+import se.sundsvall.businessrules.rule.Criteria;
+import se.sundsvall.businessrules.rule.CriteriaEvaluator;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.DriverWalkingAbilityCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.DurationCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.ExpiringParkingPermitCriteria;
+
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.APPLICATION_APPLICANT_CAPACITY;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_DURATION;
@@ -18,17 +29,6 @@ import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValidNum
 import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValidUUIDValue;
 import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValue;
 import static se.sundsvall.businessrules.service.util.RuleEngineUtil.toBoolean;
-
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.stereotype.Component;
-import se.sundsvall.businessrules.api.model.Fact;
-import se.sundsvall.businessrules.api.model.Result;
-import se.sundsvall.businessrules.rule.Criteria;
-import se.sundsvall.businessrules.rule.CriteriaEvaluator;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.DriverWalkingAbilityCriteria;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.DurationCriteria;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.ExpiringParkingPermitCriteria;
 
 @Component
 public class DriverRenewalParkingPermitRule implements ParkingPermitRule {

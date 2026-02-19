@@ -1,9 +1,9 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.enums;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ParkingPermitFactKeyEnumTest {
 

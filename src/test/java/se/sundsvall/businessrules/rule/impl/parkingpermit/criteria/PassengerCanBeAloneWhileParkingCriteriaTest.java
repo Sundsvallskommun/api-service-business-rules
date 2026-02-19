@@ -1,14 +1,14 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.criteria;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_CAN_BE_ALONE_WHILE_PARKING;
-
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import se.sundsvall.businessrules.api.model.Fact;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_CAN_BE_ALONE_WHILE_PARKING;
 
 @ExtendWith(MockitoExtension.class)
 class PassengerCanBeAloneWhileParkingCriteriaTest {

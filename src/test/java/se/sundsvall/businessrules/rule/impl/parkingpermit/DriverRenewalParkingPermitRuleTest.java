@@ -1,5 +1,24 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit;
 
+import generated.se.sundsvall.partyassets.Asset;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
+import se.sundsvall.businessrules.Application;
+import se.sundsvall.businessrules.api.model.Fact;
+import se.sundsvall.businessrules.api.model.ResultDetail;
+import se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient;
+import se.sundsvall.businessrules.rule.CriteriaEvaluator;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.DriverWalkingAbilityCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.DurationCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.ExpiringParkingPermitCriteria;
+
 import static generated.se.sundsvall.partyassets.Status.EXPIRED;
 import static java.util.Collections.emptyList;
 import static java.util.UUID.randomUUID;
@@ -20,25 +39,6 @@ import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPe
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.DISABILITY_WALKING_DISTANCE_MAX;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.TYPE;
-
-import generated.se.sundsvall.partyassets.Asset;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
-import se.sundsvall.businessrules.Application;
-import se.sundsvall.businessrules.api.model.Fact;
-import se.sundsvall.businessrules.api.model.ResultDetail;
-import se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient;
-import se.sundsvall.businessrules.rule.CriteriaEvaluator;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.DriverWalkingAbilityCriteria;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.DurationCriteria;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.ExpiringParkingPermitCriteria;
 
 @SpringBootTest(classes = Application.class, webEnvironment = MOCK)
 @ActiveProfiles("junit")

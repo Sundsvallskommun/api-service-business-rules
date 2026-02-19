@@ -1,10 +1,10 @@
 package se.sundsvall.businessrules.service.engine.impl;
 
-import static se.sundsvall.businessrules.service.Constants.MUNICIPALITY_ID_SUNDSVALL;
-
 import java.util.List;
 import org.springframework.stereotype.Component;
 import se.sundsvall.businessrules.rule.impl.parkingpermit.ParkingPermitRule;
+
+import static se.sundsvall.businessrules.service.Constants.MUNICIPALITY_ID_SUNDSVALL;
 
 @Component
 public class SundsvallParkingPermitRuleEngine extends ParkingPermitRuleEngine {

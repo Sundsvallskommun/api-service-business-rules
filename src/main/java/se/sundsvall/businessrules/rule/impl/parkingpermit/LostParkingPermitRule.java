@@ -1,5 +1,15 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.stereotype.Component;
+import se.sundsvall.businessrules.api.model.Fact;
+import se.sundsvall.businessrules.api.model.Result;
+import se.sundsvall.businessrules.rule.Criteria;
+import se.sundsvall.businessrules.rule.CriteriaEvaluator;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.PoliceReportFormatCriteria;
+import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.RecurringLossesCriteria;
+
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.APPLICATION_LOST_PERMIT_POLICE_REPORT_NUMBER;
 import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
@@ -11,16 +21,6 @@ import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toStrin
 import static se.sundsvall.businessrules.service.mapper.RuleEngineMapper.toValidationErrorResult;
 import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValidUUIDValue;
 import static se.sundsvall.businessrules.service.util.RuleEngineUtil.hasValue;
-
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.stereotype.Component;
-import se.sundsvall.businessrules.api.model.Fact;
-import se.sundsvall.businessrules.api.model.Result;
-import se.sundsvall.businessrules.rule.Criteria;
-import se.sundsvall.businessrules.rule.CriteriaEvaluator;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.PoliceReportFormatCriteria;
-import se.sundsvall.businessrules.rule.impl.parkingpermit.criteria.RecurringLossesCriteria;
 
 @Component
 public class LostParkingPermitRule implements ParkingPermitRule {

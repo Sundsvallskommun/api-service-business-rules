@@ -1,17 +1,5 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.criteria;
 
-import static generated.se.sundsvall.partyassets.Status.ACTIVE;
-import static generated.se.sundsvall.partyassets.Status.EXPIRED;
-import static java.util.Collections.emptyList;
-import static java.util.UUID.randomUUID;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient.PARTY_ID_PARAMETER;
-import static se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient.TYPE_PARAMETER;
-import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
-
 import generated.se.sundsvall.partyassets.Asset;
 import java.time.LocalDate;
 import java.util.List;
@@ -23,6 +11,18 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import se.sundsvall.businessrules.api.model.Fact;
 import se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient;
+
+import static generated.se.sundsvall.partyassets.Status.ACTIVE;
+import static generated.se.sundsvall.partyassets.Status.EXPIRED;
+import static java.util.Collections.emptyList;
+import static java.util.UUID.randomUUID;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient.PARTY_ID_PARAMETER;
+import static se.sundsvall.businessrules.integration.partyassets.PartyAssetsClient.TYPE_PARAMETER;
+import static se.sundsvall.businessrules.rule.impl.parkingpermit.enums.ParkingPermitFactKeyEnum.STAKEHOLDERS_APPLICANT_PERSON_ID;
 
 @ExtendWith(MockitoExtension.class)
 class ExpiringParkingPermitCriteriaTest {

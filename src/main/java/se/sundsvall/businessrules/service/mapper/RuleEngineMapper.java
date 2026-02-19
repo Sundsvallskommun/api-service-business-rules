@@ -1,14 +1,5 @@
 package se.sundsvall.businessrules.service.mapper;
 
-import static java.util.Collections.emptyList;
-import static java.util.Objects.nonNull;
-import static java.util.Optional.ofNullable;
-import static java.util.stream.Collectors.toMap;
-import static se.sundsvall.businessrules.api.model.enums.ResultValue.FAIL;
-import static se.sundsvall.businessrules.api.model.enums.ResultValue.NOT_APPLICABLE;
-import static se.sundsvall.businessrules.api.model.enums.ResultValue.PASS;
-import static se.sundsvall.businessrules.api.model.enums.ResultValue.VALIDATION_ERROR;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -21,6 +12,15 @@ import se.sundsvall.businessrules.api.model.RuleEngineResponse;
 import se.sundsvall.businessrules.rule.CriteriaResult;
 import se.sundsvall.businessrules.rule.Rule;
 import se.sundsvall.businessrules.service.engine.RuleEngine;
+
+import static java.util.Collections.emptyList;
+import static java.util.Objects.nonNull;
+import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.toMap;
+import static se.sundsvall.businessrules.api.model.enums.ResultValue.FAIL;
+import static se.sundsvall.businessrules.api.model.enums.ResultValue.NOT_APPLICABLE;
+import static se.sundsvall.businessrules.api.model.enums.ResultValue.PASS;
+import static se.sundsvall.businessrules.api.model.enums.ResultValue.VALIDATION_ERROR;
 
 public final class RuleEngineMapper {
 
