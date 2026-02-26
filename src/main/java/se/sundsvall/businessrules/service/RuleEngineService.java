@@ -3,13 +3,13 @@ package se.sundsvall.businessrules.service;
 import java.util.List;
 import java.util.Objects;
 import org.springframework.stereotype.Service;
-import org.zalando.problem.Problem;
 import se.sundsvall.businessrules.api.model.RuleEngineRequest;
 import se.sundsvall.businessrules.api.model.RuleEngineResponse;
 import se.sundsvall.businessrules.api.model.enums.Context;
 import se.sundsvall.businessrules.service.engine.RuleEngine;
+import se.sundsvall.dept44.problem.Problem;
 
-import static org.zalando.problem.Status.NOT_FOUND;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static se.sundsvall.businessrules.service.Constants.ERROR_MESSAGE_NO_ENGINE_FOUND;
 
 @Service

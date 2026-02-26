@@ -7,26 +7,26 @@ info:
     url: https://opensource.org/licenses/MIT
   version: "2.0"
 servers:
-  - url: http://localhost:63589
-    description: Generated server url
+- url: http://localhost:8080
+  description: Generated server url
 tags:
-  - name: BusinessRules
-    description: Business rule engine resource
+- name: BusinessRules
+  description: Business rule engine resource
 paths:
   /{municipalityId}/engine:
     post:
       tags:
-        - BusinessRules
+      - BusinessRules
       summary: Run rule engine
       operationId: run
       parameters:
-        - name: municipalityId
-          in: path
-          description: Municipality id
-          required: true
-          schema:
-            type: string
-          example: 2281
+      - name: municipalityId
+        in: path
+        description: Municipality id
+        required: true
+        schema:
+          type: string
+        example: 2281
       requestBody:
         content:
           application/json:
@@ -46,8 +46,8 @@ paths:
             application/problem+json:
               schema:
                 oneOf:
-                  - $ref: "#/components/schemas/Problem"
-                  - $ref: "#/components/schemas/ConstraintViolationProblem"
+                - $ref: "#/components/schemas/Problem"
+                - $ref: "#/components/schemas/ConstraintViolationProblem"
         "500":
           description: Internal Server error
           content:
@@ -57,7 +57,7 @@ paths:
   /api-docs:
     get:
       tags:
-        - API
+      - API
       summary: OpenAPI
       operationId: getApiDocs
       responses:
@@ -75,186 +75,58 @@ components:
     Problem:
       type: object
       properties:
+        title:
+          type: string
+        detail:
+          type: string
         instance:
           type: string
           format: uri
         type:
           type: string
           format: uri
-        parameters:
-          type: object
-          additionalProperties: {}
         status:
-          $ref: "#/components/schemas/StatusType"
-        detail:
-          type: string
-        title:
-          type: string
-    StatusType:
-      type: object
-      properties:
-        statusCode:
           type: integer
           format: int32
-        reasonPhrase:
-          type: string
     ConstraintViolationProblem:
       type: object
       properties:
-        cause:
-          $ref: "#/components/schemas/ThrowableProblem"
-        stackTrace:
-          type: array
-          items:
-            type: object
-            properties:
-              classLoaderName:
-                type: string
-              moduleName:
-                type: string
-              moduleVersion:
-                type: string
-              methodName:
-                type: string
-              fileName:
-                type: string
-              lineNumber:
-                type: integer
-                format: int32
-              className:
-                type: string
-              nativeMethod:
-                type: boolean
         type:
           type: string
           format: uri
         status:
-          $ref: "#/components/schemas/StatusType"
+          type: integer
+          format: int32
         violations:
           type: array
           items:
             $ref: "#/components/schemas/Violation"
         title:
           type: string
-        message:
+        detail:
           type: string
+        causeAsProblem:
+          $ref: "#/components/schemas/ThrowableProblem"
         instance:
           type: string
           format: uri
-        parameters:
-          type: object
-          additionalProperties: {}
-        detail:
-          type: string
-        suppressed:
-          type: array
-          items:
-            type: object
-            properties:
-              stackTrace:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    classLoaderName:
-                      type: string
-                    moduleName:
-                      type: string
-                    moduleVersion:
-                      type: string
-                    methodName:
-                      type: string
-                    fileName:
-                      type: string
-                    lineNumber:
-                      type: integer
-                      format: int32
-                    className:
-                      type: string
-                    nativeMethod:
-                      type: boolean
-              message:
-                type: string
-              localizedMessage:
-                type: string
-        localizedMessage:
-          type: string
     ThrowableProblem:
       type: object
       properties:
-        cause: {}
-        stackTrace:
-          type: array
-          items:
-            type: object
-            properties:
-              classLoaderName:
-                type: string
-              moduleName:
-                type: string
-              moduleVersion:
-                type: string
-              methodName:
-                type: string
-              fileName:
-                type: string
-              lineNumber:
-                type: integer
-                format: int32
-              className:
-                type: string
-              nativeMethod:
-                type: boolean
-        message:
+        type:
+          type: string
+          format: uri
+        title:
+          type: string
+        status:
+          type: integer
+          format: int32
+        detail:
           type: string
         instance:
           type: string
           format: uri
-        type:
-          type: string
-          format: uri
-        parameters:
-          type: object
-          additionalProperties: {}
-        status:
-          $ref: "#/components/schemas/StatusType"
-        detail:
-          type: string
-        title:
-          type: string
-        suppressed:
-          type: array
-          items:
-            type: object
-            properties:
-              stackTrace:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    classLoaderName:
-                      type: string
-                    moduleName:
-                      type: string
-                    moduleVersion:
-                      type: string
-                    methodName:
-                      type: string
-                    fileName:
-                      type: string
-                    lineNumber:
-                      type: integer
-                      format: int32
-                    className:
-                      type: string
-                    nativeMethod:
-                      type: boolean
-              message:
-                type: string
-              localizedMessage:
-                type: string
-        localizedMessage:
-          type: string
+        causeAsProblem: {}
     Violation:
       type: object
       properties:
@@ -270,16 +142,15 @@ components:
           type: string
           description: The attribute key
           examples:
-            - attribute-x
-          minLength: 1
+          - attribute-x
         value:
           type: string
           description: The attribute value
           examples:
-            - Some value
+          - Some value
       required:
-        - key
-        - value
+      - key
+      - value
     RuleEngineRequest:
       type: object
       description: RuleEngineRequest model
@@ -288,16 +159,15 @@ components:
           type: string
           description: The rule engine context
           examples:
-            - PARKING_PERMIT
+          - PARKING_PERMIT
         facts:
           type: array
           description: Alias for the destination
           items:
             $ref: "#/components/schemas/Fact"
-          minItems: 1
       required:
-        - context
-        - facts
+      - context
+      - facts
     Result:
       type: object
       description: Result model
@@ -306,12 +176,12 @@ components:
           $ref: "#/components/schemas/ResultValue"
           description: The result value
           examples:
-            - PASS
+          - PASS
         rule:
           type: string
           description: The name of the rule that generated the result
           examples:
-            - The almighty business rule
+          - The almighty business rule
         details:
           type: array
           description: Rule result details
@@ -325,25 +195,25 @@ components:
           type: string
           description: The result detail origin
           examples:
-            - THE_SPECIAL_RULE_CRITERIA
+          - THE_SPECIAL_RULE_CRITERIA
         evaluationValue:
           type: boolean
           description: The result detail evaluation value
           examples:
-            - "false"
+          - "false"
         description:
           type: string
           description: The result detail description
           examples:
-            - Failed because of reasons
+          - Failed because of reasons
     ResultValue:
       type: string
       description: ResultValue model
       enum:
-        - PASS
-        - FAIL
-        - VALIDATION_ERROR
-        - NOT_APPLICABLE
+      - PASS
+      - FAIL
+      - VALIDATION_ERROR
+      - NOT_APPLICABLE
     RuleEngineResponse:
       type: object
       description: RuleEngineResponse model
@@ -352,7 +222,7 @@ components:
           type: string
           description: The rule engine context
           examples:
-            - PARKING_PERMIT
+          - PARKING_PERMIT
         results:
           type: array
           description: The rule engine results
