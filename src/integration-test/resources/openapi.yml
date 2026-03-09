@@ -1,32 +1,32 @@
 openapi: 3.1.0
 info:
   title: api-business-rules
-  contact: { }
+  contact: {}
   license:
     name: MIT License
     url: https://opensource.org/licenses/MIT
   version: "2.0"
 servers:
-  - url: http://localhost:65474
-    description: Generated server url
+- url: http://localhost:50577
+  description: Generated server url
 tags:
-  - name: BusinessRules
-    description: Business rule engine resource
+- name: BusinessRules
+  description: Business rule engine resource
 paths:
   /{municipalityId}/engine:
     post:
       tags:
-        - BusinessRules
+      - BusinessRules
       summary: Run rule engine
       operationId: run
       parameters:
-        - name: municipalityId
-          in: path
-          description: Municipality id
-          required: true
-          schema:
-            type: string
-          example: 2281
+      - name: municipalityId
+        in: path
+        description: Municipality id
+        required: true
+        schema:
+          type: string
+        example: 2281
       requestBody:
         content:
           application/json:
@@ -46,8 +46,8 @@ paths:
             application/problem+json:
               schema:
                 oneOf:
-                  - $ref: "#/components/schemas/Problem"
-                  - $ref: "#/components/schemas/ConstraintViolationProblem"
+                - $ref: "#/components/schemas/Problem"
+                - $ref: "#/components/schemas/ConstraintViolationProblem"
         "500":
           description: Internal Server error
           content:
@@ -57,7 +57,7 @@ paths:
   /api-docs:
     get:
       tags:
-        - API
+      - API
       summary: OpenAPI
       operationId: getApiDocs
       responses:
@@ -103,10 +103,10 @@ components:
             $ref: "#/components/schemas/Violation"
         title:
           type: string
-        causeAsProblem:
-          $ref: "#/components/schemas/ThrowableProblem"
         detail:
           type: string
+        causeAsProblem:
+          $ref: "#/components/schemas/ThrowableProblem"
         instance:
           type: string
           format: uri
@@ -126,7 +126,7 @@ components:
         instance:
           type: string
           format: uri
-        causeAsProblem: { }
+        causeAsProblem: {}
     Violation:
       type: object
       properties:
@@ -142,16 +142,16 @@ components:
           type: string
           description: The attribute key
           examples:
-            - attribute-x
+          - attribute-x
           minLength: 1
         value:
           type: string
           description: The attribute value
           examples:
-            - Some value
+          - Some value
       required:
-        - key
-        - value
+      - key
+      - value
     RuleEngineRequest:
       type: object
       description: RuleEngineRequest model
@@ -160,7 +160,7 @@ components:
           type: string
           description: The rule engine context
           examples:
-            - PARKING_PERMIT
+          - PARKING_PERMIT
         facts:
           type: array
           description: Alias for the destination
@@ -168,8 +168,8 @@ components:
             $ref: "#/components/schemas/Fact"
           minItems: 1
       required:
-        - context
-        - facts
+      - context
+      - facts
     Result:
       type: object
       description: Result model
@@ -178,12 +178,12 @@ components:
           $ref: "#/components/schemas/ResultValue"
           description: The result value
           examples:
-            - PASS
+          - PASS
         rule:
           type: string
           description: The name of the rule that generated the result
           examples:
-            - The almighty business rule
+          - The almighty business rule
         details:
           type: array
           description: Rule result details
@@ -197,25 +197,25 @@ components:
           type: string
           description: The result detail origin
           examples:
-            - THE_SPECIAL_RULE_CRITERIA
+          - THE_SPECIAL_RULE_CRITERIA
         evaluationValue:
           type: boolean
           description: The result detail evaluation value
           examples:
-            - "false"
+          - "false"
         description:
           type: string
           description: The result detail description
           examples:
-            - Failed because of reasons
+          - Failed because of reasons
     ResultValue:
       type: string
       description: ResultValue model
       enum:
-        - PASS
-        - FAIL
-        - VALIDATION_ERROR
-        - NOT_APPLICABLE
+      - PASS
+      - FAIL
+      - VALIDATION_ERROR
+      - NOT_APPLICABLE
     RuleEngineResponse:
       type: object
       description: RuleEngineResponse model
@@ -224,10 +224,10 @@ components:
           type: string
           description: The rule engine context
           examples:
-            - PARKING_PERMIT
+          - PARKING_PERMIT
         results:
           type: array
           description: The rule engine results
           items:
             $ref: "#/components/schemas/Result"
-  securitySchemes: { }
+  securitySchemes: {}
