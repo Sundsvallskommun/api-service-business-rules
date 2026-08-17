@@ -202,7 +202,7 @@ components:
           type: boolean
           description: The result detail evaluation value
           examples:
-          - "false"
+          - false
         description:
           type: string
           description: The result detail description
