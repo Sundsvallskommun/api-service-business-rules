@@ -1,6 +1,7 @@
 package se.sundsvall.businessrules.rule.impl.parkingpermit.criteria;
 
 import generated.se.sundsvall.partyassets.Asset;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Component;
@@ -91,6 +92,6 @@ public class ExpiringParkingPermitCriteria implements Criteria {
 		final var expirationDate = ofNullable(parkingPermit.getValidTo())
 			.orElse(MAX); // Empty validTo is interpreted as never expiring parking permit
 
-		return expirationDate.isBefore(now().plusMonths(EXPIRATION_PERIOD_IN_MONTHS));
+		return expirationDate.isBefore(now(ZoneId.systemDefault()).plusMonths(EXPIRATION_PERIOD_IN_MONTHS));
 	}
 }
